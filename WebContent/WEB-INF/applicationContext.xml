@@ -1,0 +1,296 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<beans xmlns="http://www.springframework.org/schema/beans" 
+    xmlns:aop="http://www.springframework.org/schema/aop" 
+    xmlns:p="http://www.springframework.org/schema/p" 
+    xmlns:tx="http://www.springframework.org/schema/tx" 
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd        http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd        http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd">
+  
+    <!-- SERVICES SPRING -->
+    <bean class="ims.service.impl.ServiceOffreArticleImpl" id="OffreArticleManager">
+        <property name="modeldao" ref="OffreArticleHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceDepartementImpl" id="DepartementManager">
+        <property name="modeldao" ref="DepartementHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceEmployeeImpl" id="EmployeeManager">
+        <property name="modeldao" ref="EmployeeHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceOffreImpl" id="OffreManager">
+        <property name="modeldao" ref="OffreHibernate"/>
+    </bean>
+       
+    <bean class="ims.service.impl.ServiceCategorieArticle" id="CategorieArticleManager">
+        <property name="modeldao" ref="CategorieArticleHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceTypeArticle" id="TypeArticleManager">
+        <property name="modeldao" ref="TypeArticleHibernate"/>
+    </bean>  
+       
+    <bean class="ims.service.impl.ServiceArticleImpl" id="ArticleManager">
+        <property name="modeldao" ref="ArticleHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServicesLangueImpl" id="LangueManager">
+        <property name="modeldao" ref="LangueHibernate"/>
+    </bean>    
+    <bean class="ims.service.impl.ServiceSecteurImpl" id="SecteurManager">
+        <property name="modeldao" ref="SecteurHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceFournisseurImpl" id="FournisseurManager">
+        <property name="modeldao" ref="FournisseurHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceClientImpl" id="ClientManager">
+        <property name="modeldao" ref="ClientHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceCategorieIIImpl" id="CategorieIIManager">
+        <property name="modeldao" ref="CategorieIIHibernate"/>
+    </bean>
+       
+    <bean class="ims.service.impl.ServiceUtilisateurImpl" id="userManager">
+        <property name="daouser" ref="UserHibernate"/>
+    </bean> 
+    
+    <bean class="ims.service.impl.ServicesBonCommande" id="boncommandeManager">
+        <property name="modeldao" ref="BonCommandeHibernate"/>
+    </bean>
+     <bean class="ims.service.impl.ServiceBonCommandeArticle" id="BoncommandeArticleManager">
+        <property name="modeldao" ref="BonCommandeArticleHibernate"/>
+    </bean>  
+    <bean class="ims.service.impl.ServiceBonLivraisonImpl" id="BonLivraisonManager">
+        <property name="modeldao" ref="BonLivraisonHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceCoordonneeBanqueImpl" id="CoordonneeBanqueManager">
+        <property name="modeldao" ref="CoordonneeBanqueHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceFactureImpl" id="FactureManager">
+        <property name="modeldao" ref="FactureHibernate"/>
+    </bean>     
+    <bean class="ims.service.impl.ServicePaysImpl" id="PaysManager">
+        <property name="daopays" ref="PaysHibernate"/>
+    </bean>   
+    
+    <bean class="ims.service.impl.ServiceVilleImpl" id="VilleManager">
+        <property name="daoville" ref="VilleHibernate"/>
+    </bean>
+         <bean class="ims.service.impl.ServicePointageImpl" id="pointageManager">
+        <property name="daopointage" ref="PointageHibernate"/>
+    </bean> 
+     
+        <bean class="ims.service.impl.ServiceTimesheetImpl" id="timesheetManager">
+        <property name="daotimesheet" ref="TimesheetHibernate"/>
+    </bean> 
+    
+        <bean class="ims.service.impl.ServiceProjetImpl" id="projetManager">
+        <property name="daoprojet" ref="ProjetHibernate"/>
+    </bean> 
+        <bean class="ims.service.impl.ServiceTacheImpl" id="tacheManager">
+        <property name="daotache" ref="TacheHibernate"/>
+    </bean> 
+    
+     <bean class="ims.service.impl.ServiceAvoirClientImpl" id="avoirclientManager">
+        <property name="daoavoirclient" ref="AvoirClientHibernate"/>
+    </bean> 
+        <bean class="ims.service.impl.ServiceAvoirFournisseurImpl" id="avoirfournisseurManager">
+        <property name="daoavoirfournisseur" ref="AvoirFournisseurHibernate"/>
+    </bean>  
+         <bean class="ims.service.impl.ServiceJourImpl" id="jourManager">
+        <property name="daojour" ref="JourHibernate"/>
+    </bean>   
+    
+    <bean class="ims.service.impl.ServiceTypeFactureDaoImpl" id="TypefactManager">
+        <property name="modeldao" ref="typefactHibernate"/>
+    </bean> 
+    <bean class="ims.service.impl.ServiceFactureArticleImpl" id="FactArticleManage">
+        <property name="modeldao" ref="factarticleHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceBonCommandeOffreImpl" id="BonCommandeOffreManage">
+        <property name="modeldao" ref="BonCommandeOffreHibernate"/>
+    </bean>
+    
+     <bean class="ims.service.impl.ServiceTypeOffreImpl" id="TypeOffreManager">
+        <property name="modeldao" ref="TypeOffreHibernate"/>
+    </bean>
+
+    <bean class="ims.service.impl.ServiceStockImpl" id="StockManager">
+        <property name="modeldao" ref="StockHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.jdbc.ServiceMangementJDBCImpl" id="JDBCManager">
+        <property name="modeldao" ref="MangementTablesJDBC"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceStockLivraisonImpl" id="StockLivraisonManager">
+        <property name="modeldao" ref="StockLivraisonHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceFactureBonLivraison" id="FactureBonLivraisonManager">
+        <property name="modeldao" ref="FactureLivraisonHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceTypePaiementImpl" id="TypepaiementManager">
+        <property name="modeldao" ref="TypePaiementHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceProduitImpl" id="ProduitManager">
+        <property name="daomodel" ref="ProduitHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceContactImpl" id="ContactManager">
+        <property name="modeldao" ref="ContactHibernate"/>
+    </bean>
+    
+     <bean class="ims.service.impl.ServiceCaisseImpl" id="CaisseManager">
+        <property name="modeldao" ref="CaisseHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceLigneCaisseImpl" id="LigneCaisseManager">
+        <property name="modeldao" ref="LigneCaisseHibernate"/>
+    </bean>
+    
+      <bean class="ims.service.impl.ServiceCotationOffreImpl" id="CotationOffreManager">
+        <property name="modeldao" ref="CotationOffreHibernate"/>
+    </bean>
+    
+     <bean class="ims.service.impl.ServiceYearsImpl" id="yearsManager">
+        <property name="modeldao" ref="YearsHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceAvoirArticlesImpl" id="AvoirArticlesManager">
+        <property name="modeldao" ref="AvoirArticlesHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceTypeChargeImpl" id="TypeChargeManager">
+        <property name="modeldao" ref="TypeChargeHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceChargeImpl" id="ChargeManager">
+        <property name="modeldao" ref="ChargeHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceCnssImpl" id="CnssManager">
+        <property name="modeldao" ref="CnssHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceSalaireImpl" id="SalairesManager">
+        <property name="modeldao" ref="SalaireHibernate"/>
+    </bean>
+    
+    <bean class="ims.service.impl.ServiceRubriqueDaoImpl" id="RubriqueManager">
+        <property name="modeldao" ref="RubriqueHibernate"/>
+    </bean>
+    <bean class="ims.service.impl.ServiceOrdreVirementImpl" id="OrdreVirementManager">
+        <property name="modeldao" ref="OrdreVirementHibernate"/>
+    </bean>
+    
+      <bean class="ims.service.impl.ServiceFactureFournisseurImpl" id="FactFournisseurManager">
+        <property name="modeldao" ref="FactFournisseurHibernate"/>
+    </bean>
+    
+      <bean class="ims.service.impl.ServiceFactureFournisseurArticlesImpl" id="FactFournisseurArticleManager">
+        <property name="modeldao" ref="FactFournisseurArticleHibernate"/>
+    </bean>
+    
+       	<bean class="ims.service.impl.ServiceTickerImpl" id="TickerManager">
+        	<property name="modeldao" ref="TickerHibernate"/>
+    	</bean>
+    	
+    	<bean class="ims.service.impl.ServiceSuiviTickerImpl" id="SuiviTickerManager">
+        	<property name="modeldao" ref="SuiviTickerHibernate"/>
+    	</bean>
+    	
+    	<bean class="ims.service.impl.ServiceTypeProriteImpl" id="TypePrioriteManager">
+        	<property name="modeldao" ref="TypePrioriteHibernate"/>
+    	</bean>
+    	
+    	<bean class="ims.service.impl.ServiceTypeTickerImpl" id="TypeTickerManager">
+        	<property name="modeldao" ref="TypeTickerHibernate"/>
+    	</bean>
+    	
+    	<bean class="ims.service.impl.ServiceUserHelpDeskImpl" id="UserHelpDeskManager">
+        	<property name="modeldao" ref="UserHelpDeskHibernate"/>
+    	</bean>
+    	
+    	<bean class="ims.service.impl.ServiceLicenceAppsImpl" id="LicenceAppsManager">
+        	<property name="modeldao" ref="LicenceAppsHibernate"/>
+    	</bean>
+    	
+    	 	<bean class="ims.service.impl.ServiceImagesTickerImpl" id="ImagesTickerManager">
+        	<property name="modeldao" ref="ImagesTickerHibernate"/>
+    	</bean>
+    	
+    	    	 	<bean class="ims.service.impl.ServiceGroupeClientImpl" id="GroupeClientManager">
+        	<property name="modeldao" ref="GroupeClientHibernate"/>
+    	</bean>
+    	
+    	
+    
+    <!-- SERVICES SPRING -->
+       <!-- DATA ACCES DONNEES JDBC -->
+   <bean class="ims.model.dao.Impl.jdbc.MangementTablesImpl" id="MangementTablesJDBC"/>
+         <!-- DATA ACCES DONNEES JDBC -->
+    <!-- DATA ACCES DONNEES HIBERNATE -->
+     <bean class="ims.model.dao.Impl.GroupeClientDaoImpl" id="GroupeClientHibernate"/> 
+    <bean class="ims.model.dao.Impl.ImagesTickerDaoImpl" id="ImagesTickerHibernate"/> 
+    <bean class="ims.model.dao.Impl.TypePrioriteDaoImpl" id="TypePrioriteHibernate"/> 
+    <bean class="ims.model.dao.Impl.TypeTickerDaoImpl" id="TypeTickerHibernate"/> 
+    <bean class="ims.model.dao.Impl.LicenceAppsDao" id="LicenceAppsHibernate"/> 
+    <bean class="ims.model.dao.Impl.UserHelpDeskDao" id="UserHelpDeskHibernate"/> 
+       <bean class="ims.model.dao.Impl.TickerDaoImpl" id="TickerHibernate"/> 
+       <bean class="ims.model.dao.Impl.SuiviTickerDaoImpl" id="SuiviTickerHibernate"/> 
+     <bean class="ims.model.dao.Impl.FactureFournisseurDaoImpl" id="FactFournisseurHibernate"/> 
+     <bean class="ims.model.dao.Impl.FactureFournisseurArticlesDaoImpl" id="FactFournisseurArticleHibernate"/> 
+   
+    <bean class="ims.model.dao.Impl.OrdreVirementDaoImpl" id="OrdreVirementHibernate"/> 
+    <bean class="ims.model.dao.Impl.RubriqueDaoImpl" id="RubriqueHibernate"/>
+    <bean class="ims.model.dao.Impl.TypeChargeDaoImpl" id="TypeChargeHibernate"/>
+    <bean class="ims.model.dao.Impl.ChargeDaoImpl" id="ChargeHibernate"/>
+    <bean class="ims.model.dao.Impl.SalaireDaoImpl" id="SalaireHibernate"/>
+    <bean class="ims.model.dao.Impl.CnssDaoImpl" id="CnssHibernate"/>
+    
+    
+    <bean class="ims.model.dao.Impl.AvoirArticlesDaoImpl" id="AvoirArticlesHibernate"/>
+    <bean class="ims.model.dao.Impl.YearsDaoImpl" id="YearsHibernate"/>
+    <bean class="ims.model.dao.Impl.CotationOffreDaoImpl" id="CotationOffreHibernate"/>
+    <bean class="ims.model.dao.Impl.LigneCaisseDaoImpl" id="LigneCaisseHibernate"/>
+    <bean class="ims.model.dao.Impl.CaisseDaoImpl" id="CaisseHibernate"/>
+    <bean class="ims.model.dao.Impl.FactureLivraisonDaoImpl" id="FactureLivraisonHibernate"/>
+    <bean class="ims.model.dao.Impl.CoordonneeBanqueDaoImpl" id="CoordonneeBanqueHibernate"/>
+    <bean class="ims.model.dao.Impl.BonLivraisonDaoImpl" id="BonLivraisonHibernate"/>
+    <bean class="ims.model.dao.Impl.FactureDaoImpl" id="FactureHibernate"/>
+    <bean class="ims.model.dao.Impl.BonCommandeDaoImpl" id="BonCommandeHibernate"/>
+    <bean class="ims.model.dao.Impl.BonCommandeArticleDaoImpl" id="BonCommandeArticleHibernate"/>
+    <bean class="ims.model.dao.Impl.OffreArticleDaoImpl" id="OffreArticleHibernate"/>
+    <bean class="ims.model.dao.Impl.DepartementDaoImpl" id="DepartementHibernate"/>
+    <bean class="ims.model.dao.Impl.EmployeeDaoImpl" id="EmployeeHibernate"/>
+    <bean class="ims.model.dao.Impl.OffreDaoImpl" id="OffreHibernate"/>
+    <bean class="ims.model.dao.Impl.CategorieArticleDaoImpl" id="CategorieArticleHibernate"/>
+    <bean class="ims.model.dao.Impl.TypeArticleDaoImpl" id="TypeArticleHibernate"/>
+    <bean class="ims.model.dao.Impl.ArticleDaoImpl" id="ArticleHibernate"/>
+    <bean class="ims.model.dao.Impl.jdbc.ArticleDaoImplJDBC" id="ArticleJDBC"/>
+    <bean class="ims.model.dao.Impl.UtilisateurDaoImpl" id="UserHibernate"/>
+    <bean class="ims.model.dao.Impl.CategorieIIDao" id="CategorieIIHibernate"/>
+    <bean class="ims.model.dao.Impl.ClientDao" id="ClientHibernate"/>
+    <bean class="ims.model.dao.Impl.FournisseurDao" id="FournisseurHibernate"/>
+    <bean class="ims.model.dao.Impl.LangueDao" id="LangueHibernate"/>
+    <bean class="ims.model.dao.Impl.SecteurDao" id="SecteurHibernate"/>
+    <bean class="ims.model.dao.Impl.VilleDaoImpl" id="VilleHibernate"/>
+    <bean class="ims.model.dao.Impl.PaysDaoImpl" id="PaysHibernate"/>
+    <bean class="ims.model.dao.Impl.PointageDaoImpl" id="PointageHibernate"/> 
+    <bean class="ims.model.dao.Impl.TimesheetDaoImpl" id="TimesheetHibernate"/> 
+    <bean class="ims.model.dao.Impl.ProjetDaoImpl" id="ProjetHibernate"/> 
+    <bean class="ims.model.dao.Impl.ProduitDaoImpl" id="ProduitHibernate"/>
+    <bean class="ims.model.dao.Impl.TacheDaoImpl" id="TacheHibernate"/> 
+    <bean class="ims.model.dao.Impl.AvoirClientDaoImpl" id="AvoirClientHibernate"/> 
+    <bean class="ims.model.dao.Impl.AvoirFournisseurDaoImpl" id="AvoirFournisseurHibernate"/>
+    <bean class="ims.model.dao.Impl.JourDaoImpl" id="JourHibernate"/> 
+    <bean class="ims.model.dao.Impl.TypeFactureDaoImpl" id="typefactHibernate"/> 
+    <bean class="ims.model.dao.Impl.Facture_ArticleDaoImpl" id="factarticleHibernate"/>
+    <bean class="ims.model.dao.Impl.BonCommande_OffreDaoImpl" id="BonCommandeOffreHibernate"/>
+    <bean class="ims.model.dao.Impl.TypeOffreDaoImpl" id="TypeOffreHibernate"/>
+    <bean class="ims.model.dao.Impl.StockDaoImpl" id="StockHibernate"/>
+    <bean class="ims.model.dao.Impl.StockLivraisonDaoImpl" id="StockLivraisonHibernate"/>
+    <bean class="ims.model.dao.Impl.TypePaiementDaoImpl" id="TypePaiementHibernate"/>
+    <bean class="ims.model.dao.Impl.ContactDaoImpl" id="ContactHibernate"/>
+    <!-- FIN DATA ACCES DONNEES HIBERNATE -->
+       
+</beans>

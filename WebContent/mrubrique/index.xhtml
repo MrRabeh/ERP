@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+    <content>                
+       <h:form id="form">
+       <p:growl id="msgs" showDetail="true"/>  
+       <p:growl id="msg" showDetail="true"/>  
+       <h2>
+                                 Gestion  Rubrique  
+        </h2>        
+        <div>
+        <table class="styletable" style="width: 50%;"  cellpadding="0">
+        <tr>
+        <td>Réference</td>
+        <td>
+        <p:inputTextarea id="refRubrique" cols="50"  styleClass="i-format" required="required" value="#{rubriqueController.ref}" /> 
+        </td>
+        </tr>
+        <tr>
+        <td>Description</td>
+        <td>
+        <p:inputTextarea id="desrubrique" cols="50"  styleClass="i-format" required="required" value="#{rubriqueController.des}" />
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <p:commandButton styleClass="styleGreen" value="ajouter" actionListener="#{rubriqueController.insert}" update="msgs" />
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div>
+        
+        <p:dataTable id="lignesrubrique" widgetVar="lignesrubrique" value="#{rubriqueController.rubriques}" var="obj"
+                                                      selection="#{rubriqueController.rubrique}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="8"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                    
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     
+                                                      <p:column selectionMode="single" style="width:20px;text-align:center"/>
+                                                      
+                                                       <p:ajax event="cellEdit" listener="#{rubriqueController.oncellrubrique}" update=":form:msgs" />
+                          			
+                                            			     
+                                            		 <p:column style="width:60px;" filterBy="#{obj.ref}" sortBy="#{obj.ref}" headerText="Réference" filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.ref}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputText value="#{obj.ref}" /></f:facet>
+		                                                	</p:cellEditor>
+       												</p:column>
+       												
+       												 <p:column style="width:60px;" filterBy="#{obj.description}" sortBy="#{obj.description}" headerText="Description" filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.description}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputText value="#{obj.description}" /></f:facet>
+		                                                	</p:cellEditor>
+       												</p:column>
+       												
+       												 <p:column style="width:60px;" filterBy="#{obj.classement}" sortBy="#{obj.classement}" headerText="Classement Rubrique" filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.classement}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputText value="#{obj.classement}" /></f:facet>
+		                                                	</p:cellEditor>
+       												</p:column>
+                                                     
+                                                     </p:dataTable>
+        </div>
+       </h:form>
+                 
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

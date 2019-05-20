@@ -1,0 +1,34 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Offre_Article">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+
+  <property name="qtef" column="qantite"></property>
+  <property name="nombrepersonne" column="nombrepersonne"></property>
+  <property name="lbqte" column="chaineqantite"></property>
+  <property name="pu" column="PU_HT"></property>
+  <property name="pt" column="PT_HT"></property>
+  <property name="taux" column="taux"></property>
+  <property name="retenu" column="retenu"></property>
+  <property name="prixfournisseurisDH" column="prixfournisseurisDH"></property>
+  <property name="puDH_fournisseur" column="puDH_fournisseur"></property>
+  <property name="ptDH_fournisseur" column="ptDH_fournisseur"></property>
+  <property name="designation" column="designation" length="8000"></property>
+  <property name="marge" column="Marge"></property>
+  <property name="margetotal" column="ismargetotal"></property>
+  <property name="prixmarge" column="prixmarge"></property>
+  <property name="pu_calculer" column="PU_HT2"></property>
+  <property name="pt_calculer" column="PT_HT2"></property>
+  <property name="etat" column="etat"></property>
+  <property name="optionnel" column="optionnel"></property>
+  <property name="gratuite" column="gratuite"></property>
+  
+  <many-to-one name="offre" class="ims.model.entities.Offre" column="OffreID"  lazy="false"></many-to-one>
+  <many-to-one name="article" class="ims.model.entities.Article" column="articleID"  lazy="false"></many-to-one>
+  <many-to-one name="categorieArticle" class="ims.model.entities.CategorieArticle" column="categorieArticleID"  lazy="false"></many-to-one>
+  <many-to-one name="rubrique" class="ims.model.entities.Rubrique" column="rubriqueID"  lazy="false"></many-to-one>
+  </class>
+</hibernate-mapping>

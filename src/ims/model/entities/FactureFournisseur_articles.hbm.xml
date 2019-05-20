@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="FactureFournisseur_articles">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="designationfournisseur" column="designationfournisseur"></property>
+  <property name="pu" column="pu"></property>
+  <property name="qte" column="qte"></property>
+  <property name="tva" column="tva"></property>
+  <property name="pt" column="pt"></property>
+
+  <many-to-one name="article" class="ims.model.entities.Article" column="articleID" />
+   <many-to-one name="facture" class="ims.model.entities.FactureFournisseur" column="facturefournisseurID" />
+  </class>
+</hibernate-mapping>

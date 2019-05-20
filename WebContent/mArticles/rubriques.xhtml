@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>                
+            <h:form id="form">
+             <p:growl id="msgs" showDetail="true"/>  
+            <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{rubriqueController.actualiser}" update="tablep"></p:commandButton>
+                                       
+                                           <p:dataTable id="tablep" widgetVar="tablep" value="#{rubriqueController.rubriques}" var="obj"
+                                                      selection="#{rubriqueController.rtempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="300"
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     <p:ajax event="cellEdit" listener="#{rubriqueController.oncellrubrique}" update=":form:msgs,:form:tablep" />
+       										
+                                                     	 <p:column filterBy="#{obj.ref}" sortBy="#{obj.ref}" headerText="reference" filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.ref}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputText value="#{obj.ref}" /></f:facet>
+		                                                	</p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column filterBy="#{obj.description}" sortBy="#{obj.description}" headerText="Description"  filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.description}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputTextarea cols="100" value="#{obj.description}" /></f:facet>
+		                                                	</p:cellEditor>
+       													 </p:column>
+       													 
+       													
+                                        </p:dataTable>
+                                    </h:form>      
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuadministration.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Les Licences Application</h1>
+    <content>  
+    <style>
+    .ui-inputfield {
+   width: 250px;
+    }
+    </style>              
+     <div >
+     <h:form id="form_place" class="form_place">
+                                 <p:growl id="msgs" showDetail="true"/> 
+            <table class="styletable" style="width: 100%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer Langue</div>
+            	<tr>
+	            	<td>la Clé Licence</td>
+	            	<td>
+	            		<p:inputText id="cle" style="width:250px;"   value="#{licenceApplicationController.licenceapps.cle}" />                        
+	            	</td>
+	            	<td>
+	            	<p:commandButton styleClass="styleGreen" actionListener="#{licenceApplicationController.generer}" value="Generer la clé" update="msgs,cle"></p:commandButton>
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>Date Expiration</td>
+	            	<td colspan="2">
+	            		<p:calendar id="dateexpriation" style="width:300px;"  value="#{licenceApplicationController.licenceapps.dateexpiration}" />                        
+	            	</td>
+	            </tr>
+	            <tr>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton>
+	            </td>
+	            <td colspan="2">
+	            	<p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{licenceApplicationController.insert}" update="msgs,cle,:form:tablelicence" />
+                </td>
+	            </tr>
+	            	</table>
+	     </h:form>
+	  </div>
+	  <div>
+	                             <h:form id="form"> 
+	                             <p:growl id="msgs" showDetail="true"/>
+                                        <p:dataTable id="tablelicence" value="#{licenceApplicationController.listLicenceApps}" var="obj"
+                                                     selection="#{licenceApplicationController.licenceappstempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="300"
+                                                     resizableColumns="true"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+                                                     
+                                                      <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                                     <p:column filterBy="#{obj.dategenerer}" style="width:50px" sortBy="#{obj.dategenerer}" headerText="Date de géneration" filterMatchMode="contains">
+            											<h:outputText value="#{obj.dategenerer}" >
+            											<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+            											</h:outputText>
+       										 		</p:column> 
+       										 		
+                                                     <p:column filterBy="#{obj.cle}" style="width:200px" sortBy="#{obj.cle}" headerText="Licence" filterMatchMode="contains">
+            											<h:outputText value="#{obj.cle}" />
+       										 		</p:column> 
+       										 		
+       										 		<p:column filterBy="#{obj.dateexpiration}" style="width:50px" sortBy="#{obj.dateexpiration}" headerText="date expiration" filterMatchMode="contains">
+            											<h:outputText value="#{obj.dateexpiration}" >
+            											<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+            											</h:outputText>
+       										 		</p:column> 
+       										 		
+                                              <p:column style="width:100px;">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" value="Supprimer" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{licenceApplicationController.licenceappstempo}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer la licence?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablelicence" action="#{licenceApplicationController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form> 
+                                    </div>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

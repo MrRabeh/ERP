@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuadministration.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Liste des Clients Users HelpDesk</h1>
+    <content>                
+     <div >
+     <h:form id="form_place" class="form_place">
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer Utilisateur Help Desk</div>
+            	
+            	<tr>
+	            	<td>Client</td>
+	            	<td>
+	            	<p:selectOneMenu styleClass="selectonemenu" style="width:210px;"  id="nomclient" filter="true" effect="fade" tabindex="1" value="#{utilisateurControlleur.idclient}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                    </p:selectOneMenu>
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>Nom</td>
+	            	<td>
+	            	<p:inputText id="Nom" required="required" value="#{utilisateurControlleur.userhelpdesk.nom}" />
+	            	</td>
+	            	
+	            </tr>
+	            <tr>
+	            	<td>Login</td>
+	            	<td>
+	            	<p:inputText id="Nomuser" required="required" value="#{utilisateurControlleur.userhelpdesk.login}" />
+          
+	            	</td>
+	            	
+	            </tr>
+	            <tr>
+	            	<td>Password</td>
+	            	<td>
+	            	<p:password id="passworduser" required="required" value="#{utilisateurControlleur.userhelpdesk.password}" />           
+	            	</td>
+	            </tr>
+	            <tr>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton>
+	            </td>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{utilisateurControlleur.inserthelpdesk}" update=":form:tablep,:form:msgs,passworduser,Nomuser,Nom,nomclient" />                                
+	            </td>
+	            </tr>
+	            	</table>
+	     </h:form>
+	  </div>
+	                               <h:form id="form">
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablep" value="#{utilisateurControlleur.usershelpdesk}" var="vUser"
+                                                     selection="#{utilisateurControlleur.userhelpdesktempo}"
+                                                     rowKey="#{vUser.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                             <p:ajax event="cellEdit" listener="#{utilisateurControlleur.updateHelpdesk}" update=":form:msgs,:form:tablep" />
+                                            
+                                            <p:column headerText="Client" filterBy="#{vUser.client.societe}" filterMatchMode="contains"  sortBy="#{vUser.client.societe}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vUser.client.societe}" /></f:facet>
+                                                    <f:facet name="input">
+                                                    <p:selectOneMenu styleClass="selectonemenu" style="width:140px;"  id="nomclient" filter="true" effect="fade" tabindex="1" value="#{utilisateurControlleur.idclient}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                                                    </p:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            
+                                            <p:column headerText="Nom" filterBy="#{vUser.nom}" filterMatchMode="contains"  sortBy="#{vUser.nom}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vUser.nom}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{vUser.nom}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            
+                                            <p:column headerText="LOGIN" filterBy="#{vUser.login}" filterMatchMode="contains"  sortBy="#{vUser.login}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vUser.login}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{vUser.login}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+
+                                            <p:column headerText="Password" filterBy="#{vUser.password}" filterMatchMode="contains" sortBy="#{vUser.password}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vUser.password}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{vUser.password}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            
+                                             <p:column headerText="Email" filterBy="#{vUser.email}" filterMatchMode="contains"  sortBy="#{vUser.email}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vUser.email}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{vUser.email}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+
+                                            <p:column>
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" value="Supprimer" onclick="confirmation.show()" >
+                                                    <span class="b_icon b102"></span>
+                                                    <f:setPropertyActionListener target="#{utilisateurControlleur.userhelpdesktempo}" value="#{vUser}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer l'utilisateur?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{utilisateurControlleur.Deletehelpdesk}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

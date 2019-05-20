@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Envoi mail</h1>
+    <content> 
+    <h:form id="form"> 
+    <p:growl id="msgs" showDetail="true"/>                
+     <div >
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'></div>
+            	
+	              <tr>
+	            	<td>
+	            	<h:outputText value="A" for="rcpt" />
+	            	</td>
+	            	<td>
+	            	 <p:autoComplete id="rcpt" value="#{emailController.rcpt}" completeMethod="#{emailController.completercpt}" />
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>
+	            	<h:outputText value="cc"  for="cc" style="width:500px"/>
+	            	</td>
+	            	<td>
+	            	 <p:autoComplete id="cc" value="#{emailController.cc}" completeMethod="#{emailController.completercc}" />
+	            	</td>
+	            	</tr>
+	            	 	<tr>
+	            	<td>
+	            	<h:outputText value="Objet" />
+	            	</td>
+	            	<td>
+	            	<p:inputText id="objet" styleClass="i-format" value="#{emailController.objetfacture}" />                        
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td colspan="2">
+	            	<h:commandLink value="Telecharger Facture">
+											        <p:fileDownload value="#{emailController.filefacture}"></p:fileDownload>
+											     </h:commandLink>
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>
+	            	<h:outputText value="Message" />
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td colspan="3">
+	            	<p:inputTextarea id="message" style="width:800px;height:500px;" cols="500" styleClass="i-format" value="#{emailController.contenumessage}"/>                        
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>
+	            	 <p:commandButton styleClass="StyleGreen" value="Envoyer Mail" actionListener="#{emailController.sendmailfact}" update="msgs"  />                
+	            	</td>
+	            	</tr>
+	            	</table>
+	            	</div>
+	   </h:form>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

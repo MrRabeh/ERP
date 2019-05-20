@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+     <h:form>
+     <p:growl id="msgs" showDetail="true"/> 
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Factures Fournisseur</h1>                         
+    <content>                
+
+                                    <p:dataTable id="tablep" widgetVar="tablep" value="#{factureFournisseurController.facts}" var="obj"
+                                                      selection="#{factureFournisseurController.factf}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     resizableColumns="true"
+                                                   
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                      <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                      
+                                                     <p:column headerText="Réference" filterBy="#{obj.num_facture}" filterMatchMode="contains"  sortBy="#{obj.num_facture}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.num_facture}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.num_facture}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="date facture" filterBy="#{obj.datefacture}" filterMatchMode="startsWith"  sortBy="#{obj.datefacture}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output">
+		                                                      <h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datefacture}" />
+														    </h:outputFormat>
+		                                                    </f:facet>
+		                                                    
+		                                                    <f:facet name="input">
+		                                                    <p:calendar  value="#{obj.datefacture}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="date réception" filterBy="#{obj.datereception}" filterMatchMode="startsWith"  sortBy="#{obj.datereception}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output">
+		                                                      <h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datereception}" />
+														    </h:outputFormat>
+		                                                    </f:facet>
+		                                                    
+		                                                    <f:facet name="input">
+		                                                    <p:calendar  value="#{obj.datereception}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		
+                                            		<p:column headerText="Fournisseur" filterBy="#{obj.commandefournissuer.fournisseur.nomsociete}" filterMatchMode="contains"  sortBy="#{obj.commandefournissuer.fournisseur.nomsociete}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.commandefournissuer.fournisseur.nomsociete}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.commandefournissuer.fournisseur.nomsociete}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="BC" filterBy="#{obj.commandefournissuer.numercommande}" filterMatchMode="contains"  sortBy="#{obj.commandefournissuer.numercommande}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.commandefournissuer.numercommande}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.commandefournissuer.numercommande}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="date echeance" filterBy="#{obj.dateechance}" filterMatchMode="contains"  sortBy="#{obj.dateechance}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output">
+		                                                    <h:outputText value="#{obj.dateechance}">
+		                                                    <f:convertDateTime pattern="dd/MM/yy" ></f:convertDateTime>
+		                                                    </h:outputText>
+		                                                    </f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.dateechance}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total HT" filterBy="#{obj.totalht}" filterMatchMode="startsWith"  sortBy="#{obj.totalht}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalht}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalht}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total TTC" filterBy="#{obj.totalttc}" filterMatchMode="startsWith"  sortBy="#{obj.totalttc}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalttc}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalttc}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total NET" filterBy="#{obj.totalNet}" filterMatchMode="startsWith"  sortBy="#{obj.totalNet}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalNet}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalNet}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		    <p:column filterBy="#{obj.etat}" style="width:70px" sortBy="#{obj.etat}" headerText="Etat" filterMatchMode="startsWith">
+            										<h:outputText value="#{obj.etat}" />
+       										 			</p:column>
+       										 			
+       										 			    <p:column filterBy="#{obj.constater}" style="width:70px" sortBy="#{obj.constater}" headerText="Constate" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.constater}" />
+       										 				</p:column>
+       										 				
+       										 				  <p:column filterBy="#{obj.numAvoir}" style="width:70px" sortBy="#{obj.numAvoir}" headerText="N°avoir" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.numAvoir}" />
+       										 				   </p:column>
+       										 				   
+       										 				    <p:column filterBy="#{obj.montantdavoire}" style="width:70px" sortBy="#{obj.montantdavoire}" headerText="M.Avoir" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.montantdavoire}" />
+       										 				   </p:column>
+                                            		
+                                            		  <f:facet name="header">
+                                            		  
+                                            		       
+           <p:commandButton  action="#{factureFournisseurController.preparecreer}" value="Créer"></p:commandButton>
+          <p:commandButton  action="#{factureFournisseurController.actualiser}" value="Actualiser" update="tablep"></p:commandButton>
+          
+                                            		
+                                            	<p:column style="width:25px" headerText="Edit" >
+	                                                <p:commandButton icon="b300" action="#{factureFournisseurController.prepareView}" styleClass="button white icon">
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Supp">
+	                                                <p:commandButton icon="b_icon b102"  onclick="confirmation2.show()">
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	</f:facet>
+                                            	
+                                        </p:dataTable>
+                                        
+                                            <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer la Facture Fournisseur?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep,msgs" action="#{factureFournisseurController.delete}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update="tablep,msgs" />
+                                        </p:confirmDialog>
+                                   
+                                     
+    </content>
+    </article>
+     </h:form> 
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

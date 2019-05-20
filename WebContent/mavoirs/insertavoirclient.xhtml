@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+    <content>
+                 <h1 style="position: relative;bottom: 10px;left: 80%;">Avoir Client en création ...</h1>       
+<h:form id="formavoir">
+ 
+ <p:growl id="msgs" showDetail="true"/>
+                   
+<div class="stylerightavoir">
+<table class="styletable" style="width: 100%;"  cellpadding="0">
+<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Ligne Article</div>
+<tr>
+<td>Article</td>
+<td>
+<p:selectOneMenu style="width:120px" styleClass="selectonemenu" filter="true" filterMatchMode="contains" effect="fade" id="refArticle"  value="#{avoirClientControlleur.idarticle}">
+	                              					 <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+	                              					 <f:selectItems id="refArticles" value="#{articleController.articles}" var="article" itemLabel="#{article.ref}" itemValue="#{article.idArticle}" />
+</p:selectOneMenu>
+<p:commandButton style="width:100px;font-size:10px;bottom:10px;" value="Créer un Article" oncomplete="creerarticle.show()"></p:commandButton>
+</td>
+<td>Catégorie</td>
+<td>
+<p:selectOneMenu style="width:120px" styleClass="selectonemenu" id="article"  filter="true" effect="fade"  value="#{avoirClientControlleur.idcatarticle}">
+                                                        <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{articleController.categorieArticles}" var="categorie" itemLabel="#{categorie.categorie}" itemValue="#{categorie.idcategorie}" />
+</p:selectOneMenu>
+</td>
+</tr>
+<tr>
+<td>PU</td>
+<td>
+ <p:inputText styleClass="i-format" id="prixpufact" value="#{avoirClientControlleur.pu}"/>                                            
+</td>
+<td>Qte</td>
+<td>
+<p:inputText readonly="#{avoirClientControlleur.checkforfait}" id="qtefact" value="#{avoirClientControlleur.qte}"/>
+Forfait
+<p:selectBooleanCheckbox id="chekforfait" value="#{avoirClientControlleur.checkforfait}" >
+  <p:ajax event="change" listener="#{avoirClientControlleur.eventcheckforfait}" update="qtefact" />
+</p:selectBooleanCheckbox> 
+</td>
+</tr>
+<tr>
+<td>Désignation</td>
+<td>
+<p:inputTextarea cols="70" styleClass="i-format" id="desclient" value="#{avoirClientControlleur.designation}"/>
+</td>
+<td colspan="2">
+<p:commandButton styleClass="styleGreen" value="Ajouter un Article" actionListener="#{avoirClientControlleur.addart}"   update="refArticle,article,prixpufact,qtefact,chekforfait,desclient,:formavoir:msgs,:formavoir:avoirarticles,:formavoir:totalHT,:formavoir:TVA,:formavoir:totalTTC"/>
+</td>
+</tr>
+</table>
+</div>                       
+             <div style="width: 20%;">
+            <table class="styletable"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Avoir</div>
+            	<tr>
+	            	<td>Devise</td>
+	            	<td>
+	            	<p:selectOneMenu  style="width:210px" styleClass="selectonemenu" id="typepaiement" filter="true" effect="fade" tabindex="1" value="#{avoirClientControlleur.idtypepaiement}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="typepaiements" value="#{typePaiementController.listePaiement}" var="paiement" itemLabel="#{paiement.typepaiement}" itemValue="#{paiement.id}" />
+                    </p:selectOneMenu>
+	            	</td>
+	            	<td>Client</td>
+	            	<td>
+	            	<p:selectOneMenu  style="width:210px" styleClass="selectonemenu"  id="nomclient" filter="true" effect="fade" tabindex="1" value="#{avoirClientControlleur.idclient}">
+                                                    <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                     </p:selectOneMenu>     
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>N°Avoir</td>
+	            	<td>
+	            	<p:inputText id="numavoir"   required="required" value="#{avoirClientControlleur.avoirclient.numero_avoir}" />
+	            	
+	            	                     
+	            	</td>
+	            	<td>Réglement</td>
+	            	<td>
+	            	<p:inputText id="Reglement" styleClass="i-format" value="#{avoirClientControlleur.avoirclient.reglement}"/>
+	                </td>
+	            </tr>
+	             <tr>
+	            	<td>Date</td>
+	            	<td>
+	            	<p:calendar required="required" value="#{avoirClientControlleur.avoirclient.dateavoir}">
+	            	 </p:calendar>   
+	            	                  
+	            	</td>
+	            	<td>Facture</td>
+	            	<td>
+	            	<p:selectOneMenu  style="width:210px" styleClass="selectonemenu"  id="nomfacture" filter="true" effect="fade" tabindex="1" value="#{avoirClientControlleur.idfacture}">
+                                                    <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="numsfactures" value="#{factureController.factures}" var="fact" itemLabel="#{fact.ref}" itemValue="#{fact.id}" />
+                                                    <p:ajax event="change" update="avoirarticles,totalHT,totalTTC,TVA" listener="#{avoirClientControlleur.eventchangefactID}" />
+                      </p:selectOneMenu>
+                    </td>
+	            </tr>
+	            	</table>
+	            	</div>         
+                   
+					<div  style="float:left;width: 100%;background-color: #D5DBDB;border-radius:5px;">
+                                         <p:dataTable id="avoirarticles" widgetVar="avoirarticles" value="#{avoirClientControlleur.avoir_articles}" var="obj"
+                                                      selection="#{avoirClientControlleur.avoirarticletempo}"
+                                                     rowKey="#{obj.id}"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     paginatorPosition="bottom"
+                                                     paginator="true"
+                                                     resizableColumns="true"
+                                                     scrollRows="7"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     scrollable="true" liveScroll="true" scrollHeight="300"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                  
+                                               		<p:ajax event="cellEdit" listener="#{avoirClientControlleur.onCellEdit}" update=":formavoir:msgs,:formavoir:avoirarticles,:formavoir:totalHT,:formavoir:TVA,:formavoir:totalTTC" />
+                                            		
+                                            		<p:column filterBy="#{obj.article.designation}" sortBy="#{obj.article.designation}" headerText="Réference" filterMatchMode="contains">
+            											<h:outputText value="#{obj.article.designation}" />
+       										 		</p:column>
+                                            		
+                                            		 <p:column filterBy="#{obj.designation}" sortBy="#{obj.designation}" headerText="Article" filterMatchMode="contains">
+            											<h:outputText value="#{obj.designation}" />
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.categorieArticle.categorie}" sortBy="#{obj.categorieArticle.categorie}" headerText="Catégorie" filterMatchMode="contains">
+            											<h:outputText value="#{obj.categorieArticle.categorie}" />
+       										 		</p:column>
+                                            		
+                                            		
+                                            		 <p:column headerText="PU" filterBy="#{obj.pu}"  filterMatchMode="contains">
+            										      <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.pu}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.pu}" /></f:facet>
+		                                                </p:cellEditor>
+       										 		</p:column>
+       										 		
+                                                     <p:column  style="width:100px" headerText="Qunatite" filterBy="#{obj.chaineqte}" filterMatchMode="contains">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.chaineqte}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" style="width:50px;" /></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		 <p:column filterBy="#{obj.pt}" sortBy="#{obj.pt}" headerText="PT" filterMatchMode="contains">
+            											<h:outputText value="#{obj.pt}" />
+       										 		</p:column>
+                                            		
+                                            		                                           
+                                            <p:column style="width:100px">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{avoirClientControlleur.suppavoirarticle}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                        	</p:dataTable>
+                                        	
+		                                        <!-- boîte de dialogue -->
+		                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer l'Article?" header="confirmation" severity="alert" >
+		                                            <p:commandButton value="oui" update=":formavoir:msgs,:formavoir:avoirarticles,:formavoir:totalHT,:formavoir:TVA,:formavoir:totalTTC" action="#{avoirClientControlleur.removeart}" oncomplete="confirmation.hide()" />
+		                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+		                                        </p:confirmDialog>
+		                                        <table>
+		                                        <tr>
+		                                        <td>Total HT</td>
+		                                        <td><p:outputLabel id="totalHT" value="#{avoirClientControlleur.totalHT}" />
+                                                </td>
+		                                        </tr>
+		                                         <tr>
+		                                        <td>TVA 20%</td>
+		                                        <td><p:outputLabel  id="TVA" value="#{avoirClientControlleur.TVA}" />
+                                                </td>
+		                                        </tr>
+		                                        <tr>
+		                                        <td>Total TTC</td>
+		                                        <td>
+		                                        <p:outputLabel id="totalTTC" value="#{avoirClientControlleur.totalTTC}" />
+		                                        </td>
+		                                        </tr>
+		                                        <tr>
+		                                        <td>
+		                                        <p:commandButton styleClass="styleGreen" value="Annuler" action="#{avoirClientControlleur.annuler}" ></p:commandButton>
+		                                        </td>
+		                                        <td>
+		                                        <p:commandButton value="Enregistrer" styleClass="styleGreen" update=":formavoir:numavoir,:formavoir:msgs,:formavoir:avoirarticles,:formavoir:totalHT,:formavoir:TVA,:formavoir:totalTTC" actionListener="#{avoirClientControlleur.insert}" />
+		                                        </td>
+		                                        </tr>
+		                                        </table>
+		                               </div>
+		                               <p:dialog header="créer un Article" widgetVar="creerarticle" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                        		
+                                        		<h:panelGrid columns="2" cellpadding="5">
+                                        			
+                                        			<h:outputText value="Produit" />
+                                        			<p:selectOneMenu id="produit"  filter="true" effect="fade"  styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idproduit}">
+                                                        <f:selectItems  value="#{produitController.produits}" var="prod" itemLabel="#{prod.typeproduit}" itemValue="#{prod.id}" />
+                                                    </p:selectOneMenu>
+                                                    
+                                                    <h:outputText value="Type Article" />
+                                                    <p:selectOneMenu id="type"  filter="true" effect="fade" styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idtypearticle}">
+                                                        <f:selectItems  value="#{typeArticleController.typearticles}" var="typearticle" itemLabel="#{typearticle.type}" itemValue="#{typearticle.idtype}" />
+                                                    </p:selectOneMenu>
+                                        			
+                                        			<h:outputText value="Réference" />
+                                        		 	<p:inputText id="ref"  styleClass="i-format" required="required" value="#{articleController.ref}" />
+                                        			
+                                        			 <h:outputText value="Désignation" />
+                                        			 <p:inputTextarea id="des" cols="70"  styleClass="i-format" required="required" value="#{articleController.des}" />
+                                        			
+                                        			 <p:commandButton value="Ajouter" actionListener="#{articleController.insert}" update="" oncomplete="creerarticle.hide()"/>
+                                        		</h:panelGrid>
+                                        		
+                                        </p:dialog>                             
+                         </h:form> 
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

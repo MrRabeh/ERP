@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+	<h1 style="position:relative;left:70%;">Bon Livraison Client en Modification ...</h1>
+    <content>                
+                                           <h:form id="form">
+                                 <p:growl id="msgs" showDetail="true"/> 
+                                 
+                                 
+                        <div style="float:right;width: 50%;">
+                                 <table class="styletable" cellpadding="0">
+            					<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Ligne Articles</div>
+            					
+            					<tr>
+            					<td>Article stock</td>
+            					<td>
+            										<p:selectOneMenu styleClass="selectonemenu" style="width:200px;"  id="artstock" filter="true" effect="fade" tabindex="1" value="#{bonlivraisonController.idstock}">
+                                                        <f:selectItems  value="#{bonlivraisonController.stocksup0}" var="stock" itemLabel="#{stock.articlenumserie}" itemValue="#{stock.id}" />
+                                                    </p:selectOneMenu>
+                                                   
+                                </td>
+                              
+            					</tr>
+            					
+            					<tr>
+            					<td>Qte livré</td>
+            					<td> 
+            					<p:spinner id="qte" value="#{bonlivraisonController.qte}" />
+                                                
+            					</td>
+            					</tr>
+            					<tr>
+            					<td>Désignation</td><td>
+            					 <p:inputTextarea style="width:400px" styleClass="i-format" id="desclient" value="#{bonlivraisonController.designationclient}" />
+                                                
+            					</td>
+            					</tr>
+            					<tr>
+            					<td><p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton></td>
+            					<td>
+            					<p:commandButton styleClass="styleGreen" value="ajouter Article" actionListener="#{bonlivraisonController.insertartmodif}"   update=":form:table_article,:form:msgs,:form:artstock"/>
+                                </td>
+                                 </tr>
+                                 </table> 
+                                 </div> 
+                                 
+                                <div>
+                                 <table class="styletable"  cellpadding="0">
+            					<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Client</div>
+            					<tr>
+            					<td>N° BL</td>
+            					<td>
+            					 <p:inputText id="ref_livraison"  value="#{bonlivraisonController.livraison.ref}"/>
+                                                </td>
+            					</tr>
+            					<tr>
+            					<td>Date livraison</td>
+            					<td><p:calendar id="datelivrer"  value="#{bonlivraisonController.livraison.datebl}"/>
+                                                </td>
+            					</tr>
+            					<tr>
+            					<td>Client</td>
+            					<td>
+            					<p:selectOneMenu id="numcli" filter="true" effect="fade"  styleClass="selectonemenu"  style="width:200px;" tabindex="1" value="#{bonlivraisonController.idclient}">
+                                                        <f:selectItems  value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                                                    </p:selectOneMenu>
+            					</td>
+            					</tr>
+            					<tr>
+            					<td>Livré Par</td>
+            					<td><p:inputText id="livrepar" styleClass="i-format"  value="#{bonlivraisonController.livraison.livrepar}"/>
+                                                </td>
+            					</tr>
+            					<tr>
+            					<td>Réception Par</td>
+            					<td><p:inputText id="receptionpar" styleClass="i-format"  value="#{bonlivraisonController.livraison.receptionpar}"/>
+                                                </td>
+            					</tr>
+                                 </table> 
+                                 </div>        
+   
+                                 <div style="float:right;width:100%;">
+                                            <p:dataTable id="table_article" widgetVar="table_article" value="#{bonlivraisonController.stocklivraisons}" var="obj"
+                                                          selection="#{bonlivraisonController.stocklivraison}"
+                                                         rowKey="#{obj.id}"
+                                                         paginator="true"
+                                                         paginatorPosition="bottom"
+                                                         rows="10"
+                                                         emptyMessage="Aucun Article"
+                                                         editable="true"
+                                                         resizableColumns="true"
+                                                         scrollable="true" liveScroll="true"
+                                                         scrollHeight="350"
+                                                         >
+                                                           <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                         
+                                                         <p:column style="width:100px"  sortBy="#{obj.stock.article.ref}">
+			                                                    <f:facet name="header">         
+			                                                        <h:outputText class="th-sortable" value="Réference" />
+			                                                    </f:facet>
+			                                                    <h:outputText value="#{obj.stock.article.ref}" />
+			                                   			</p:column>
+			                                   			
+                                                         <p:column style="width:180px"  sortBy="#{obj.numeroserielivre}">
+			                                                    <f:facet name="header">         
+			                                                        <h:outputText class="th-sortable" value="Numéro serie" />
+			                                                    </f:facet>
+			                                                    <h:outputText value="#{obj.numeroserielivre}" />
+			                                   			</p:column>
+			                                   
+                                              <p:column  style="width:180px"  sortBy="#{obj.designationclient}">
+			                                                    <f:facet name="header">         
+			                                                        <h:outputText class="th-sortable" value="Désignation" />
+			                                                    </f:facet>
+			                                                    <h:outputText value="#{obj.designationclient}" />
+			                                   </p:column>
+			                                                
+                                                  <p:column style="width:50px"  sortBy="#{obj.qte}">
+                                                    <f:facet name="header">         
+                                                        <h:outputText class="th-sortable" value="Qte" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{obj.qte}" />
+                                                	</p:column>
+                                                
+                                             <p:column  style="width:80px">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer article" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon"  onclick="confirmationart.show()" >
+                                                   
+                                                    <f:setPropertyActionListener target="#{bonlivraisonController.stocklivraison}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                             
+                                            </p:dataTable>
+                                               <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmationart" message="voulez vous supprimer article de Bon livraison?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:table_article,:form:msgs" action="#{bonlivraisonController.deletearticle}" oncomplete="confirmationart.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                        <TABLE>
+                                        <tr>
+                                        <td><p:commandButton styleClass="styleGreen" value="Annuler" action="#{bonlivraisonController.annuler}"></p:commandButton></td>
+                                        <td>
+                                        <p:commandButton styleClass="styleGreen" value="Modifier" actionListener="#{bonlivraisonController.update}"   update=":form:msgs"/>
+                                        
+                                        </td>
+                                        </tr>
+                                        </TABLE>
+                                         
+                                        </div>
+                                                   
+                                         
+                                        </h:form>      
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

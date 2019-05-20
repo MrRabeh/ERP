@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuadministration.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Liste des Comptes banquaires</h1>
+    <content>                
+     <div >
+     <h:form id="form_place" class="form_place">
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer Coordonnées</div>
+            	<tr>
+	            	<td>Banque</td>
+	            	<td>
+	            	<p:inputText id="banque"  value="#{coordonneeBanqueController.banque.banque}" />
+                                                
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>Numero Banque</td>
+	            	<td>
+	            	<p:inputText  id="num" value="#{coordonneeBanqueController.banque.numerobancaire}" />
+                                                
+	            	</td>
+	            	
+	            </tr>
+	            <tr>
+	            	<td>Agence</td>
+	            	<td>
+	            	<p:inputText id="agence"  value="#{coordonneeBanqueController.banque.agence}" />
+                    </td>
+	            </tr>
+	            <tr>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton>
+	            </td>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{coordonneeBanqueController.insert}" update=":form_place:banque,:form_place:num,:form_place:agence,:form:tablep,:form:msgs" />
+                </td>
+	            </tr>
+	            	</table>
+	     </h:form>
+	  </div>
+	                          <h:form id="form">
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{coordonneeBanqueController.banques}" var="obj"
+                                                     selection="#{coordonneeBanqueController.banquetempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     >
+                                           <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                             <p:ajax event="cellEdit" listener="#{coordonneeBanqueController.update}" update=":form:msgs,:form:tablep" />
+                                            
+                                                     <p:column headerText="Banque" filterBy="#{obj.banque}" filterMatchMode="contains"  sortBy="#{obj.banque}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.banque}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.banque}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="numerobancaire" filterBy="#{obj.numerobancaire}" filterMatchMode="contains"  sortBy="#{obj.numerobancaire}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.numerobancaire}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.numerobancaire}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            	
+                                            		<p:column headerText="agence" filterBy="#{obj.agence}" filterMatchMode="contains"  sortBy="#{obj.agence}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.agence}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.agence}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column>
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" value="Supprimer" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{coordonneeBanqueController.banquetempo}" value="#{pay}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le Coordonnées Banquaires ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep,msgs" action="#{coordonneeBanqueController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form> 
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

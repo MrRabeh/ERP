@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+	<br/>
+    <content>                
+              <h1  style="position: relative;bottom: 30px;left: 65%;" >Bon Commande Fournisseur en Modification ...</h1> 
+    	<div style="position: relative;bottom: 50px;">             
+            <h:form id="forminsert">
+            <p:growl id="msgs" showDetail="true"/>
+             <p:growl id="msg" showDetail="true"/>
+            <div class="stylerightcommande">
+            <table class="styletable" style="width: 100%;" cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Article</div>
+            <tr>
+            	<td>
+            	<h:outputText value="Article" />
+            	</td>
+            	<td>
+            	<p:selectOneMenu  styleClass="selectonemenu" id="refArticle" filter="true" effect="fade" style="width:200px;"  value="#{bonCommandecontroller.idarticle}">
+	                           <f:selectItem itemValue="" itemLabel=""></f:selectItem>
+	                           <f:selectItems id="refArticles" value="#{articleController.articles}" var="article" itemLabel="#{article.ref}" itemValue="#{article.idArticle}" />
+	            </p:selectOneMenu>
+            	</td>
+            	     <td>
+           				<p:commandButton  style="width:50px;font-size:10px;bottom:5px;" value="Créer" oncomplete="creerarticle.show()">
+			        	</p:commandButton>
+	        		</td>
+            	<td>
+            	 <h:outputText value="PU" />
+            	</td>
+            	 <td>
+            	 <p:inputText styleClass="i-format" id="pu" value="#{bonCommandecontroller.pu}"/>
+            	</td>
+            	<td>
+            	<h:outputText value="Quantité" />
+            	</td>
+            	 <td>
+            	 <p:inputText styleClass="i-format" id="qte" value="#{bonCommandecontroller.qte}"/>
+            	</td>
+            </tr>
+            <tr>
+            	<td colspan="2">
+            	 Désignation Fournisseur
+            	</td>
+            	<td colspan="3">
+            		 <p:inputTextarea cols="40"  styleClass="i-format" id="designationart" value="#{bonCommandecontroller.designation}"/>
+            	</td>
+            	<td>
+            	<p:commandButton styleClass="styleGreen" value="Ajouter Article" actionListener="#{bonCommandecontroller.ajouterligne_modif}" update=":forminsert:table_article,:forminsert:tva,:forminsert:Totalht,:forminsert:Totalttc,:forminsert:pu,:forminsert:qte,:forminsert:msgs,:forminsert:designationart" />
+            	</td>
+            </tr>
+            </table>
+	           </div> 
+	           
+	                  <p:dialog header="creer un Article" widgetVar="creerarticle" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                        		<h:panelGrid columns="2" cellpadding="5">
+                                        			
+                                        			<h:outputText value="produit" />
+                                        			<p:selectOneMenu id="produit"  filter="true" effect="fade"  styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idproduit}">
+                                        			 <f:selectItem itemLabel="" itemValue="" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{produitController.produits}" var="prod" itemLabel="#{prod.typeproduit}" itemValue="#{prod.id}" />
+                                                    </p:selectOneMenu>
+                                                    
+                                                    <h:outputText value="Type Article" />
+                                                    <p:selectOneMenu id="type"  filter="true" effect="fade" styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idtypearticle}">
+                                                         <f:selectItem itemLabel="" itemValue="" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{typeArticleController.typearticles}" var="typearticle" itemLabel="#{typearticle.type}" itemValue="#{typearticle.idtype}" />
+                                                    </p:selectOneMenu>
+                                        			
+                                        			<h:outputText value="reference" />
+                                        		 	<p:inputText id="refart"  styleClass="i-format" required="required" value="#{articleController.ref}" />
+                                        			
+                                        			 <h:outputText value="Designation" />
+                                        			 <p:inputTextarea id="des" cols="70"  required="required" value="#{articleController.des}" />
+                                        			
+                                        			 <p:commandButton styleClass="styleGreen" value="Ajouter Article" actionListener="#{articleController.insert}" update="msgs,refart,des,type,produit" oncomplete="creerarticle.hide()"/>
+                                        		</h:panelGrid>
+                                        </p:dialog>
+	           
+	            <div class="stylearticlescommande">
+	                             		 
+	                             		 <p:dataTable id="table_article" widgetVar="table_article" value="#{bonCommandecontroller.lignes}" var="obj"
+                                                          selection="#{bonCommandecontroller.lignetempo}"
+                                                         rowKey="#{obj.id}"
+                                                         paginator="true"
+                                                         rows="13"
+                                                         paginatorPosition="bottom"
+	                                                     emptyMessage="Aucun résultat trouvé"
+	                                                     scrollRows="30" scrollable="true" liveScroll="true"
+	                                                     styleClass="datatablestyle"
+	                                                     rowStyleClass="datarowstyle"
+	                                                     editable="true"
+	                                                     editMode="cell"
+	                                                     resizableColumns="true"
+	                                                     scrollHeight="450"
+	                                                     >
+                                                         
+                                                         <p:column  selectionMode="multiple" style="width:16px;text-align:center"/>
+                                                
+                                                <p:ajax event="cellEdit" listener="#{bonCommandecontroller.onCellarticleModif}" update=":forminsert:msgs,:forminsert:table_article,:forminsert:Totalht,:forminsert:tva,:forminsert:Totalttc,:forminsert:Totalnet"/>
+                                                
+                                                <p:column style="width:100px;" sortBy="#{obj.article.ref}"  filterBy="#{obj.article.ref}" filterMatchMode="contains">
+                                                    <f:facet name="header">         
+                                                        <h:outputText class="th-sortable" value="Réference" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{obj.article.ref}" />
+                                                </p:column>
+
+                                                <p:column style="width:300px;" headerText="Désignation"  sortBy="#{obj.designation}"  filterBy="#{obj.designation}" filterMatchMode="contains">
+                                                
+                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.designation}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputTextarea rows="10" cols="50"  value="#{obj.designation}" /></f:facet>
+		                                        </p:cellEditor>
+		                                        
+                                                </p:column>
+
+                                                <p:column  style="width:50px;" headerText="PU" sortBy="#{obj.pu}"  filterBy="#{obj.pu}" filterMatchMode="startsWith">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.pu}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.pu}" /></f:facet>
+		                                                </p:cellEditor>
+                                            	</p:column>
+                                            			
+                                            			<p:column style="width:50px;" headerText="Qte" sortBy="#{obj.qte}" filterBy="#{obj.qte}" filterMatchMode="startsWith" >
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qte}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" /></f:facet>
+		                                                </p:cellEditor>
+                                            			</p:column>
+                                                
+                                             	<p:column style="width:50px;" sortBy="#{obj.pt}" filterBy="#{obj.pt}" filterMatchMode="startsWith" >
+                                                    <f:facet name="header">         
+                                                        <h:outputText class="th-sortable" value="PT" />
+                                                    </f:facet>
+                                                    <h:outputText value="#{obj.pt}" />
+                                                </p:column>
+                                                
+                                          
+                                            <f:facet name="header"> 
+                                                <p:commandButton icon="b102" onclick="confirmation.show()" >
+                                                    <span class="b_icon b102"></span>
+                                                </p:commandButton>
+                                                </f:facet>
+                                          
+                                             
+                                            </p:dataTable>
+                                               <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer article de Bon Commande?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":forminsert:table_article,:forminsert:tva,:forminsert:Totalht,:forminsert:Totalttc,:forminsert:pu,:forminsert:qte,:forminsert:msgs" action="#{bonCommandecontroller.DeleteArticle_modif}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                             
+                                         <div style="float: right;position: relative;">
+                                        <table>
+                                        <tr>
+                                        <td><p:commandButton styleClass="styleGreen" value="Annuler" action="#{bonCommandecontroller.annulerBoncommande}"  update="msg"/></td>
+                                        <td>
+                                        <p:commandButton styleClass="styleGreen"  ajax="true"  value="Modifier" actionListener="#{bonCommandecontroller.update}" update=":forminsert:msgs,:forminsert:Totalht,:forminsert:tva,:forminsert:Totalttc,:forminsert:Totalnet"/>	
+                                         
+                                         </td></tr>
+                                        </table>
+                                        </div>
+                      						</div>
+	           
+            <div>
+            <table class="styletable" style="width:26%;" cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Bon commande</div>
+            <tr>
+            	<td style="width: 200px;position: relative;">
+            		<h:outputText value="Devise" />
+            	</td>
+            	<td> 
+            		 <p:selectOneMenu style="width:210px"  styleClass="selectonemenu"   id="typepaiement" filter="true" effect="fade" tabindex="1" value="#{bonCommandecontroller.idtypepaiement}">
+                                                    <f:selectItems  id="typepaiements" value="#{typePaiementController.listePaiement}" var="paiement" itemLabel="#{paiement.typepaiement}" itemValue="#{paiement.id}" />
+                                                    </p:selectOneMenu>
+                </td>
+            </tr>
+             <tr>
+             	<td style="width: 200%;position: relative;">
+             	Date BC
+             	</td>
+             	<td>
+             	<p:calendar id="datecommande"  value="#{bonCommandecontroller.commande.datecommande}"/>
+             	</td>
+             </tr>
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             	N° BC
+             	</td>
+             	<td>
+             	 <p:inputText id="numercommande" styleClass="i-format"  value="#{bonCommandecontroller.commande.numercommande}"/>
+             	</td>
+             </tr>
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             	Échéance
+             	</td>
+             	<td>
+             	 <p:inputText  id="echeance" styleClass="i-format"  value="#{bonCommandecontroller.commande.echeance}"/>
+             	</td>
+             </tr>
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             	Date Échéance
+             	</td>
+             	<td>
+             	 <p:calendar id="datecommandeechance" value="#{bonCommandecontroller.commande.dateechance}"/>
+             	</td>
+             </tr>
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             		Fournisseur
+             	</td>
+             	<td>
+             	<p:selectOneMenu style="width:210px"  styleClass="selectonemenu" id="nom" filter="true" effect="fade" tabindex="1" value="#{bonCommandecontroller.idf}">
+                                                        <f:selectItems  value="#{fournisseurController.fournisseurs}" var="fournisseur" itemLabel="#{fournisseur.nomsociete}" itemValue="#{fournisseur.idfournisseur}" />
+                                                    </p:selectOneMenu>
+             	</td>
+             </tr>
+              <tr>
+             	<td style="width: 200px;position: relative;">
+             	N°OP F. 
+             	</td>
+             	<td>
+             	 <p:inputText  id="NOP"  value="#{bonCommandecontroller.commande.numeroOffreFournisseur}"/>
+             	</td>
+             </tr>
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             	Date OP F.
+             	</td>
+             	<td>
+             	<p:calendar  id="opdate"  value="#{bonCommandecontroller.commande.dateoffre}"/>
+             	</td>
+             </tr>
+             
+             <tr>
+             	<td style="width: 200px;position: relative;">
+             	F.T.transport
+             	</td>
+             	<td>
+             	  <p:inputText  id="transport"  value="#{bonCommandecontroller.commande.fraitransport}"/>                                       
+             	</td>
+             </tr>
+             </table>
+             <table class="styletable" style="width:26%;" cellpadding="0">
+             <div style='font-weight:bold;text-align: left;bottom:-7px;'>Devis Client</div>
+             
+              <tr>
+             	<td style="width: 95px;position: relative;">
+             	Client
+             	</td>
+             	<td>
+             	<p:selectOneMenu style="width:210px"  styleClass="selectonemenu" id="client"  filter="true" effect="fade"   tabindex="1" value="#{bonCommandecontroller.idc}" >
+                                                       <f:selectItems  value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                                                    </p:selectOneMenu>
+             	</td>
+             </tr>
+              <tr>
+             	<td>
+             	Affectation automatique
+             	</td>
+             	<td>
+             	<p:selectBooleanCheckbox value="#{bonCommandecontroller.checkaffect}" />
+             	</td>
+             </tr>
+             <tr>
+             <td colspan="2">
+             	<TABLE>
+             	<tr>
+             	<td rowspan="2">
+             	 <p:selectManyMenu id="basicmodif" style="height:150px;width:100px;" value="#{bonCommandecontroller.idoffres}" >
+            											<f:selectItems  value="#{bonCommandecontroller.offresmodif}" var="offre" itemLabel="#{offre.ref}" itemValue="#{offre.id}" />
+        											</p:selectManyMenu>
+             	</td>
+             	<td>
+             	  <p:commandButton style="width:80px;"  value="ajouter" actionListener="#{bonCommandecontroller.add}" update="basicaddmodif,basicmodif,:forminsert:msgs,:forminsert:table_article,:forminsert:Totalht,:forminsert:tva,:forminsert:Totalttc" ></p:commandButton>
+        		 </td>
+        		 <td rowspan="2">
+             	<p:selectManyMenu id="basicaddmodif" style="height:150px;width:100px;" value="#{bonCommandecontroller.idoffresadd}" >
+            											<f:selectItems  value="#{bonCommandecontroller.commande.listeoffres}" var="liste" itemLabel="#{liste.ref}" itemValue="#{liste.id}" />
+        											</p:selectManyMenu>
+             	</td>
+             	</tr>
+             	<tr>
+        		 <td>
+        		<p:commandButton style="width:80px;"  value="enlever" actionListener="#{bonCommandecontroller.remove}" update="basicaddmodif,basicmodif,:forminsert:msgs"></p:commandButton>
+             	</td>
+             	</tr>
+             	</TABLE>			
+             </td>
+             </tr> 
+            </table>
+            <table class="styletable" cellpadding="0">
+            						<div style='font-weight:bold;text-align: left;bottom:-7px;'>Total</div>
+                                        <tr><td>Total HT</td><td> <p:outputLabel id="Totalht" value="#{bonCommandecontroller.commande.totalht}" /></td></tr>
+                                         <tr><td>TVA</td><td><p:outputLabel  id="tva" value="#{bonCommandecontroller.commande.tva}" /></td></tr>
+                                         <tr><td>Total TTC</td><td><p:outputLabel id="Totalttc" value="#{bonCommandecontroller.commande.totalttc}" /></td></tr>
+                                         <tr><td>Total NET</td><td><p:outputLabel id="Totalnet" value="#{bonCommandecontroller.commande.totalnet}" /></td></tr>
+                                     </table>
+				</div>
+	</h:form>
+	     </div>    
+    </content>
+    </article>
+</div>
+</div>
+<div style="position: relative;bottom:60px;">
+<ui:include src="../theme/mfooter.xhtml" />
+</div>
+</h:body>
+</f:view>
+</html>

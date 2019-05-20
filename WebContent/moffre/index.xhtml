@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+   <h:form id="form">
+	<article class="topcontent">
+       <h1 style="text-align: center;color: #339;">Devis</h1>
+    <content>                                            
+        	 <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tableoffre" widgetVar="tableoffre" value="#{offreController.calcules}" var="obj"
+                                                      selection="#{offreController.calcule}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     style="font-size: 12px;"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column   selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                                     <p:ajax event="cellEdit" listener="#{offreController.editcelloffre}" update=":form:msgs,:form:tableoffre" />
+											
+											<p:column  style="width:80px" filterBy="#{obj.ref}" filterMatchMode="contains" sortBy="#{obj.ref}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Réference" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.ref}" />
+                                            </p:column>
+                                            
+                                                   <p:column style="width:120px;"  filterBy="#{obj.client.groupeclient.nomGroupe}"  sortBy="#{obj.client.groupeclient.nomGroupe}" headerText="Groupe" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.groupeclient.nomGroupe}" />
+       										 </p:column>
+                                            
+                                            <p:column style="width:120px" filterBy="#{obj.client.societe}" filterMatchMode="contains" sortBy="#{obj.client.societe}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Client" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.client.societe}" />
+                                            </p:column>
+                                            
+                                            <p:column style="width:60px" filterBy="#{obj.dateoffre}" filterMatchMode="startsWith" sortBy="#{obj.dateoffre}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="date Y/M/D"></h:outputText>
+                                                </f:facet>
+                                                	<h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.dateoffre}" />
+														</h:outputFormat>
+                                            </p:column>
+                                            
+                                            <p:column  style="width:100px" filterBy="#{obj.typeoffre.type}" filterMatchMode="contains" sortBy="#{obj.typeoffre.type}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Type" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.typeoffre.type}" />
+                                            </p:column>
+                                            
+                                            <p:column headerText="Etat" style="width:60px" filterBy="#{obj.etatoffre}" filterMatchMode="startsWith" sortBy="#{obj.etatoffre}">        
+                                                <p:cellEditor>
+											               <f:facet name="output"><h:outputText value="#{obj.etatoffre}" /></f:facet>
+											               <f:facet name="input">
+											                   <p:selectOneMenu value="#{obj.etatoffre}" style="width:100%">
+											                   
+											                       <f:selectItems value="#{offreController.etats}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+											                   </p:selectOneMenu>
+											               </f:facet>
+											      </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column style="width:100px"   filterBy="#{obj.description}" filterMatchMode="contains" sortBy="#{obj.description}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Description" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.description}" />
+                                            </p:column>
+
+                                            <p:column  filterBy="#{obj.totalHT}" filterMatchMode="startsWith" sortBy="#{obj.totalHT}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Total HT" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.totalHT}" />
+                                            </p:column>
+                                            
+                                            <p:column  filterBy="#{obj.totalTTC}" filterMatchMode="startsWith" sortBy="#{obj.totalTTC}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Total TTC" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.totalTTC}" />
+                                            </p:column>
+                                            
+                                            <p:column  filterBy="#{obj.totalmarge}" filterMatchMode="startsWith" sortBy="#{obj.totalmarge}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Marge" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.totalmarge}" />
+                                            </p:column>
+                                            
+                                            <p:column style="width:100px" filterBy="#{obj.bu.nom}" filterMatchMode="contains" sortBy="#{obj.bu.nom}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="B.U" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.bu.nom}" />
+                                            </p:column>
+                                            
+                                             <p:column style="width:100px"  filterBy="#{obj.emp.nom}" filterMatchMode="contains" sortBy="#{obj.emp.nom}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Commercial" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.emp.nom}" />
+                                            </p:column>
+                                            
+                                            <f:facet name="header">
+                                            
+                                            <p:commandButton action="#{offreController.prepareCreate}" value="Créer"></p:commandButton> 
+											<p:commandButton action="#{offreController.actualiser}" value="Actualiser" update="tableoffre"></p:commandButton>
+	
+                                            
+                                            
+                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{offreController.imprimerfont}" >
+                                                 
+                                                </p:commandButton>
+                                         
+                                            
+                                        
+                                                <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{offreController.imprimer}" >
+                      
+                                                </p:commandButton>
+                                                
+                                                 <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{offreController.imprimersanref}" >
+                      
+                                                </p:commandButton>
+                                         
+                                            
+                                       
+                                               <p:commandButton icon="bjoindre" ajax="false" styleClass="button white icon" action="#{offreController.depliquer}" >
+                                                </p:commandButton>
+                                        
+                                            
+                                          
+                                                <p:commandButton icon="b300" action="#{offreController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                  
+                                            
+                                 
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()">
+                                            
+                                                </p:commandButton>
+                               
+                                            </f:facet>
+                                            
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous desactiver l'Offre?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tableoffre,:form:msgs" action="#{offreController.activer}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+                                        </p:confirmDialog>
+                                        
+                                        <p:confirmDialog widgetVar="confirmation2" message="voulez vous Annuler l'offre?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tableoffre,:form:msgs" action="#{offreController.annuler}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+                                        </p:confirmDialog>
+                   
+    </content>
+    </article>
+       </h:form> 
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>                
+              <h:form id="form">
+                                     <h:commandLink class="button blue medium" action="#{salairesController.preparecreate}" value="Creer Ordre"></h:commandLink>
+                                        
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        
+                                        <p:dataTable id="tablep" value="#{salairesController.ordres}" var="obj"
+                                                     selectionMode="single" selection="#{salairesController.ordre}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                     >
+                                                     
+                                            <p:column headerText="Date" filterBy="#{obj.datevirement}" filterMatchMode="contains"  sortBy="#{obj.datevirement}">
+                                               <h:outputText value="#{obj.datevirement}"><f:convertDateTime pattern="dd/MM/yy" /></h:outputText>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Montant Global" filterBy="#{obj.montantGlobal}" filterMatchMode="contains"  sortBy="#{obj.montantGlobal}">
+                                                 <h:outputText value="#{obj.montantGlobal}" />
+                                            </p:column>
+                                            
+                                            <p:column headerText="Mois ordre" filterBy="#{obj.moisordre}" filterMatchMode="contains"  sortBy="#{obj.moisordre}">
+                                                <h:outputText value="#{obj.moisordre}"><f:convertDateTime pattern="dd/MM/yy" /></h:outputText>
+                                            </p:column>
+                                            
+                                            <p:column>
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Edition"/>
+                                                </f:facet>
+                                                <p:commandButton icon="b300" styleClass="button white icon" action="#{salairesController.prepareView}" ></p:commandButton>
+                                            </p:column>
+                                            
+                                             <p:column headerText="PDF">
+                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{salairesController.imprimerfont}" >
+                                                    <f:setPropertyActionListener target="#{salairesController.ordre}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Supprimer" >
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmation.show()" styleClass="button white icon"> 
+		                                                	 <f:setPropertyActionListener target="#{salairesController.ordresupp}" value="#{obj}" update=":form:tablep"/>
+		                                                	</p:commandButton>
+                                            </p:column>
+                                            
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer l'ordre ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:msgs,:form:tablep" action="#{salairesController.deleteordre}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>         
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

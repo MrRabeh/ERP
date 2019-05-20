@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menutimesheet.xhtml" />
+<div class="mainContent">
+<div class="content">
+      <h:form id="form"> 
+	<article class="topcontent">
+	<br/>
+    <content>
+             
+       <p:growl id="msgs" showDetail="true"/> 
+       <p:growl id="msg" showDetail="true"/> 
+       
+              <table class="styletable" style="width: 60%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Mon horaire</div>
+            	
+              <tr>
+              <td>période</td>
+              <td>
+              		 <p:selectOneMenu style="width:120px" styleClass="selectonemenu" value="#{pointageController.selectperiode}">
+                                                    	<f:selectItem itemValue="Matinée" itemLabel="Matinée"   />
+                                                        <f:selectItem itemValue="Après Midi" itemLabel="Après Midi" />	
+                                                    </p:selectOneMenu>                          
+              </td>
+              <td>Date</td>
+              <td>
+                  <p:calendar value="#{pointageController.datepointage}" pattern="dd/MM/yyyy"> </p:calendar>
+                                               
+             </td>
+              </tr>
+              <tr>
+              
+              <td>
+              Heure d'entrée
+              </td>
+              <td>
+              <p:inputMask id="idheurentrer" value="#{pointageController.entree}" local="fr" mask="99:99:99" >
+									               		<f:convertDateTime pattern="HH:mm:ss" />
+									               	</p:inputMask>                                                       
+              </td>
+               <td>
+              Heure de sortie
+              </td>
+              <td>
+              <p:inputMask id="idheursorti" value="#{pointageController.sortie}"  mask="99:99:99" >
+									               		<f:convertDateTime pattern="HH:mm:ss" />
+									               	</p:inputMask>                                                                                    
+              </td>
+              </tr>
+              
+              <tr>
+              <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{pointageController.annuler}" update=":form:tablep,:form:msgs"></p:commandButton></td>
+              <td>
+               <p:commandButton styleClass="styleGreen" value="Enregistrer" action="#{pointageController.insert}"   update=":form:tablep,:form:msgs" />
+                                               </td>
+              </tr>
+              </table>
+              
+              <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{pointageController.actualiser}" update=":form:tablep">                 
+                   </p:commandButton>                 
+                                        <p:dataTable id="tablep" value="#{pointageController.pointages}" var="vPoint"
+                                                     selection="#{pointageController.pointage}"
+                                                     rowKey="#{vPoint.idpointage}"
+                                                     paginator="true"
+                                                     rows="7"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                      <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                            
+                                            <p:ajax event="cellEdit" listener="#{pointageController.oncellEdit}" update=":form:msgs,:form:tablep" />
+                                           
+                                           <p:column filterBy="#{vPoint.nom}" style="width:70px;" sortBy="#{vPoint.nom}" headerText="Nom" filterMatchMode="contains">
+            										<h:outputText value="#{vPoint.nom}" />
+       										 </p:column>
+
+                                            <p:column headerText="Date" filterBy="#{vPoint.date}" filterMatchMode="contains" sortBy="#{vPoint.date}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+	                                                    <h:outputText value="#{vPoint.datePointage}" >
+	                                                    	<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+	                                                    </h:outputText>
+                                                    </f:facet>
+                                                    <f:facet name="input">
+                                                    <p:calendar value="#{vPoint.datePointage}" pattern="dd/MM/yyyy"> </p:calendar>
+                                                    </f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+
+                                            <p:column headerText="periode" filterBy="#{vPoint.periode}" filterMatchMode="contains"  sortBy="#{vPoint.periode}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vPoint.periode}" /></f:facet>
+                                                    <f:facet name="input">
+                                                    	<p:selectOneMenu style="width:120px" styleClass="selectonemenu" value="#{vPoint.periode}">
+                                                    	<f:selectItem itemValue="Matinée" itemLabel="Matinée"   />
+                                                        <f:selectItem itemValue="Après Midi" itemLabel="Après Midi" />	
+                                                    	</p:selectOneMenu>      
+													</f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="entree" filterBy="#{vPoint.entree}" filterMatchMode="contains"  sortBy="#{vPoint.entree}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{vPoint.entree}"><f:convertDateTime pattern="HH:mm:ss" ></f:convertDateTime></h:outputText></f:facet>
+                                                    <f:facet name="input">
+                                                      <p:inputMask  value="#{vPoint.entree}" local="fr" mask="99:99:99" >
+									               		<f:convertDateTime pattern="HH:mm:ss" />
+									               	</p:inputMask>   
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Sortie" filterBy="#{vPoint.sortie}" filterMatchMode="contains"  sortBy="#{vPoint.sortie}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output">
+                                                    <h:outputText value="#{vPoint.sortie}">
+                                                    <f:convertDateTime pattern="HH:mm:ss" ></f:convertDateTime>
+                                                    </h:outputText></f:facet>
+                                                    <f:facet name="input">
+                                                     <p:inputMask  value="#{vPoint.sortie}" local="fr" mask="99:99:99" >
+									               		<f:convertDateTime pattern="HH:mm:ss" />
+									               	</p:inputMask>   
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>  
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le planning?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{pointageController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                              
+    </content>
+    </article>
+      </h:form>  
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

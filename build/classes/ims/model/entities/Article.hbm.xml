@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Article">
+  <id name="idArticle" column="idArticle">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="ref" column="reference" not-null="true" unique="true"></property>
+  
+  <property name="designation" column="designationFournisseur" length="8000"></property>
+ 
+   <many-to-one name="typearticle" class="ims.model.entities.TypeArticle" column="typeArticleID" lazy="false"></many-to-one>
+  <many-to-one name="typeproduit" class="ims.model.entities.Produit" column="ProduitID" lazy="false"></many-to-one>
+  </class>
+</hibernate-mapping>

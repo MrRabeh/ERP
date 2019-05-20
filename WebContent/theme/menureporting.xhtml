@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+          <f:view contentType="text/html">
+    <h:body>
+    <h:head>
+<title>ERP IMS</title>
+<meta charset="utf-8" />
+<h:outputStylesheet library="crmstyle" name="style.css"/>
+<meta name="viewport" content="width-device-width, initial-scale-1.0" />
+</h:head>
+<header class="mainheader"> 
+<table style="width: 100%;">
+<tr>
+<td>
+<img alt="LOGO IMS" src="../resources/images/logoerp.png" style="height:40px;" />
+</td>
+<td style="width: 80%;">
+<SPAN style="text-align: center;font-size: 20px;left: 40%;position: relative;">
+<SPAN style="color: blue;">Application</SPAN> <SPAN style="color:green;">GC</SPAN>IMS
+</SPAN>
+</td>
+<td>
+<a style="color: black;" href="../mprofil/paramreporting.xhtml">Profil</a>
+</td>
+<td>
+<a style="color: black;" href="${request.contextPath}/j_spring_security_logout">Déconnecter</a>
+</td>
+</tr>
+</table>
+<nav>
+<h:form id="menu">
+<ul>
+<li>
+<a href="../index/index.xhtml">Accueil</a></li>
+<li>
+<a href="../mreporting/rapportOffreclient.xhtml">Devis Client</a>
+</li>
+<li>
+<a href="../mreporting/rapportbcfournisseur.xhtml">Bon commande Forunisseur</a>
+</li>
+<li>
+<a href="#">Factures</a>
+<ul>
+<li>
+<a href="../mreporting/rapportfactureclient.xhtml">Factures clients</a>
+</li>
+<li>
+<a href="../mreporting/rapportfactfournisseur.xhtml">Factures Fournisseur</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="#">charge</a>
+<ul>
+<li>
+<a href="../mreporting/charge.xhtml">Etat charge</a>
+</li>
+<li>
+<a href="../mreporting/caisse.xhtml">Etat caisse</a>
+</li>
+</ul>
+</li>
+<li>
+<a href="../mreporting/justificatifSolde.xhtml">Justificatif de solde général</a>
+</li>
+<li>
+<a href="../mreporting/rapportArticle.xhtml">Etat Article</a>
+</li>
+<li>
+<a href="../mreporting/rapportStock.xhtml">Etat Stock</a>
+</li>
+</ul>
+</h:form>
+</nav>
+</header>
+    </h:body>
+    </f:view>
+</html>

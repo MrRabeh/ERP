@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+	<h1 style="position:relative;left:70%;">Facture Fournisseur en Création ...</h1>
+    <content>                
+          <h:form id="form">
+            <p:growl id="msgs" showDetail="true"/>
+             <p:growl id="msg" showDetail="true"/>
+              <div>
+               <table class="styletable" style="width: 50%;"  cellpadding="0">
+                                 <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Facture Fournisseur</div>
+                  <tr>
+                  <td>Devise</td>
+                  <td>
+                  <p:selectOneMenu style="width:210px" styleClass="selectonemenu"  id="typepaiement" filter="true" effect="fade" tabindex="1" value="#{factureFournisseurController.idtypepaiement}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="typepaiements" value="#{typePaiementController.listePaiement}" var="paiement" itemLabel="#{paiement.typepaiement}" itemValue="#{paiement.id}" />
+                  </p:selectOneMenu>
+                  </td>
+                  <td>Réglement</td>
+                  <td><p:inputText id="reg" styleClass="i-format" required="required" value="#{factureFournisseurController.factf.reglement}" /></td>
+                  </tr>
+                  <tr>
+                  <td>N° Facture</td>
+                  <td><p:inputText id="numfact"  value="#{factureFournisseurController.factf.num_facture}" /></td>
+                  
+                  <td>Bon Commande</td>
+                   <td> 
+                  <p:selectOneMenu filter="true" effect="fade" style="width:210px" styleClass="selectonemenu" value="#{factureFournisseurController.bncommandeId}">
+                                     <f:selectItem    itemLabel="" itemValue="0" />
+									    <f:selectItems value="#{factureFournisseurController.listbn}" var="bn" itemLabel="#{bn.numercommande}" itemValue="#{bn.id}" />
+									 <p:ajax event="change" update="tablep,frait,Totalht,tva,Totalttc,Totalnet" listener="#{factureFournisseurController.eventchangeBCID}" />
+									 </p:selectOneMenu>
+				  </td>
+                  </tr>
+                  <tr>
+                  <td>Date Facture</td>
+                  <td><p:calendar id="datfact"   value="#{factureFournisseurController.factf.datefacture}" /></td>
+                  
+                  <td>Frait de transport</td>
+                  <td><p:inputText id="frait" required="required" value="#{factureFournisseurController.factf.fraitransport}" /></td>
+                  				
+                  </tr>
+                
+                  <tr>
+                  
+                  <td>D. Échéance</td>
+                  <td><p:calendar id="datech"  styleClass="i-format" required="required" value="#{factureFournisseurController.factf.dateechance}" /></td>
+                   <td>N° Avoir</td>
+                  <td><p:inputText id="numavoir"   value="#{factureFournisseurController.factf.numAvoir}" /></td>
+                  
+          
+                  </tr>
+                     <tr>
+                         <td>D. Prévisionnel</td>
+                   <td><p:calendar id="datprevisionnel"  required="required" value="#{factureFournisseurController.factf.datepevisionnel}" /></td>
+                  <td>Montant Avoir</td>
+                  <td><p:inputText id="montantavoir" required="required" value="#{factureFournisseurController.factf.montantdavoire}" /></td>
+                  				
+                  </tr>
+                  <tr>
+                  <td>Date Réception</td>
+                  <td><p:calendar id="datrecpt"   value="#{factureFournisseurController.factf.datereception}" /></td>
+                  
+                  <td></td></tr>
+                 </table>
+        		</div>
+        		<div>
+                                     <p:dataTable id="tablep" value="#{factureFournisseurController.articles}" var="obj"
+                                                      selection="#{factureFournisseurController.articletempo}"    
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="7"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     scrollRows="30" scrollable="true" liveScroll="true"
+                                                    styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                      editMode="cell"
+                                                     >
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     <p:ajax event="cellEdit" listener="#{factureFournisseurController.onCellarticle}" update=":form:msgs,:form:tablep,:form:Totalht,:form:tva,:form:Totalttc,:form:Totalnet"/>
+                                                     
+                                          				<p:column headerText="Réference" filterBy="#{obj.article.ref}" sortBy="#{obj.article.ref}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.article.ref}" />
+       													 </p:column>
+       													 
+                   										<p:column headerText="Désignation" filterBy="#{obj.designationfournisseur}" sortBy="#{obj.designationfournisseur}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.designationfournisseur}" />
+       													 </p:column>
+       													 
+       													 <p:column  headerText="PU" filterBy="#{obj.pu}" sortBy="#{obj.pu}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.pu}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.pu}" /></f:facet>
+		                                                </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			<p:column  headerText="Qte" filterBy="#{obj.qte}" sortBy="#{obj.qte}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qte}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" /></f:facet>
+		                                                </p:cellEditor>
+                                            			</p:column>
+       													 
+       													 <p:column headerText="PT" filterBy="#{obj.pt}" sortBy="#{obj.pt}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.pt}" />
+       													 </p:column>
+       													 
+                                            <p:column >
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer"/>
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" update="tablep" >
+                                                	 <f:setPropertyActionListener  target="#{factureFournisseurController.articlesupp}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                            <!-- boîte de dialogue -->
+		                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous Supprimer l'Article?" header="confirmation" severity="alert" >
+		                                            <p:commandButton value="oui" update="tablep,frait,Totalht,tva,Totalttc,Totalnet" action="#{factureFournisseurController.supparticle}" oncomplete="confirmation.hide()" />
+		                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+		                                        </p:confirmDialog>
+										<table>
+										<tr><td>Total HT</td><td>
+													<p:outputLabel id="Totalht" value="#{factureFournisseurController.factf.totalht}" />
+											  	</td></tr>
+										<tr><td>TVA</td><td><p:outputLabel  id="tva" value="#{factureFournisseurController.factf.tva}" />
+											  	</td></tr>
+										<tr><td>TTC</td><td><p:outputLabel id="Totalttc" value="#{factureFournisseurController.factf.totalttc}" />
+											  	</td></tr>
+										<tr><td>NET</td><td><p:outputLabel id="Totalnet" value="#{factureFournisseurController.factf.totalNet}" />
+										</td></tr>
+										<tr><td><p:commandButton styleClass="styleGreen" value="Annuler" action="#{factureFournisseurController.annuleropfacture}" update="msgs,Totalht,tva,Totalttc,Totalnet" ></p:commandButton></td>
+										<td> <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{factureFournisseurController.insert}" update="msgs,Totalht,tva,Totalttc,Totalnet" /></td></tr>	
+										</table>
+									
+										
+                                </div>
+							</h:form>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

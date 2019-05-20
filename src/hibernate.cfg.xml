@@ -1,0 +1,84 @@
+<!DOCTYPE hibernate-configuration PUBLIC "-//Hibernate/Hibernate Configuration DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+  <session-factory>
+	    <property name="hibernate.dialect">org.hibernate.dialect.SQLServerDialect</property>
+	    <property name="hibernate.connection.driver_class">com.microsoft.sqlserver.jdbc.SQLServerDriver</property>
+	   	<property name="hibernate.connection.url">jdbc:sqlserver://192.168.30.15;databaseName=erpims</property>
+	   	<property name="hibernate.connection.username">dbsystemims</property>
+	   	<property name="hibernate.connection.password">IMS@2014</property>
+        <!-- Enable Hibernate's automatic session context management -->
+        <property name="current_session_context_class">thread</property>
+        <!-- Disable the second-level cache  -->
+        <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
+        <!-- Echo all executed SQL to stdout -->
+        <property name="hibernate.show_sql">false</property>
+        <!-- Drop and re-create the database schema on startup -->
+        <property name="hbm2ddl.auto">update</property>
+        <property name="format_sql">true</property>  
+        <property name="hibernate.cache.use_query_cache">false</property>
+       	<property name="hibernate.use_outer_join">true</property>
+		<property name="hibernate.query.substitutions">1</property>
+		<property name="hibernate.connection.autocommit">true</property>
+		<property name="hibernate.jdbc.use_get_generated_keys">true</property>
+	        <mapping resource="ims/model/entities/Utilisateur.hbm.xml"/>
+	        <mapping resource="ims/model/entities/CategorieIISociete.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Secteur.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Langue.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Client.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Fournisseur.hbm.xml"/>
+	        <mapping resource="ims/model/entities/CategorieArticle.hbm.xml"/>
+	        <mapping resource="ims/model/entities/TypeArticle.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Article.hbm.xml"/>
+	        <mapping resource="ims/model/entities/TypeOffre.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Offre.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Offre_Article.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Departement.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Employee.hbm.xml"/>
+	        <mapping resource="ims/model/entities/BonCommande.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Boncommande_Article.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Boncommande_Offre.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Facture.hbm.xml"/>
+	        <mapping resource="ims/model/entities/TypeFacture.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Facture_Article.hbm.xml"/>
+	        <mapping resource="ims/model/entities/CoordonneeBancaire.hbm.xml"/>
+	        <mapping resource="ims/model/entities/BonLivraison.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Pays.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Ville.hbm.xml"/>
+	        <mapping resource="ims/model/entities/Pointage.hbm.xml"/> 
+	        <mapping resource="ims/model/entities/Timesheet.hbm.xml"/> 
+            <mapping resource="ims/model/entities/Projet.hbm.xml"/> 
+           	<mapping resource="ims/model/entities/Tache.hbm.xml"/> 
+          	<mapping resource="ims/model/entities/AvoirFournisseur.hbm.xml"/> 
+            <mapping resource="ims/model/entities/Jour.hbm.xml"/>
+           	<mapping resource="ims/model/entities/Stock.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Stock_Livraison.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Produit.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Facture_Livraison.hbm.xml"/>
+          	<mapping resource="ims/model/entities/years.hbm.xml"/>
+          	<mapping resource="ims/model/entities/TypePaiement.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Contact.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Caisse.hbm.xml"/>
+          	<mapping resource="ims/model/entities/LigneCaisse.hbm.xml"/>
+          	<mapping resource="ims/model/entities/AvoirClient.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Avoir_Articles.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Facture_Avoir.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Intervention.hbm.xml"/>
+          	<mapping resource="ims/model/entities/CotationOffre.hbm.xml"/>
+          	<mapping resource="ims/model/entities/TypeCharge.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Charge.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Salaires.hbm.xml"/>
+          	<mapping resource="ims/model/entities/Rubrique.hbm.xml"/>
+          	<mapping resource="ims/model/entities/OrdreVirement.hbm.xml"/>
+          	<mapping resource="ims/model/entities/LicenceApplication.hbm.xml"/>
+          	<mapping resource="ims/model/entities/FactureFournisseur.hbm.xml"/>
+          	<mapping resource="ims/model/entities/FactureFournisseur_articles.hbm.xml"/>
+			<mapping resource="ims/model/entities/UtilisateurHelpDesk.hbm.xml"/>
+			<mapping resource="ims/model/entities/TypeTicker.hbm.xml"/>
+			<mapping resource="ims/model/entities/TypePriorite.hbm.xml"/>
+			<mapping resource="ims/model/entities/Ticker.hbm.xml"/>
+			<mapping resource="ims/model/entities/SuiviTicker.hbm.xml"/>  
+			<mapping resource="ims/model/entities/ImagesbyTicker.hbm.xml"/>  
+			<mapping resource="ims/model/entities/TracerTicker.hbm.xml"/>   
+			<mapping resource="ims/model/entities/GroupeClient.hbm.xml"/>      	
+    </session-factory>
+</hibernate-configuration>

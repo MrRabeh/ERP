@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	 
+<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+	<h1 style="text-align: center;color: #339;">Articles</h1>
+    <content> 
+    <div style="float:left;width: 65%;">
+       <h:form id="form_place" class="form_place">
+                <p:growl id="msgs" showDetail="true"/>  
+               <table class="styletable" style="width: 800px;" cellpadding="0">
+               <div style='font-weight:bold;text-align: left;position: relative;bottom:-5px;'>Créer Article</div>
+               <tr>
+               <td>
+               		<table>
+			               <tr>
+			               <td>Produit</td>
+			               <td style="width: 10%;">
+			               <table>
+			               <tr>
+			               <td>
+			               <p:selectOneMenu id="produit"  filter="true" effect="fade" style="width:120px" styleClass="selectonemenu"  value="#{articleController.idproduit}">
+			                          <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+			                          <f:selectItems  value="#{produitController.produits}" var="prod" itemLabel="#{prod.typeproduit}" itemValue="#{prod.id}" />
+			                    </p:selectOneMenu>
+			               </td>
+			               <td>
+			               <p:commandButton value="Créer Produit"  style="width:100px;font-size:10px;bottom:5px;" oncomplete="creeproduit.show()"></p:commandButton>
+			               
+			               </td>
+			               </tr>
+			               </table>
+			              		
+			                    </td>
+			               </tr>
+			               <tr>
+						   <td style="width: 90%;">Type</td>
+			               <td style="width: 100%;">
+			               <table>
+			               <tr>
+			               <td>
+			                 <p:selectOneMenu id="type"  filter="true" effect="fade" style="width:120px" styleClass="selectonemenu"  value="#{articleController.idtypearticle}">
+			                                 <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+			                                 <f:selectItems  value="#{typeArticleController.typearticles}" var="typearticle" itemLabel="#{typearticle.type}" itemValue="#{typearticle.idtype}" />
+			                         </p:selectOneMenu>
+			               </td>
+			               <td><p:commandButton value="Créer Type"  style="width:100px;font-size:10px;bottom:5px;" oncomplete="creearticle.show()"></p:commandButton>
+			               </td>
+			               </tr>
+			               </table>
+			             
+			                       
+			               </td>
+			               </tr>
+			               <tr>
+			               <td>Réference</td>
+			               <td >
+			                     <p:inputText id="ref" required="required" value="#{articleController.ref}" />
+			               </td>
+			               </tr>
+					</table>
+					</td>
+               <td>
+	               <table>
+	                <tr>
+	               		<td>Désignation</td>
+		               <td >
+		               		<p:inputTextarea id="des" cols="100" style="width:300px;height:120px;"  required="required" value="#{articleController.des}" />
+		               </td>
+	               </tr>
+	               </table>
+               </td>
+               <td>
+               <table>
+               			 <tr>
+			               <td>
+			               <p:commandButton styleClass="styleGreen" style="width:100px;" value="Enregistrer" actionListener="#{articleController.insert}" update=":form:tablep,msgs,:form_place:des,:form_place:ref,:form_place:produit,:form_place:type">
+			               </p:commandButton>
+			               </td>
+			              </tr>
+			              <tr>
+			               <td><p:commandButton styleClass="styleGreen" style="width:100px;" value="Annuler" actionListener="#{articleController.annuler}" update=":form:tablep,msgs,:form_place:des,:form_place:ref,:form_place:produit,:form_place:type"></p:commandButton></td>
+			               </tr>
+			             
+               </table>
+               </td>
+               </tr>
+               </table>
+        </h:form>    
+        <h:form id="form">
+         
+                                        <p:growl id="msgs" showDetail="true"/>
+                                        
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{articleController.articles}" var="obj"
+                                                      selection="#{articleController.article}"
+                                                     rowKey="#{obj.idArticle}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     style="width:810px"
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     <p:ajax event="cellEdit" listener="#{articleController.update}" update=":form:msgs" />
+       										
+                                                     	 <p:column style="width:60px;" filterBy="#{obj.ref}" sortBy="#{obj.ref}" headerText="Réference" filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.ref}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputText value="#{obj.ref}" /></f:facet>
+		                                                	</p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:150px;" filterBy="#{obj.designation}" sortBy="#{obj.designation}" headerText="Désignation"  filterMatchMode="contains">
+            												<p:cellEditor>
+		                                                    	<f:facet name="output"><h:outputText value="#{obj.designation}" /></f:facet>
+		                                                    	<f:facet name="input"><p:inputTextarea cols="200" value="#{obj.designation}" /></f:facet>
+		                                                	</p:cellEditor>
+       													 </p:column>
+       													 
+       													 	 <p:column style="width:80px;" filterBy="#{obj.typeproduit.typeproduit}" sortBy="#{obj.typeproduit.typeproduit}" headerText="Produit"  filterMatchMode="contains">
+            													<p:cellEditor>
+		                                                    		<f:facet name="output"><h:outputText value="#{obj.typeproduit.typeproduit}" /></f:facet>
+		                                                    		<f:facet name="input">
+		                                         								<p:autoComplete id="comproduit" value="#{obj.typeproduit.typeproduit}" completeMethod="#{articleController.completerProduit}" />
+		                                                    		</f:facet>
+		                                                		</p:cellEditor>
+       													 	</p:column>
+       													 
+       													 	 <p:column style="width:80px;" filterBy="#{obj.typearticle.type}" sortBy="#{obj.typearticle.type}" headerText="Type Article"  filterMatchMode="contains">
+            														<p:cellEditor>
+					                                                    <f:facet name="output"><h:outputText value="#{obj.typearticle.type}" /></f:facet>
+					                                                    <f:facet name="input">
+					                                                    			<p:autoComplete id="comptypearticle" value="#{obj.typearticle.type}" completeMethod="#{articleController.completerTypeArticle}" />
+					                                                    </f:facet>
+					                                                </p:cellEditor>
+       													     </p:column>
+       													     
+       													    
+                                            			 <f:facet name="header">
+                                            			 
+                                            			 <p:commandButton styleClass="styleGreen" value="Actualiser" actionListener="#{articleController.actualiser}" update=":form:tablep"></p:commandButton>
+                                            			 
+                                            			  <p:column style="width:45px;" headerText="Supprimer" >
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmation.show()" styleClass="button white icon"> 
+		                                                	 
+		                                                	</p:commandButton>
+                                            			</p:column> 
+                                            			 </f:facet>
+                                        </p:dataTable>
+                                         <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer l'article" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep,msgs" action="#{articleController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" update=":form:tablep" />
+                                        </p:confirmDialog>
+                                    </h:form>
+                                    </div>
+      						<div>
+      						 <p:dialog header="créer un Produit" widgetVar="creeproduit" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                     <h:form id="forminsertproduit" >
+                                     <p:growl id="msgs" showDetail="true"/>  
+                                        		<h:panelGrid columns="2" cellpadding="5">
+													
+													<h:outputLabel for="name" value="Produit " />
+													<p:inputText id="typeproduit" value="#{produitController.typeproduit}" />
+													<p:commandButton  styleClass="styleGreen" value="annuler" actionListener="#{produitController.annuler}" update="msgs,:form_place:produit,:forminsertproduit:typeproduit,:formproduit:tableProduit" oncomplete="creeproduit.hide()" ></p:commandButton>
+													<p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{produitController.insert}" update="msgs,:form_place:produit,:forminsertproduit:typeproduit,:formproduit:tableProduit" oncomplete="creeproduit.hide()" ></p:commandButton>
+                             				</h:panelGrid>
+                                    </h:form>
+                             </p:dialog>
+                                                
+						            <h:form id="formproduit">
+						                                        <p:growl id="msgs" showDetail="true"/> 
+						                                   
+						                                        <p:dataTable id="tableProduit" value="#{produitController.produits}" var="obj"
+						                                                      selection="#{produitController.produit}"
+						                                                     rowKey="#{obj.id}"
+						                                                     paginator="true"
+						                                                     rows="8"
+						                                                     paginatorPosition="bottom"
+						                                                     emptyMessage="Aucun résultat trouvé"
+						                                                     filteredValue="#{produitController.filteredproduits}"
+						                                                     resizableColumns="true"
+						                                                     scrollRows="20" scrollable="true" liveScroll="true"
+						                                                     styleClass="datatablestyle"
+						                                                     rowStyleClass="datarowstyle"
+						                                                     style="width:400px"
+						                                                     editable="true"
+						                                                     editMode="cell"
+						                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                           				
+                                           				<p:ajax event="cellEdit" listener="#{produitController.onCellEdit}" update=":formproduit:msgs,:formproduit:tableProduit,:form_place:produit,:form:tablep" />
+       										
+                                           				<p:column style="width:150px;" filterBy="#{obj.typeproduit}" sortBy="#{obj.typeproduit}" headerText="Produit"  filterMatchMode="contains">
+            												 <p:cellEditor>
+		                                                    		<f:facet name="output"><h:outputText value="#{obj.typeproduit}" /></f:facet>
+		                                                    		<f:facet name="input"><p:inputText value="#{obj.typeproduit}" /></f:facet>
+		                                                	</p:cellEditor>
+       													</p:column>
+       													
+       													 <f:facet name="header">
+       													 
+       													 <p:commandButton styleClass="styleGreen" value="Actualiser" actionListener="#{produitController.actualiser}" update=":formproduit:tableProduit"></p:commandButton>
+       													 
+       													 <p:column style="width:50px;" headerText="Supprimer" >
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmationp.show()" styleClass="button white icon"> 
+		                                                	 <f:setPropertyActionListener target="#{produitController.produit}" value="#{obj}" update=":form:tableProduit"/>
+		                                                	</p:commandButton>
+                                            			</p:column> 
+                                            			
+                                            			 
+                                            			 </f:facet>
+                                            			 
+                                        </p:dataTable>
+                                        <p:confirmDialog widgetVar="confirmationp" message="voulez vous Supprimer le Produit selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":formproduit:tableProduit,:formproduit:msgs,:form_place:produit" action="#{produitController.delete}" oncomplete="confirmationp.hide()" />
+                                            <p:commandButton value="non" onclick="confirmationp.hide()" type="button" update=":formproduit:tableoffre,:formproduit:msgs" />
+                                        </p:confirmDialog>
+                                    </h:form>  
+                                    
+                                    <p:dialog header="créer un Type Article" widgetVar="creearticle" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                     
+                                     <h:form id="forminserttype" >
+                                     	<p:growl id="msgs" showDetail="true"/> 
+	                                     <h:panelGrid columns="2" cellpadding="5">
+		                                         <h:outputLabel for="name" value="Type Article " />
+												 <p:inputText id="typeart" value="#{typeArticleController.nouveautype}" />
+												<p:commandButton value="Annuler" actionListener="#{typeArticleController.annuler}" update="msgs,:form_place:type,:forminserttype:typeart,:formtype:tabletypearticle" oncomplete="creearticle.hide()"></p:commandButton>
+												<p:commandButton  value="Enregistrer" actionListener="#{typeArticleController.insert}" update="msgs,:form_place:type,:forminserttype:typeart,:formtype:tabletypearticle" oncomplete="creearticle.hide()"></p:commandButton>
+									      </h:panelGrid>
+								      </h:form>
+								      </p:dialog>
+                    
+			               			<h:form id="formtype">
+			                            
+			                                        <p:growl id="msgs" showDetail="true"/>  
+			                                        <p:dataTable id="tabletypearticle" value="#{typeArticleController.typearticles}" var="obj"
+			                                                      selection="#{typeArticleController.typearticle}"
+			                                                     rowKey="#{obj.idtype}"
+			                                                     paginator="true"
+			                                                     rows="5"
+			                                                     paginatorPosition="bottom"
+			                                                     emptyMessage="Aucun résultat trouvé"
+			                                                     filteredValue="#{typeArticleController.filteredTypeArticle}"
+			                                                     editable="true"
+			                                                     editMode="cell"
+			                                                     style="width:400px"
+			                                                     resizableColumns="true"
+			                                                     styleClass="datatablestyle"
+			                                                     rowStyleClass="datarowstyle"
+			                                                     >
+			                                                     
+			                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+			                                                     
+			                                                     <p:ajax event="cellEdit" listener="#{typeArticleController.update}" update=":formtype:msgs,:formtype:tabletypearticle,:form_place:type,:form:tablep" />
+			       										
+			                                                     
+			                                            <p:column style="width:150px;" headerText="Type" filterBy="#{obj.type}" filterMatchMode="contains"  sortBy="#{obj.type}">
+			                                                <p:cellEditor>
+			                                                    <f:facet name="output"><h:outputText value="#{obj.type}" /></f:facet>
+			                                                    <f:facet name="input"><p:inputText  value="#{obj.type}" style="width:100%"/></f:facet>
+			                                                </p:cellEditor>
+			                                            </p:column> 
+			                                            	 <f:facet name="header">
+			                                            	 
+			                                            	 		<p:commandButton styleClass="styleGreen" value="Actualiser" actionListener="#{typeArticleController.actualiser}" update=":formtype:tabletypearticle"></p:commandButton>        
+						                                            <p:column style="width:50px;" headerText="Supprimer" >
+								                                                	<p:commandButton icon="b_icon b102" onclick="confirmation2.show()" styleClass="button white icon"> 
+								                                                	 <f:setPropertyActionListener target="#{typeArticleController.typearticle}" value="#{obj}" update=":formtype:tabletypearticle"/>
+								                                                	</p:commandButton>
+						                                            </p:column> 
+															</f:facet>
+			                                           
+			                                        </p:dataTable>
+			                                    	<p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le Type Article selectionner?" header="confirmation" severity="alert" >
+			                                            <p:commandButton value="oui" update=":formtype:tabletypearticle,:form:msgs" action="#{typeArticleController.Delete}" oncomplete="confirmation2.hide()" />
+			                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+			                                        </p:confirmDialog>
+			                           </h:form>     
+                        </div>          
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

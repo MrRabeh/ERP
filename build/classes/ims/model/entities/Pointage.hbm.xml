@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Pointage">
+  <id name="idpointage" column="idpointage">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="nom" column="nom" not-null="true" unique="false" ></property>
+	<property name="datePointage" column="datePointage"></property>
+  <property name="periode" column="periode"></property>
+    <property name="entree" column="entree"></property>
+      <property name="sortie" column="sortie"></property>
+    
+  </class>
+</hibernate-mapping>

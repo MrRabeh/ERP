@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Stock">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  		<property name="numserie" column="NumSerie"></property>
+ 		<property name="qteinital" column="qteinital"></property>
+ 		<property name="qte" column="qte"></property>
+ 		<property name="datestock" column="datestock"></property>
+ 		<property name="datelivrer" column="datelivrer"></property>
+ 		
+ 		
+ 		<many-to-one name="fournisseur" class="ims.model.entities.Fournisseur" column="fournisseurID" lazy="false"></many-to-one>
+ 		<many-to-one name="client" class="ims.model.entities.Client" column="ClientID" lazy="false"></many-to-one>
+ 		<many-to-one name="clientFinal" class="ims.model.entities.Client" column="ClientFinalID" lazy="false"></many-to-one>
+ 		<many-to-one name="article" class="ims.model.entities.Article" column="articleID" lazy="false"></many-to-one>
+ 		
+  </class>
+</hibernate-mapping>

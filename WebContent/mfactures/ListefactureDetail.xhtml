@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+    <content> 
+    <h:form id="form">
+    <p:growl id="msgs" showDetail="true"/>  
+    <br/>                                       
+	           <p:dataTable id="tablep" widgetVar="tablep" value="#{factureBonLivraisonController.listes}" var="obj"
+                                                     selectionMode="single" selection="#{factureBonLivraisonController.liste}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     
+                                                       styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                      <p:column filterBy="#{obj.offre.ref}" sortBy="#{obj.offre.ref}" headerText="Offre"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.offre.ref}" />
+       													 </p:column>
+       													 
+       													 	<p:column filterBy="#{obj.commande.numercommande}" sortBy="#{obj.commande.numercommande}" headerText="commande"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.commande.numercommande}" />
+       													 </p:column>
+       													 
+       													   <p:column filterBy="#{obj.bnlivraison.ref}" sortBy="#{obj.bnlivraison.ref}" headerText="BL"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.bnlivraison.ref}" />
+       													 </p:column>
+       													 
+                                                     <p:column filterBy="#{obj.facture.ref}" sortBy="#{obj.facture.ref}" headerText="Facture"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.facture.ref}" />
+       													 </p:column>
+       													 
+       													 <p:column filterBy="#{obj.client.societe}" sortBy="#{obj.client.societe}" headerText="Client"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.client.societe}" />
+       													 </p:column>
+                                                     	
+                                        </p:dataTable>
+         </h:form>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,127 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" dir="ltr" lang="fr">
+
+    <f:view contentType="text/html">
+            <h:head>
+       <title>Bienvenue sur ERP IMS</title>
+<meta charset="utf-8" />
+<h:outputStylesheet library="crmstyle" name="style.css"/>
+<meta name="viewport" content="width-device-width, initial-scale-1.0" />
+    </h:head>
+        <h:body>
+          <h:form>
+          <p:growl id="msgs" showDetail="true"/>  
+        <div class="entrerIndex">
+       
+        </div>
+        <div id="navcontainer">
+<ul id="navlist">
+<li>
+<h:outputText id="user"  value="#{utilisateurControlleur.messagebienvenu}">
+ </h:outputText>
+</li>
+<li>
+<a href="../madministration/index.xhtml" class="classmenu" >Administration</a>
+</li>
+<li>
+<a class="classmenu" href="${request.contextPath}/j_spring_security_logout">Déconnexion</a>
+</li>
+</ul>
+</div>
+<div style="text-align: center;position: relative;">
+<h1>Gestion Commerciale</h1>
+</div>
+        <div>
+<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+        <table>
+        <tr>
+        <td>
+         </td>
+         <td style="width: 90%">
+				         <table class="tableindex"  id="styletable" style="width: 500px;;" cellpadding="0" cellspacing="0" >
+				        <TBODY>
+				        <tr>
+				        <td colspan="3" >
+				        <p:commandButton icon="bdevis" style="width:550px;height:50px;" action="#{indexController.redirectdevis}"  value="#{offreController.str_devis}"></p:commandButton>
+				        </td> 
+				        </tr>
+				        <tr>
+				        <td colspan="3" >
+				        <p:commandButton icon="bcommande" style="width:550px;height:50px;" action="#{indexController.redirectccommende}"  value="#{bonCommandecontroller.str_commande}"></p:commandButton>
+				        </td>
+				        </tr>
+				         <tr>
+				        <td colspan="3" >
+				        <p:commandButton icon="blivraison" style="width:550px;height:50px;" action="#{indexController.redirectlivraison}"  value="#{bonlivraisonController.str_livraison}"></p:commandButton>		        
+				        </td>
+				        </tr>
+				        <tr>
+				        <td>
+				         <p:commandButton icon="bfact" style="width:220px;height:50px;" action="#{indexController.redirectfactclient}"  value="Facture Client"></p:commandButton>		        
+				        </td>
+				        <td >
+				        <p:commandButton icon="bfact" style="width:150px;height:50px;" action="#{indexController.redirectfactcontrat}"  value="Facture Contrat"></p:commandButton>		        
+				        </td>
+				        <td >
+				         <p:commandButton icon="bfact" style="width:175px;height:50px;" action="#{indexController.redirectfactfournisseur}"  value="#{factureFournisseurController.str_facture}"></p:commandButton>		        
+				        </td>
+				        </tr>
+				        <tr>
+				        <td>
+				         <p:commandButton icon="barticle" style="width:220px;height:50px;" action="#{indexController.redirectArticle}"  value="#{articleController.str_article}"></p:commandButton>		        
+				        </td>
+				        <td >
+				        <p:commandButton icon="bproduit" style="width:150px;height:50px;" action="#{indexController.redirectcorrespondance}"  value="Liaisons"></p:commandButton>		        
+				        </td>
+				        <td >
+				         <p:commandButton icon="bstock" style="width:175px;height:50px;" action="#{indexController.redirectStock}"  value="Stock"></p:commandButton>		        
+				        </td>
+				        </tr>
+				         <tr>
+				       
+				        <td style="width: 12%;">
+				        <p:commandButton icon="bmov1" style="width:220px;height:50px;" action="#{indexController.redirectMovclient}"  value="#{comptabiliteController.str_factures}"></p:commandButton>
+				        </td>
+
+						<td colspan="3" style="width: 12%;">
+				        <p:commandButton icon="bmov2" style="width:328px;height:50px;" action="#{indexController.redirectMovFournisseur}"  value="#{comptabiliteController.str_facturesfournisseurs}"></p:commandButton>
+				        </td>
+				        </tr>
+				        </TBODY>
+				        </table>
+			        	<table class="tableindex"  style="width: 500px;margin: 0 230px"  cellpadding="0" cellspacing="0">
+			        	<tr>
+				        	<td>
+				        		<p:commandButton icon="bclient" style="width:140px;height:100px;" action="#{indexController.redirectclient}"  value="Client"></p:commandButton>
+				        	</td>
+				        	<td>
+				        		<p:commandButton icon="bfournisseur" style="width:140px;height:100px;background-color:#C7D5DD;" action="#{indexController.redirectfournisseur}" value="Fournisseur" ></p:commandButton>
+				        	</td>
+								
+				        	<td>
+				        		<p:commandButton icon="breporting" style="width:140px;height:100px;" action="#{indexController.redirectReporting}" value="reporting"></p:commandButton>
+				        	</td>
+				        	<td>
+				        		<p:commandButton icon="bchelpdesk" style="width:140px;height:100px;" action="#{indexController.redirecthelpdesk}"  value="Help Desk"></p:commandButton>
+				        	</td>
+			        	</tr> 	
+			        	</table>
+			       </td>
+			  </tr>
+			</table>
+        </div>
+          </h:form>
+ 				</h:body>
+
+    </f:view>
+</html>
+
+

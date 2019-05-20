@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>
+    <h:form id="form_place" >
+											<p:growl id="msgs" showDetail="true"/>  
+											
+											<table class="styletable" cellpadding="0">
+											<div style='font-weight:bold;text-align: left;position: relative;bottom:-5px;'>Créer Produit</div>
+											<tr><td>Produit</td><td> <p:inputText id="typeproduit" value="#{produitController.typeproduit}" /></td></tr>
+											<tr>
+											<td><p:commandButton  styleClass="styleGreen" value="annuler" actionListener="#{produitController.annuler}" update="msgs,:form_place:typeproduit,:form:tableProduit"></p:commandButton></td>
+											<td><p:commandButton styleClass="styleGreen" value="creer Produit" actionListener="#{produitController.insert}" update="msgs,:form_place:typeproduit,:form:tableProduit" /></td><td></td></tr>
+											</table>
+                                       
+                                    </h:form>                
+            <h:form id="form">
+            
+            <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{produitController.actualiser}" update=":form:tableProduit"></p:commandButton>
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tableProduit" value="#{produitController.produits}" var="obj"
+                                                      selection="#{produitController.produit}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{produitController.filteredproduits}"
+                                                     resizableColumns="true"
+                                                     scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                           				
+                                           				<p:ajax event="cellEdit" listener="#{produitController.onCellEdit}" update=":form:msgs,:form:tableProduit" />
+       										
+                                           				<p:column filterBy="#{obj.typeproduit}" sortBy="#{obj.typeproduit}" headerText="Produit"  filterMatchMode="contains">
+            												 <p:cellEditor>
+		                                                    		<f:facet name="output"><h:outputText value="#{obj.typeproduit}" /></f:facet>
+		                                                    		<f:facet name="input"><p:inputText value="#{obj.typeproduit}" /></f:facet>
+		                                                	</p:cellEditor>
+       													</p:column>
+       													 
+       													 <p:column style="width:100px;" headerText="Supprimer" >
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmation2.show()" styleClass="button white icon"> 
+		                                                	 <f:setPropertyActionListener target="#{produitController.produit}" value="#{obj}" update=":form:tableProduit"/>
+		                                                	</p:commandButton>
+                                            			</p:column> 
+                                        </p:dataTable>
+                                        <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le stock selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tableProduit,:form:msgs" action="#{stockController.deletestock}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+                                        </p:confirmDialog>
+                                    </h:form>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

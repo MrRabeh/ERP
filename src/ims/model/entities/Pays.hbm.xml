@@ -1,0 +1,12 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+
+  <class name="Pays">
+  <id name="idpays" column="idpays">
+  <generator class="increment"></generator>
+  </id>
+  <property name="cod_pays" column="cod_pays" ></property>
+  <property name="pays" column="pays" not-null="true" unique="true" ></property>
+   </class> 
+</hibernate-mapping>

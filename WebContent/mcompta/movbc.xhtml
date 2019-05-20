@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>
+    		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+ <h:form id="form">
+              <p:commandButton action="#{comptabiliteController.actualiser}" value="Actualisée" update="comptafacture"></p:commandButton>
+                                        <p:growl id="msgs" showDetail="true"/>     
+                                        <p:dataTable id="comptabc" widgetVar="comptabc" value="#{comptabiliteController.commandes}" var="obj"
+                                                      selection="#{comptabiliteController.boncommande}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                    
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                             <p:column selectionMode="single" style="width:20px;text-align:center"/>
+                                            
+                                            <p:ajax event="cellEdit" listener="#{comptabiliteController.onCellEditBc}" update=":form:msgs,:form:comptabc" />
+                                            
+                                             <p:column filterBy="#{obj.numercommande}" sortBy="#{obj.numercommande}" headerText="Réference" filterMatchMode="contains">
+            										<h:outputText value="#{obj.numercommande}" />
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.datecommande}" sortBy="#{obj.datecommande}" headerText="Date" filterMatchMode="contains">
+            										<h:outputText value="#{obj.datecommande}" >
+            											<f:convertDateTime pattern="dd/MM/yy" />
+            										</h:outputText>
+            					
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.fournisseur.nomsociete}" sortBy="#{obj.fournisseur.nomsociete}" headerText="Fournisseur" filterMatchMode="contains">
+            										<h:outputText value="#{obj.fournisseur.nomsociete}" />
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.client.societe}" style="width:70px" sortBy="#{obj.client.societe}" headerText="Client Final" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.societe}" />
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.echeance}" sortBy="#{obj.echeance}" headerText="echance" filterMatchMode="contains">
+            										<h:outputText value="#{obj.echeance}" >
+            										
+            										</h:outputText>
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.totalnet}" sortBy="#{obj.totalnet}" headerText="total NET" filterMatchMode="contains">
+            										<h:outputText value="#{obj.totalnet}" />
+       										 </p:column>
+       										 
+       										 <p:column headerText="Date echance"  filterBy="#{obj.dateechance}" filterMatchMode="contains" sortBy="#{obj.dateechance}">
+                                                <p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.dateechance}" >
+									               	<f:convertDateTime pattern="dd/MM/yy" />
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									                   <p:calendar value="#{comptabiliteController.tempodateechancebc}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+       										  <p:column headerText="Etat"  filterBy="#{obj.etat}" filterMatchMode="contains" sortBy="#{obj.etat}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.etat}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:selectOneMenu value="#{comptabiliteController.tempoetatbc}" style="width:100%">
+									                   
+									                       <f:selectItems value="#{comptabiliteController.etats}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+									                   </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+       										 
+       										     <p:column style="width:200px;" headerText="Réglement"  filterBy="#{obj.reglement}" filterMatchMode="contains" sortBy="#{obj.reglement}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.reglement}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporeglementbc}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Avance"  filterBy="#{obj.montantregler}" filterMatchMode="contains" sortBy="#{obj.montantregler}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montantregler}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporeglerbc}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Reste"  filterBy="#{obj.montantrester}" filterMatchMode="contains" sortBy="#{obj.montantrester}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montantrester}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporesterbc}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column style="width:40px;" headerText="constater"  filterBy="#{obj.constater}" filterMatchMode="contains" sortBy="#{obj.constater}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.constater}" /></f:facet>
+									               <f:facet name="input">
+									                     <p:selectOneMenu value="#{comptabiliteController.tempocontsatbc}" style="width:100%">
+									                       <f:selectItem  itemLabel="choisi Oui/Non" itemValue="" />
+									                       <f:selectItem  itemLabel="Oui" itemValue="Oui" />
+									                        <f:selectItem  itemLabel="Non" itemValue="Non" />
+									                   </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <!--
+                                            
+                                                 <p:column headerText="V.Facture" style="width:40px;text-align: center">
+										             <p:commandButton icon="b_icon bcommande" styleClass="button white icon" actionListener="#{comptabiliteController.preparedialogfacture}" update=":form:comptafacture"  oncomplete="bcDialog.show()">
+										                <f:setPropertyActionListener value="#{obj}" target="#{comptabiliteController.bc}" />
+										            </p:commandButton>
+										        </p:column>
+       										 
+       										   -->
+                                        </p:dataTable>
+
+
+
+                                          <p:dialog header="Mouvement Factures d'un Bon commande" widgetVar="bcDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+									        <p:outputPanel id="bcDetail" style="text-align:center;">
+									           <p:dataTable id="comptafacture" widgetVar="comptafacture" value="#{comptabiliteController.facturesforbc}" var="obj"
+                                                      selection="#{comptabiliteController.facture}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="30"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     scrollRows="40" scrollable="true" liveScroll="true" scrollHeight="560"
+                                                     style='width:1000px;'
+                                                     >
+                                                     
+                                             <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                             <p:ajax event="cellEdit" listener="#{comptabiliteController.onCellEdit}" update=":form:msgs,:form:comptafacture" />
+                                            
+                                             <p:column filterBy="#{obj.ref}" sortBy="#{obj.ref}" headerText="Num Facture" filterMatchMode="contains">
+            										<h:outputText value="#{obj.ref}" />
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.client.societe}" sortBy="#{obj.client.societe}" headerText="Societe" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.societe}" />
+       										 </p:column>
+       										 
+       										  <p:column filterBy="#{obj.totalttc}" sortBy="#{obj.totalttc}" headerText="TTC" filterMatchMode="contains">
+            										<h:outputText value="#{obj.totalttc}" />
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.datefacture}" sortBy="#{obj.datefacture}" headerText="Date Facture" filterMatchMode="contains">
+            										<h:outputText value="#{obj.datefacture}" >
+            										<f:convertDateTime pattern="dd/MM/yy" />
+            										</h:outputText>
+       										 </p:column>
+       										 
+       										 <p:column filterBy="#{obj.conditiondepayment}" sortBy="#{obj.conditiondepayment}" headerText="echance" filterMatchMode="contains">
+            										<h:outputText value="#{obj.conditiondepayment}" />
+       										 </p:column>
+       										 
+       										  <p:column headerText="Date echance"  filterBy="#{obj.dateechance}" filterMatchMode="contains" sortBy="#{obj.dateechance}">
+                                                <p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.dateechance}" >
+									               <f:convertDateTime pattern="dd/MM/yy" />
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									               <p:inputMask id="dateechance" value="#{comptabiliteController.tempodateechance}" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+       										 
+                                            <p:column exportable="true" headerText="Etat"  filterBy="#{obj.etat}" filterMatchMode="contains" sortBy="#{obj.etat}">
+                                                <p:cellEditor >
+									               <f:facet name="output"><h:outputText value="#{obj.etat}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:selectOneMenu value="#{comptabiliteController.tempoetat}" style="width:100%">
+									                   
+									                       <f:selectItems value="#{comptabiliteController.etats}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+									                   </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Réglement"  filterBy="#{obj.reglement}" filterMatchMode="contains" sortBy="#{obj.reglement}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.reglement}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporeglement}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column headerText="Avance"  filterBy="#{obj.montantregler}" filterMatchMode="contains" sortBy="#{obj.montantregler}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montantregler}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporegler}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Reste"  filterBy="#{obj.montantrester}" filterMatchMode="contains" sortBy="#{obj.montantrester}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montantrester}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{comptabiliteController.temporester}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column filterBy="#{obj.typepaiement.typepaiement}" sortBy="#{obj.typepaiement.typepaiement}" headerText="Type Paiement" filterMatchMode="contains">
+            										<h:outputText value="#{obj.typepaiement.typepaiement}" />
+       										 </p:column>
+                                        </p:dataTable>
+									        </p:outputPanel>
+									    </p:dialog>
+                                    </h:form>            
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

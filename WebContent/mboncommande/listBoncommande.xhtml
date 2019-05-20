@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+<h:form id="form">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Bon Commandes</h1>
+    <content>                
+
+                                        
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{bonCommandecontroller.commandes}" var="obj"
+                                                      selection="#{bonCommandecontroller.commande}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                                       <p:ajax event="cellEdit" listener="#{bonCommandecontroller.editcellcommande}" update=":form:msgs,:form:tablep" />
+											
+                                                      <p:column filterBy="#{obj.numercommande}" style="width:100px;" sortBy="#{obj.numercommande}" headerText="Réference" filterMatchMode="contains">
+            											<h:outputText value="#{obj.numercommande}" />
+       										 			</p:column>
+       										 
+                                                     <p:column filterBy="#{obj.datecommande}" style="width:60px;" sortBy="#{obj.datecommande}" headerText="date Y/M/D" filterMatchMode="startsWith">
+            											<h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datecommande}" />
+														</h:outputFormat>
+       										 			</p:column>
+                                            	
+                                            	 		<p:column style="width:130px" filterBy="#{obj.fournisseur.nomsociete}" sortBy="#{obj.fournisseur.nomsociete}" headerText="Fournisseur"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.fournisseur.nomsociete}" />
+       													 </p:column>
+       													 
+       												<p:column style="width:130px;"  filterBy="#{obj.client.groupeclient.nomGroupe}"  sortBy="#{obj.client.groupeclient.nomGroupe}" headerText="Groupe" filterMatchMode="contains">
+            												<h:outputText value="#{obj.client.groupeclient.nomGroupe}" />
+       												 </p:column>
+       													 
+       													 <p:column style="width:130px" filterBy="#{obj.client.societe}" sortBy="#{obj.client.societe}" headerText="Client"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.client.societe}" />
+       													 </p:column>
+       													 
+       													 <p:column style="width:70px" filterBy="#{obj.totalht}" sortBy="#{obj.totalht}" headerText="Total HT"  filterMatchMode="startsWith">
+            												<h:outputText value="#{obj.totalht}" />
+       													 </p:column>
+       													 
+       													  <p:column style="width:70px" filterBy="#{obj.totalttc}" sortBy="#{obj.totalttc}" headerText="Total TTC"  filterMatchMode="startsWith">
+            												<h:outputText value="#{obj.totalttc}" />
+       													 </p:column>
+       													 
+       													 <p:column style="width:70px" filterBy="#{obj.totalnet}" sortBy="#{obj.totalnet}" headerText="Total NET"  filterMatchMode="startsWith">
+            												<h:outputText value="#{obj.totalnet}" />
+       													 </p:column>
+       													 
+       													 <p:column style="width:70px" headerText="Etat" filterBy="#{obj.etat}" filterMatchMode="startsWith" sortBy="#{obj.etat}">
+		                                                <p:cellEditor>
+											               <f:facet name="output"><h:outputText value="#{obj.etat}" /></f:facet>
+											               <f:facet name="input">
+											                   <p:selectOneMenu value="#{obj.etat}" style="width:100%">
+											                       <f:selectItems value="#{bonCommandecontroller.etats}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+											                   </p:selectOneMenu>
+											               </f:facet>
+											      		</p:cellEditor>
+		                                            	</p:column>
+		                                            	
+		                                            	 <p:column filterBy="#{obj.constater}" style="width:50px" sortBy="#{obj.constater}" headerText="Constater" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.constater}" />
+       										 				</p:column>
+                                            		
+                                            	     <p:column style="width:40px"  filterBy="#{obj.typepaiement.typepaiement}" filterMatchMode="startsWith" sortBy="#{obj.typepaiement.typepaiement}">
+		                                                <f:facet name="header">         
+		                                                    <h:outputText class="th-sortable" value="Devise" />
+		                                                </f:facet>
+		                                                <h:outputText value="#{obj.typepaiement.typepaiement}" />
+		                                            </p:column>
+                                            		
+                                                <p:column style="width:40px" headerText="Annuler" filterBy="#{obj.afficherannuler}" filterMatchMode="startsWith" sortBy="#{obj.afficherannuler}">
+	                                                 <p:cellEditor>
+											               <f:facet name="output"><h:outputText value="#{obj.afficherannuler}" /></f:facet>
+											               <f:facet name="input">
+											                   <p:selectOneMenu value="#{obj.annuler}" style="width:100%">
+											                       <f:selectItems value="#{bonCommandecontroller.etatannuler}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+											                   </p:selectOneMenu>
+											               </f:facet>
+											      </p:cellEditor>
+                                                </p:column>
+                                                
+                                                
+                                                
+                                                 <f:facet name="header">
+                                                 
+													   <p:commandButton action="#{bonCommandecontroller.prepareCreate}" value="Créer"></p:commandButton> 
+													   <p:commandButton action="#{bonCommandecontroller.actualiser}" value="Actualiser" update="tablep"></p:commandButton>
+                                                	
+                                                	<p:column style="width:20px" headerText="PDF">
+		                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{bonCommandecontroller.imprimerfont}" >
+		                                                    <span class="b_icon b102"></span>
+		                                                </p:commandButton>
+                                            		</p:column>
+                                            	
+                                            	<p:column style="width:20px" headerText="PDF">
+	                                                <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{bonCommandecontroller.imprimer}" >
+	                                                    <span class="b_icon b102"></span>
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Mail">
+											<p:commandButton icon="b6488" action="#{emailController.mailtocommande}" styleClass="button white icon">
+                                                 
+                                             </p:commandButton>
+                                            </p:column>
+                                            
+												<p:column style="width:20px" headerText="Edit" >
+                                                <p:commandButton icon="b300" action="#{bonCommandecontroller.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Annulé">
+	                                                <p:commandButton icon="bannuler"  onclick="confirmation.show()">
+	                                                   
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Supp">
+                                                <p:commandButton icon="b_icon b102"  onclick="confirmation2.show()">
+                                                   
+                                                </p:commandButton>
+                                            </p:column>
+                                            </f:facet>
+                                            
+                                        </p:dataTable>
+                                         <p:confirmDialog widgetVar="confirmation" message="voulez vous Annulé le Bon Commande?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tablep,:form:msgs" action="#{bonCommandecontroller.annuler}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" update=":form:tablep,:form:msgs" />
+                                        </p:confirmDialog>
+                                        
+                                        
+                                         <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le Bon Commande?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tablep,:form:msgs" action="#{bonCommandecontroller.Delete}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tablep,:form:msgs" />
+                                        </p:confirmDialog>
+                                        
+    </content>
+    </article>
+      </h:form>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

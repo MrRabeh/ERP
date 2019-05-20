@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Fournisseurs</h1>
+    <content>
+<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+    <div class="stylerightfournisseur">
+        
+        <h:form id="formcontact">   
+        <p:growl id="msgs" showDetail="true"/>
+    <table class="styletable" style="width: 30%;" cellpadding="0">
+            		<div style='font-weight:bold;text-align: left;bottom:-7px;'>Contact</div>
+	            	
+	            	<tr>
+	            	<td>Fournisseur</td>
+	            	<td>
+	            		 <p:selectOneMenu id="idselectfournisseur" styleClass="selectonemenu" value="#{fournisseurController.idfournisseur}" style="width:100%">
+									                       					<f:selectItem  itemLabel="" itemValue="" />
+									                       					<f:selectItems  value="#{fournisseurController.fournisseurs}" var="f" itemLabel="#{f.nomsociete}" itemValue="#{f.idfournisseur}" />
+						</p:selectOneMenu>
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>Nom</td>
+	            	<td><p:inputText  id="nom"  value="#{fournisseurController.nomcontact}" />
+											  	</td>
+	            	<td>GSM</td>
+	            	<td><p:inputText  id="gsm"   value="#{fournisseurController.gsmcontact}" />
+											  </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Prénom</td>
+	            	<td><p:inputText  id="prenom"    value="#{fournisseurController.prenomconatct}" />
+											  </td>
+	            	<td>Télephone</td>
+	            	<td> <p:inputText  id="tel"  value="#{fournisseurController.telcontact}" />						    
+                                               </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Email</td>
+	            	<td><p:inputText  id="email_contact"  value="#{fournisseurController.emailcontact}" />
+												</td>
+	            	<td>Fax</td>
+	            	<td><p:inputText  id="gsm2"    value="#{fournisseurController.faxcontact}" />
+                                               </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Département</td>
+	            	<td><p:inputText  id="dept"   value="#{fournisseurController.deptcontact}" />
+                                                   </td>
+	            	<td>Fonction</td>
+	            	<td><p:inputText  id="fonc"   value="#{fournisseurController.foncontact}" />
+					</td>
+	            	</tr>
+	            	<tr>
+	            	<td colspan="2">
+	            	 <p:commandButton styleClass="styleGreen" value="Ajouter" actionListener="#{fournisseurController.insertcontact}" update=":formlistcontact:tablcontact,:formlistcontact:msgs,gsm2,tel,gsm,nom,prenom,email_contact,fonc,dept" >
+	            	 </p:commandButton>
+	            	</td>
+	            	</tr>
+	            	</table>
+	            	</h:form> 
+	            	<h:form id="formlistcontact" >
+	            	<p:growl id="msgs" showDetail="true"/>
+	            	<p:dataTable id="tablcontact" value="#{fournisseurController.contacts}" var="obj"
+                                                     selection="#{fournisseurController.contacttempo}"    
+                                                     rowKey="#{obj.codeclient}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle" 
+                                                     editable="true"
+                                                     editMode="cell">
+                                                     
+                                                           <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                          				<p:ajax event="cellEdit" listener="#{fournisseurController.onCellContact}" update=":formlistcontact:tablcontact,:formlistcontact:msgs"/>
+                                          				
+                                          				<p:column style="width:60px;" headerText="Nom" filterBy="#{obj.nom}" sortBy="#{obj.nom}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.nom}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.nom}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+                   										<p:column style="width:60px;" headerText="Prénom" filterBy="#{obj.prenom}" sortBy="#{obj.prenom}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.prenom}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.prenom}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:60px;" headerText="GSM" filterBy="#{obj.gsm1}" sortBy="#{obj.gsm1}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.gsm1}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.gsm1}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:60px;" headerText="Tél" filterBy="#{obj.tel}" sortBy="#{obj.tel}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.tel}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.tel}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:60px;" headerText="faxclient" filterBy="#{obj.faxclient}" sortBy="#{obj.faxclient}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.faxclient}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.faxclient}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:60px;" headerText="Email" filterBy="#{obj.email}" sortBy="#{obj.email}"   filterMatchMode="contains">
+            													<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.email}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.email}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:50px;" headerText="Fournisseur" filterBy="#{obj.fournisseur.nomsociete}" sortBy="#{obj.fournisseur.nomsociete}"   filterMatchMode="startsWidth">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.fournisseur.nomsociete}" ></p:outputLabel>
+												               </f:facet>
+												               
+												               		<f:facet name="input">
+			                                                 			<p:autoComplete id="compfournisseur" value="#{obj.fournisseur.nomsociete}" completeMethod="#{fournisseurController.completerFournisseur}" />
+			                                           				</f:facet>
+												               
+												           </p:cellEditor>
+                                            			</p:column>
+                                           
+                                              <f:facet name="header"> 
+                                               <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{fournisseurController.actualisercontactfournisseur}" update="tablcontact"></p:commandButton>
+              								
+                                               <p:commandButton icon="b102" onclick="confirmationcontact.show()" >
+                                                </p:commandButton>
+                                              </f:facet>
+                                        </p:dataTable>
+                                         <p:confirmDialog widgetVar="confirmationcontact" message="voulez vous supprimer le contact?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":formlistcontact:tablcontact,:formlistcontact:msgs" action="#{fournisseurController.deletecontact}" oncomplete="confirmationcontact.hide()" />
+                                            <p:commandButton value="non" onclick="confirmationcontact.hide()" type="button" />
+                                        </p:confirmDialog>
+	            	</h:form>
+	 
+    </div> 
+    
+     <div>
+    <h:form id="formfournisseur">
+    <p:growl id="msgs" showDetail="true"/>
+             <table class="styletable" style="width:40%" cellpadding="0">
+              <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Fournisseur</div>
+                <tr><td>Societe</td><td><p:inputText style="width:350px;" id="nomfournisseur"   required="required" value="#{fournisseurController.nomsociete}" /></td></tr>
+                <tr><td>Adresse</td><td> <p:inputTextarea  cols="70" style="width:350px;" id="adresse_fournisseur" styleClass="i-format" value="#{fournisseurController.adresse}" /></td></tr>
+                <tr><td>Tel</td><td><p:inputText style="width:350px;" id="tel"   required="required" value="#{fournisseurController.tel}" /></td></tr>
+                <tr><td>Pays</td>
+                <td>
+                 <p:selectOneMenu styleClass="selectonemenu" filter="true" effect="fade"  id="pays" style="width:350px;" tabindex="1"  value="#{fournisseurController.idpays}">
+                                                         <f:selectItem itemValue="0" itemLabel="" selected="selected"></f:selectItem>
+                                                        <f:selectItems  value="#{paysController.countries}" var="country" itemLabel="#{country.pays}" itemValue="#{country.idpays}" />
+                                                    </p:selectOneMenu>
+                </td></tr>
+                <tr><td>Ville</td><td><p:selectOneMenu styleClass="selectonemenu" id="ville" style="width:350px;" tabindex="1" value="#{fournisseurController.idville}" filter="true" effect="fade"  >
+                                                         <f:selectItem itemValue="0" itemLabel="" selected="selected"></f:selectItem>
+                                                        <f:selectItems  value="#{fournisseurController.villes}" var="ville" itemLabel="#{ville.ville}" itemValue="#{ville.idville}" />
+                                                    </p:selectOneMenu></td>
+                    </tr>
+                <tr>
+                <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{fournisseurController.annuler}" update=":formcontact:idselectfournisseur,:formfournisseur:msgs,:formlistfournisseur:tablefournisseur,ville,pays,nomfournisseur,adresse_fournisseur,tel"></p:commandButton></td>
+                <td><p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{fournisseurController.insert}" update=":formcontact:idselectfournisseur,:formfournisseur:msgs,:formlistfournisseur:tablefournisseur,ville,pays,nomfournisseur,adresse_fournisseur,tel" /></td></tr>
+                </table>
+                 </h:form>                                 
+          <h:form id="formlistfournisseur">
+          <p:growl id="msgs" showDetail="true"/>
+                                      <p:dataTable id="tablefournisseur" value="#{fournisseurController.fournisseurs}" var="obj"
+                                                      selection="#{fournisseurController.fournisseur}"
+                                                     rowKey="#{obj.idfournisseur}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{fournisseurController.filteredFournisseur}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     style="width:550px;"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+														
+													<p:ajax event="cellEdit" listener="#{fournisseurController.onCellfournisseur}" update="tablefournisseur,:formlistfournisseur:msgs" />
+           
+                                             <p:column style="width:70px;" headerText="Nom Societe" filterBy="#{obj.nomsociete}" filterMatchMode="contains"  sortBy="#{obj.nomsociete}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.nomsociete}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.nomsociete}" /></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                               <p:column style="width:100px;" headerText="Adresse" filterBy="#{obj.adresse}" filterMatchMode="contains"  sortBy="#{obj.adresse}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.adresse}" /></f:facet>
+                                                    <f:facet name="input"><p:inputTextarea cols="200"   value="#{obj.adresse}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                              <p:column style="width:60px;" headerText="Tel" filterBy="#{obj.tel}" filterMatchMode="startsWith"  sortBy="#{obj.tel}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.tel}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.tel}" /></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                            <p:column style="width:45px;" headerText="Ville"  filterBy="#{obj.ville.ville}" filterMatchMode="contains" sortBy="#{obj.ville.ville}">
+                                                
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.ville.ville}" /></f:facet>
+                                                   		<f:facet name="input">
+			                                                 <p:autoComplete id="compVille" value="#{obj.ville.ville}" completeMethod="#{fournisseurController.completerVille}" />
+			                                           </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column style="width:45px;"  headerText="Pays"  filterBy="#{obj.pays.pays}" filterMatchMode="contains" sortBy="#{obj.pays.pays}">
+                                                 
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.pays.pays}" /></f:facet>
+                                                   
+                                                       <f:facet name="input">
+			                                                    		<p:autoComplete id="compPays" value="#{obj.pays.pays}" completeMethod="#{fournisseurController.completerPays}" />
+			                                           </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <f:facet name="header"> 
+                                              <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{fournisseurController.actualiser}" update="tablefournisseur"></p:commandButton>
+              										<p:commandButton icon="b102" onclick="confirmation.show()" >
+              	                                  </p:commandButton>
+                                             </f:facet>
+                                             
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le Fournisseur ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablefournisseur,msgs" action="#{fournisseurController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                 </h:form>
+                                    </div>  
+   
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

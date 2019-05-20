@@ -1,0 +1,78 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <f:view contentType="text/html">
+        <h:head>
+
+            <!--========= STYLES =========-->
+            <h:outputStylesheet library="css" name="reset.css"/>
+            <h:outputStylesheet library="css" name="grid.css"/>
+            <h:outputStylesheet library="css" name="uniform.default.css"/>
+            <h:outputStylesheet library="css" name="chosen.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.core.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.resizable.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.selectable.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.accordion.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.autocomplete.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.button.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.dialog.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.slider.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.tabs.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.datepicker.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.progressbar.css"/>
+            <h:outputStylesheet library="css" name="jquery.ui.theme.css"/>
+            <h:outputStylesheet library="css" name="style.css"/>
+            <h:outputStylesheet library="css" name="config.css"/>
+            <!--[if gte IE 8]><link rel="stylesheet" href="css/ie8.css" /><![endif]-->
+
+            <!--============ JQUERY =============-->
+            <h:outputScript library="js" name="jquery.js" />
+            <h:outputScript library="js" name="jquery.uniform.js" />
+            <h:outputScript library="js" name="chosen.jquery.js" />
+            <h:outputScript library="js" name="jquery.placeholder.js" />
+            <h:outputScript library="js" name="jquery-ui-1.8.16.custom.min.js" />
+            <h:outputScript library="js" name="head_scripts.js" />						
+            <!--=== ENABLE HTML5 TAGS FOR IE ===-->
+            <!--[if IE]><h:outputScript library="js" name="html5.js" /><![endif]-->
+            <title>IMS</title>
+            <h:outputStylesheet name="css/jsfcrud.css"/>
+            <meta charset="UTF-8" />
+        </h:head>
+        <h:body styleClass="login_background">
+
+            <section class="container">
+                <section class="container_12">
+                    <section id="page_content" class="page_content">
+
+                        <div class="login_box">
+                            <h2>
+                                <span class="title">IMS Technology</span>
+                                <span class="l"></span><span class="r"></span>
+                            </h2>
+                            <div class="login_block_in">
+                                <form >
+                                    <h3 style="color: red;"><h:outputText value="&#160;" /><h:outputText value="&#160;" /><h:outputText value="&#160;" />accès non-autorisé </h3>
+                                    <a href="../index/index.xhtml" class="lostpassword"><h:outputText value="&#160;" /><h:outputText value="&#160;" /><h:outputText value="&#160;" />Accueil</a>
+                                </form>
+                            </div>
+                        </div>
+                        <div class="clear"></div>
+                    </section><!-- end of #page_content -->
+                </section><!-- end of #container_12 -->
+            </section><!-- end of #container -->
+
+
+            <p:layoutUnit position="south" size="100" closable="true" collapsible="true">
+                <h:outputScript library="js" name="ui_calls.js" />
+                <h:outputScript library="js" name="scripts.js" />
+            </p:layoutUnit>
+        </h:body>
+
+
+    </f:view>
+</html>
+

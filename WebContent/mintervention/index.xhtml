@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Les Tickes</h1>
+    <content>                
+            <h:form id="form">
+             <p:growl id="msgs" showDetail="true"/>  
+              <p:growl id="msg" showDetail="true"/>  
+            <div >
+            <table class="styletable" style="width: 100%;"  cellpadding="0">
+            	<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Creer Ticker</div>
+            	<tr>
+	            	<td>N°Ticker</td>
+	            	<td>
+	            	<p:inputText id="num"   value="#{tickerController.numticker}" />
+	            	</td>
+	            	<td>Date</td>
+	            	<td>
+	            	<p:calendar  id="datedebut" value="#{tickerController.ticker.dateticker}" pattern="dd/MM/yyyy HH:mm:ss"/>                                                             
+	            	</td>
+	            </tr>
+	            
+	            <tr>
+	            	<td>Type Ticker</td>
+	            	<td>
+	            	 <p:selectOneMenu styleClass="selectonemenu" style="width:210px" filter="true" effect="fade"  id="typeticker" tabindex="1"  value="#{tickerController.idtypeticker}">
+                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                     <f:selectItems  value="#{tickerController.listTypeTicker}" var="type" itemLabel="#{type.typeticker}" itemValue="#{type.id}" />
+                     </p:selectOneMenu>
+	            	</td>
+	                <td>Priorité</td>
+	            	<td>
+	            	 <p:selectOneMenu styleClass="selectonemenu" style="width:210px" filter="true" effect="fade"  id="priorite" tabindex="1"  value="#{tickerController.idpriorite}">
+                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                     <f:selectItems  value="#{tickerController.listTypePriorite}" var="p" itemLabel="#{p.priorite}" itemValue="#{p.id}" />
+                     </p:selectOneMenu>
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>Client</td>
+	            	<td>
+	            	<p:selectOneMenu  styleClass="selectonemenu" style="width:210px" id="nomclient" filter="true" effect="fade" tabindex="1" value="#{tickerController.idclient}">
+                                                    <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                      <f:ajax event="change" execute="@this" listener="#{tickerController.changeclientID}" render="userhelpdesk" update="users"/>
+                     
+                     </p:selectOneMenu>
+	            	</td>
+	            	
+	            	<td>Client User</td>
+	            	<td>
+	            	<p:selectOneMenu value="#{tickerController.iduserhelpdesk}"  styleClass="selectonemenu" style="width:210px" id="userhelpdesk" filter="true" effect="fade" tabindex="1">
+                                                    <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="users" value="#{tickerController.usershelpdesk}" var="user" itemLabel="#{user.nom}" itemValue="#{user.id}" />
+                     </p:selectOneMenu>
+	            	</td>
+	            </tr>
+	            
+	            <tr>
+	            	<td>Déscription</td>
+	            	<td>
+	            	<p:inputTextarea cols="50" row="20" style="height:100px;width:400px;" id="desc" value="#{tickerController.ticker.description}"/>
+	            	</td>
+	            	<td>Commentaire /Actions</td>
+	            	<td>
+	            	<p:inputTextarea cols="50" row="20" style="height:100px;width:400px;" id="remarque" value="#{tickerController.ticker.remarque}"/>
+	            	</td>
+	            </tr>
+	            
+	            <tr>
+	            <td><p:commandButton styleClass="styleGreen" value="Annuler" ></p:commandButton></td>
+                <td><p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{tickerController.creerTicker}" update="msgs,:form:tablep,num,typeticker,priorite,datedebut,nomclient,userhelpdesk,desc,remarque" /></td>
+                </tr>
+
+	        </table>
+	  </div>
+	  <p:commandButton styleClass="styleGreen" value="Actualiser" actionListener="#{tickerController.actualiser}" update=":form:msgs,:form:tablep"></p:commandButton>
+	            <p:dataTable id="tablep" value="#{tickerController.listeTickers}" var="obj"
+	                                                     selection="#{tickerController.tickertempo}"
+	                                                     rowKey="#{obj.id}"
+	                                                     paginator="true"
+	                                                     rows="10"
+	                                                     paginatorPosition="bottom"
+	                                                     emptyMessage="Aucun résultat trouvé"
+	                                                     editable="true"
+	                                                     editMode="cell"
+	                                                     resizableColumns="true"
+	                                                     styleClass="datatablestyle"
+                                                     	 rowStyleClass="datarowstyle"
+                                                     	 scrollable="true" liveScroll="true" scrollHeight="300"
+	                                                     >
+	                                                     
+	  
+	                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+	                                                      
+	                                                      <p:ajax event="cellEdit" listener="#{tickerController.onCellEdit}" update=":form:msgs,:form:tablep" />                                                   
+	                                                      
+	                                                      <p:column filterBy="#{obj.typeticker.typeticker}" style="width:50px;" sortBy="#{obj.typeticker.typeticker}" headerText="Type Ticker" filterMatchMode="contains">
+            													<h:outputText value="#{obj.typeticker.typeticker}" />
+       										 			  </p:column>
+       										 			  
+       										 			   <p:column filterBy="#{obj.priorite.priorite}" style="width:50px;" sortBy="#{obj.priorite.priorite}" headerText="Priorite" filterMatchMode="contains">
+            													 <p:cellEditor>
+													               <f:facet name="output">
+													               <h:outputText value="#{obj.priorite.priorite}" ></h:outputText>
+													               </f:facet>
+													               <f:facet name="input">
+													               <p:selectOneMenu styleClass="selectonemenu" style="width:100px" filter="true" effect="fade"  id="priorite" tabindex="1"  value="#{tickerController.idprioriteedit}">
+											                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+											                                     <f:selectItems  value="#{tickerController.listTypePriorite}" var="p" itemLabel="#{p.priorite}" itemValue="#{p.id}" />
+											                     </p:selectOneMenu>
+													               </f:facet>
+													           </p:cellEditor>
+       										 			  </p:column>  
+       										 			  
+       										 			  <p:column filterBy="#{obj.statut}" style="width:90px;" sortBy="#{obj.statut}" headerText="Statut" filterMatchMode="contains">
+            													  <p:cellEditor>
+													               <f:facet name="output">
+													               <h:outputText value="#{obj.statut}" ></h:outputText>
+													               </f:facet>
+													               <f:facet name="input">
+													               <p:selectOneMenu value="#{obj.statut}" style="width:100%">
+									                   						<f:selectItem itemLabel="#{obj.statut}" itemValue="#{obj.statut}" selected="selected" ></f:selectItem>
+						                                                    <f:selectItem itemLabel="en cour de traitement" itemValue="en cour de traitement"></f:selectItem>
+						                                                    <f:selectItem itemLabel="Résolu" itemValue="Résolu"  ></f:selectItem>
+						                                                    <f:selectItem itemLabel="Fermer" itemValue="Fermer" ></f:selectItem>	
+									                   			</p:selectOneMenu>
+													               </f:facet>
+													           </p:cellEditor>
+       										 			  </p:column>
+       										 			  
+	                                                      <p:column filterBy="#{obj.ref}" style="width:50px;" sortBy="#{obj.ref}" headerText="N°Ticker" filterMatchMode="contains">
+            													<h:outputText value="#{obj.ref}" />
+       										 			  </p:column>
+       										 			  
+       										 			  <p:column filterBy="#{obj.userhelpdesk.client.societe}" style="width:50px;" sortBy="#{obj.userhelpdesk.client.societe}" headerText="Client" filterMatchMode="contains">
+            													<h:outputText value="#{obj.userhelpdesk.client.societe}" />
+       										 			  </p:column>
+       										 			  
+       										 			   <p:column filterBy="#{obj.userhelpdesk.nom}" style="width:50px;" sortBy="#{obj.userhelpdesk.nom}" headerText="Nom Client" filterMatchMode="contains">
+            													<h:outputText value="#{obj.userhelpdesk.nom}" />
+       										 			  </p:column>
+       										 			  
+       										 			  <p:column filterBy="#{obj.dateticker}" style="width:50px;" sortBy="#{obj.dateticker}" headerText="Date Ticker" filterMatchMode="contains">
+            													<h:outputText value="#{obj.dateticker}" >
+            													 <f:convertDateTime pattern="dd/MM/yy" ></f:convertDateTime>
+            													</h:outputText>
+       										 			  </p:column> 
+       										 			  
+       										 			  <p:column filterBy="#{obj.dateticker}" style="width:50px;" sortBy="#{obj.dateticker}" headerText="Heure ticker" filterMatchMode="contains">
+            													<h:outputText value="#{obj.dateticker}" >
+            													 <f:convertDateTime pattern="HH:mm:ss" ></f:convertDateTime>
+            													</h:outputText>
+       										 			  </p:column> 
+       										 			  
+       										 			  <p:column filterBy="#{obj.dateresolution}" style="width:50px;" sortBy="#{obj.dateresolution}" headerText="Date Résolution" filterMatchMode="contains">
+            													<h:outputText value="#{obj.dateresolution}" >
+            													 <f:convertDateTime pattern="dd/MM/yy" ></f:convertDateTime>
+            													</h:outputText>
+       										 			  </p:column>
+       										 			  
+       										 			<p:column filterBy="#{obj.dateresolution}" style="width:50px;" sortBy="#{obj.dateresolution}" headerText="Heure Resolution" filterMatchMode="contains">
+            													<h:outputText value="#{obj.dateresolution}" >
+            													 <f:convertDateTime pattern="HH:mm:ss" ></f:convertDateTime>
+            													</h:outputText>
+       										 			  </p:column>   
+       										 			  
+       										 			   <p:column style="width:50px;" headerText="créer un suivi">
+											             		<p:commandButton value="Créer" update=":form:tablep"  oncomplete="creersuiviDialog.show()">
+											                			<f:setPropertyActionListener value="#{obj}" target="#{tickerController.tickertempo}" />
+											            		</p:commandButton>
+										        		</p:column> 
+       										 			  
+       										 			  <p:column style="width:50px;" headerText="liste des Suivi">
+											             		<p:commandButton value="Voir" actionListener="#{tickerController.preparelistdialog}" update=":form:tablep"  oncomplete="listsuiviDialog.show()">
+											                			<f:setPropertyActionListener value="#{obj}" target="#{tickerController.tickertempo}" />
+											            		</p:commandButton>
+										        		</p:column>
+										        		
+										        		 <p:column style="width:80px;" >
+			                                                <f:facet name="header">         
+			                                                    <h:outputText class="th-sortable" value="Detail"/>
+			                                                </f:facet>
+			                                                <p:commandButton value="Detail/Modifer" action="#{tickerController.preparedetail}" >
+			                                                </p:commandButton>
+			                                            </p:column>
+										        		
+										        		<p:column style="width:60px;" headerText="Fermer le Ticker">
+											             		<p:commandButton value="Fermer"  oncomplete="confirmation2.show()" update=":form:tablep,:form:msgs" >
+											                			<f:setPropertyActionListener value="#{obj}" target="#{tickerController.tickertempo}" />
+											            		</p:commandButton>
+										        		</p:column> 							 			  
+	            </p:dataTable>
+	            <p:confirmDialog widgetVar="confirmation2" message="voulez vous Fermer le Ticker ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tablep,:form:msgs" action="#{tickerController.fermerTicker}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tablep,:form:msgs" />
+                                        </p:confirmDialog>
+	            
+	             <p:dialog header="Ticker" widgetVar="detailDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+	           
+	            <h:panelGrid columns="2" cellpadding="5">
+	            
+	            <h:outputText value="Type" />
+	            <h:outputText value="#{tickerController.tickertempo.typeticker.typeticker}" />
+	            	            <h:outputText value="Priorité" />
+	            <h:outputText value="#{tickerController.tickertempo.priorite.priorite}" />
+	            	            <h:outputText value="N°" />
+	            <h:outputText value="#{tickerController.tickertempo.ref}" />
+	            <h:outputText value="Date de Ticker" />
+	            <h:outputText value="#{tickerController.tickertempo.dateticker}" />
+	            	            <h:outputText value="Statu" />
+	            <h:outputText value="#{tickerController.tickertempo.statut}" />
+	            	            <h:outputText value="Client" />
+	            <h:outputText value="#{tickerController.tickertempo.userhelpdesk.client.societe}" />
+	            	            <h:outputText value="Nom Client" />
+	            <h:outputText value="#{tickerController.tickertempo.userhelpdesk.nom}" />
+	            	            <h:outputText value="Consultant Affecter" />
+	            <h:outputText value="#{tickerController.tickertempo.user.emp.nom}" />
+	            
+	              <h:outputText value="Déscription" />
+	            <h:outputText value="#{tickerController.tickertempo.description}" />
+	              <h:outputText value="Remarque" />
+	            <h:outputText value="#{tickerController.tickertempo.remarque}" />
+	            </h:panelGrid>
+	            </p:dialog>
+	            
+	            <p:dialog header="Créer un Suivi Ticker" widgetVar="creersuiviDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+	            <h:panelGrid columns="2" cellpadding="5">
+	            <h:outputText value="Refrence" />
+	            <p:inputText id="refsuivi"  value="#{tickerController.numsuiviticker}" />
+	            <h:outputText value="Date Suivi" />
+	            <p:calendar id="datesuivi"  value="#{tickerController.suiviTicker.datesuivi}" />
+	            <h:outputText value="statut" />
+	            <p:selectOneMenu  styleClass="selectonemenu" style="width:210px" id="stat" filter="true" effect="fade" tabindex="1" value="#{tickerController.suiviTicker.statu}">
+                                                    <f:selectItem itemLabel="en attente" itemValue="en attente" selected="selected" ></f:selectItem>
+                                                    <f:selectItem itemLabel="en cour de traitement" itemValue="en cour de traitement"  ></f:selectItem>
+                                                    <f:selectItem itemLabel="Traiter" itemValue="Traiter" selected="selected" ></f:selectItem>
+                                                    <f:selectItem itemLabel="non Traiter" itemValue="non Traiter" selected="selected" ></f:selectItem>
+                                                    
+               </p:selectOneMenu>
+               <h:outputText value="Remarque" />
+               <p:inputTextarea cols="50" row="20"  id="reqsuivi" value="#{tickerController.suiviTicker.remarque}"/>
+	            <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{tickerController.creerSuiviTicker}" update="msgs,refsuivi,datesuivi,stat,listsuivi" oncomplete="creersuiviDialog.hide()"/>
+	            </h:panelGrid>
+	            </p:dialog>
+	            <p:dialog header="Liste des Suivi ticker " widgetVar="listsuiviDialog" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+	             <p:commandButton styleClass="styleGreen" value="Actualiser"  update="listsuivi" />
+	             <p:dataTable id="listsuivi" widgetVar="listsuivi" value="#{tickerController.listeSuiviTickers}" var="obj"
+                                                      selection="#{tickerController.suiviTickertempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="12"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     scrollRows="40" scrollable="true" liveScroll="true" scrollHeight="300"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:5px;text-align:center"/>
+                                                     
+                                                     <p:column filterBy="#{obj.refsuivi}" style="width:50px;" sortBy="#{obj.refsuivi}" headerText="N°Suivi" filterMatchMode="contains">
+            											<h:outputText value="#{obj.refsuivi}" />
+       										 		</p:column>
+       										 		
+       										 		 <p:column filterBy="#{obj.statu}" style="width:150px;" sortBy="#{obj.statu}" headerText="statut" filterMatchMode="contains">
+            											<h:outputText value="#{obj.statu}" />
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.datesuivi}" style="width:50px;" sortBy="#{obj.datesuivi}" headerText="Date de Suivi" filterMatchMode="contains">
+            											<h:outputText value="#{obj.datesuivi}">
+            											<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+            											</h:outputText>
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.datefinsuivi}" style="width:50px;" sortBy="#{obj.datefinsuivi}" headerText="Date Fin" filterMatchMode="contains">
+            											<h:outputText value="#{obj.datefinsuivi}" >
+            											<f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+            											</h:outputText>
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.remarque}" style="width:200px;" sortBy="#{obj.remarque}" headerText="Remarque" filterMatchMode="contains">
+            											<h:outputText value="#{obj.remarque}" />
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.user.emp.nom}" style="width:50px;" sortBy="#{obj.user.emp.nom}" headerText="Nom Consultant" filterMatchMode="contains">
+            											<h:outputText value="#{obj.user.emp.nom}" />
+       										 		</p:column>
+       										 		
+       										 		<p:column filterBy="#{obj.user.emp.prenom}" style="width:50px;" sortBy="#{obj.user.emp.prenom}" headerText="Prenom Consultant" filterMatchMode="contains">
+            											<h:outputText value="#{obj.user.emp.prenom}" />
+       										 		</p:column>       										 		
+       										 
+                                                     </p:dataTable>
+	            </p:dialog>
+	            
+	            
+            </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

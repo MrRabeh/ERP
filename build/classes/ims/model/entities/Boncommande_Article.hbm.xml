@@ -1,0 +1,16 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Boncommande_Article">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+
+  <property name="qte" column="qantite"></property>
+  <property name="pu" column="PU_HT"></property>
+  <property name="pt" column="PT_HT"></property>
+  <property name="designation" column="designation" length="8000"></property>
+  <many-to-one name="commande" class="ims.model.entities.BonCommande" column="commandeID"></many-to-one>
+  <many-to-one name="article" class="ims.model.entities.Article" column="articleID"></many-to-one>
+  </class>
+</hibernate-mapping>

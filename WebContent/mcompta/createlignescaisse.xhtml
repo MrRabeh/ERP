@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+    <content>                
+       <h:form id="form">
+       <p:growl id="msgs" showDetail="true"/>  
+       <p:growl id="msg" showDetail="true"/>  
+       <h2>
+                                   la caisse  
+        </h2>        
+        <div>
+        <table class="styletable" style="width: 50%;"  cellpadding="0">
+        <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Décaisser</div>
+        <tr>
+        <td>Jour</td>
+        <td><p:calendar id="jour" required="required" value="#{caisseController.jour}" pattern="dd/MM/yy"  /></td>
+        </tr>
+        <tr>
+        <td>entrée</td>
+        <td><p:inputText id="entree"   required="required" value="#{caisseController.entree}" /> </td>
+        <td>Réglement</td>
+        <td> <p:inputText id="reg" required="required" value="#{caisseController.reg}" /></td>
+        </tr>
+        <tr>
+        <td>sortie</td>
+        <td><p:inputText id="sorti"  styleClass="i-format" required="required" value="#{caisseController.sortie}" /></td>
+        <td>Personnel</td>
+        <td>
+        
+         <p:outputLabel style="width:100" for="emp" />
+                                                   <p:selectOneMenu style="width:210px" filter="true" styleClass="selectonemenu"  id="emp"  tabindex="1" value="#{caisseController.idemp}">
+                                                       <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{employeeController.employees}" var="emp" itemLabel="#{emp.nom}" itemValue="#{emp.id}" />
+                                                    </p:selectOneMenu>
+        </td>
+        </tr>
+        <tr>
+        <td>Detail</td>
+        <td>
+        <p:inputTextarea id="detail" cols="50"  styleClass="i-format" required="required" value="#{caisseController.detail}" />
+        </td>
+        </tr>
+        <tr>
+        <td>
+        <p:commandButton styleClass="styleGreen" value="décaisser" actionListener="#{caisseController.insertdecaisse}" update="msgs,lignesparcaisse,detail,sorti,entree,jour,reg,sommeentrer,sommesortie,sommereste" />
+        </td>
+        </tr>
+        </table>
+        </div>
+        <div>
+        
+        <p:dataTable id="lignesparcaisse" widgetVar="lignesparcaisse" value="#{caisseController.lignesparcaisse}" var="obj"
+                                                      selection="#{caisseController.ligneparcaisse}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="8"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                    
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     
+                                                      <p:column selectionMode="single" style="width:20px;text-align:center"/>
+                                                      
+                                                       <p:ajax event="cellEdit" listener="#{caisseController.onCellEditligne}" update=":form:msgs,:form:lignesparcaisse" />
+                                            
+                                               			 <p:column  filterBy="#{obj.annee}" sortBy="#{obj.annee}" headerText="Année" filterMatchMode="contains">
+			            										<h:outputText value="#{obj.annee}" />
+			       										 </p:column>
+			       										 
+			                                            <p:column  filterBy="#{obj.mois}" sortBy="#{obj.mois}" headerText="Mois" filterMatchMode="contains">
+			            										<h:outputText value="#{obj.mois}" />
+			       										 </p:column>
+			       										 
+			       										 
+       										 
+                                                      <p:column headerText="Date"  filterBy="#{obj.strdate}" filterMatchMode="contains" sortBy="#{obj.strdate}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												                <h:outputText value="#{obj.strdate}"></h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                   <p:inputMask value="#{caisseController.tempodate}" style="position:relative;width:100%;" mask="99/99/99">
+												              			 <f:convertDateTime pattern="dd/MM/yy" />
+												              			 </p:inputMask>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			 <p:column headerText="Entrées"  filterBy="#{obj.entree}" filterMatchMode="contains" sortBy="#{obj.entree}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <h:outputText value="#{obj.entree}" >
+												               </h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                   <p:inputText value="#{caisseController.tempoentree}" style="position:relative;width:100%;"/>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			<p:column headerText="Reglement"  filterBy="#{obj.reglement}" filterMatchMode="contains" sortBy="#{obj.reglement}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <h:outputText value="#{obj.reglement}" >
+												               </h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                   <p:inputText value="#{caisseController.temporeg}" style="position:relative;width:100%;"/>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			 <p:column headerText="Sorties"  filterBy="#{obj.sortie}" filterMatchMode="contains" sortBy="#{obj.sortie}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <h:outputText value="#{obj.sortie}" >
+												               </h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                   <p:inputText value="#{caisseController.temposortie}" style="position:relative;width:100%;"/>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			<p:column headerText="Détails"  filterBy="#{obj.details}" filterMatchMode="contains" sortBy="#{obj.details}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <h:outputText value="#{obj.details}" >
+												               </h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                   <p:inputText value="#{caisseController.tempodetail}" style="position:relative;width:100%;"/>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			<p:column headerText="Employees"  filterBy="#{obj.emp.nom}" filterMatchMode="contains" sortBy="#{obj.emp.nom}">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <h:outputText value="#{obj.emp.nom}" >
+												               </h:outputText>
+												               </f:facet>
+												               <f:facet name="input">
+												                 <p:selectOneMenu id="emp"  style="width:350px;" tabindex="1" value="#{caisseController.idempmodfi}">
+                                                        				<f:selectItem itemLabel="choisie un Employee" itemValue="-1" ></f:selectItem>
+                                                        				<f:selectItems  value="#{employeeController.employees}" var="emp" itemLabel="#{emp.nom}" itemValue="#{emp.id}" />
+                                                    				</p:selectOneMenu>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+                                            			
+                                            			     <f:facet name="header"> 
+				                                                <p:commandButton icon="b102" onclick="confirmation.show()" >
+				                                                    <span class="b_icon b102"></span>
+				                                                </p:commandButton>
+                                                			</f:facet>
+                                            		
+                                                     
+                                                     </p:dataTable>
+                                                     
+                                                     
+                                                     <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer la décaissement?" header="confirmation" severity="alert" >
+			                                            <p:commandButton value="oui" update=":form:msgs,:form:lignesparcaisse" action="#{caisseController.Delete}" oncomplete="confirmation.hide()" />
+			                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+			                                        </p:confirmDialog>
+        
+        </div>
+        <div>
+        <table>
+        <tr>
+        <td>Les Entrers :</td><td><h:outputText id="sommeentrer" value="#{caisseController.sommeentrer}" /></td>
+        </tr>
+        <tr>
+        <td>Les Sorties :</td><td><h:outputText id="sommesortie" value="#{caisseController.sommesortie}" /></td>
+        </tr>
+        <tr>
+        <td>le Reste :</td><td><h:outputText  id="sommereste" value="#{caisseController.reste}" /></td>
+        </tr>
+        </table>
+        </div>
+       </h:form>
+                 
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

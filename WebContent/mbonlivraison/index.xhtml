@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+ <h:form id="form">
+  <p:growl id="msgs" showDetail="true"/>  
+   <p:growl id="msg" showDetail="true"/>  
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Bon Livraison</h1>                           
+    <content>
+                                                             
+              
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{bonlivraisonController.livraisons}" var="obj"
+                                                     selection="#{bonlivraisonController.livraison}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                      <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                         				
+                                         				<p:column headerText="réference"  filterBy="#{obj.ref}" sortBy="#{obj.ref}"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.ref}" />
+       													 </p:column> 
+       													 
+                                                     <p:column headerText="date Y-M-D"  filterBy="#{obj.datebl}" sortBy="#{obj.datebl}"  filterMatchMode="startsWith">
+            												<h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datebl}" />
+														</h:outputFormat>
+       													 </p:column> 
+       													 
+       													       <p:column style="width:120px;"  filterBy="#{obj.client.groupeclient.nomGroupe}"  sortBy="#{obj.client.groupeclient.nomGroupe}" headerText="Groupe" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.groupeclient.nomGroupe}" />
+       										 </p:column>
+       													 
+                                            		<p:column headerText="Client"  filterBy="#{obj.client.societe}" sortBy="#{obj.client.societe}"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.client.societe}" />
+       												</p:column>
+       												
+       												<p:column headerText="N°facture"  filterBy="#{obj.facture.ref}" sortBy="#{obj.facture.ref}"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.facture.ref}" />
+       												</p:column>
+       													 
+       													 <p:column headerText="Livré Par"  filterBy="#{obj.livrepar}" sortBy="#{obj.livrepar}"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.livrepar}" />
+       													 </p:column>
+       													 
+       													 <p:column headerText="Réception Par"  filterBy="#{obj.receptionpar}" sortBy="#{obj.receptionpar}"  filterMatchMode="contains">
+            												<h:outputText value="#{obj.receptionpar}" />
+       													 </p:column>
+       													 
+       													 
+                                            	<f:facet name="header">
+                                            	
+                                         
+											    <p:commandButton  action="#{bonlivraisonController.preparecreate}" value="Créer"></p:commandButton>
+											    <p:commandButton action="#{offreController.actualiser}" value="Actualiser" update="tablep"></p:commandButton>
+    
+                                            	<p:column style="width:20px" headerText="PDF">
+	                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{bonlivraisonController.imprimer}" >
+	                                                    <span class="b_icon b102"></span>
+	                                                   
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	  <p:column style="width:20px" headerText="PDF">
+	                                                <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{bonlivraisonController.imprimersansfond}" >
+	                                                    <span class="b_icon b102"></span>
+	                                                    
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Mail">
+													<p:commandButton icon="b6488" action="#{emailController.mailtolivraison}" styleClass="button white icon">
+		                                                
+		                                             </p:commandButton>
+		                                         </p:column>
+                                            	
+												<p:column style="width:25px" headerText="Edit" >
+                                                <p:commandButton icon="b300" action="#{bonlivraisonController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Supp">
+                                                <p:commandButton icon="b_icon b102"  onclick="confirmation2.show()">
+                                                    
+                                                </p:commandButton>
+                                            </p:column>
+                                            </f:facet>
+                                        </p:dataTable>
+                                             <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le Bon Livraison?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tablep,:form:msgs" action="#{bonlivraisonController.delete}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tablep,:form:msgs" />
+                                        </p:confirmDialog>
+    </content>
+    </article>
+     </h:form> 
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

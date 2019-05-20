@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Ticker">
+  
+  	<id name="id" column="id">
+  		<generator class="increment"></generator>
+  	</id>
+  
+  	<property name="ref" column="ref" not-null="true" unique="true" ></property>
+
+	<property name="description" column="description"></property>
+ 	<property name="dateticker" column="dateticker"></property>
+  	<property name="dateresolution" column="dateresolution"></property>
+  	<property name="duree" column="duree"></property>
+  	<property name="statut" column="statut"></property>
+  	<property name="remarque" column="remarque"></property>
+    <property name="fermerticker" column="fermerticker"></property>
+  	<many-to-one name="user" class="ims.model.entities.Utilisateur" column="UserID" />
+  	<many-to-one name="userhelpdesk" class="ims.model.entities.UtilisateurHelpDesk" column="userhelpdeskID" />
+   	<many-to-one name="typeticker" class="ims.model.entities.TypeTicker" column="TypeTickerID" />
+    <many-to-one name="priorite" class="ims.model.entities.TypePriorite" column="prioriteID" />
+  
+     
+  </class>
+</hibernate-mapping>

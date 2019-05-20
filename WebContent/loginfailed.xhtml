@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+          <f:view contentType="text/html">
+
+        <h:head>
+<title>Login</title>
+<h:outputStylesheet library="crmstyle" name="style.css"/>
+ </h:head>
+     
+<h:body>
+<div class="clogin">
+ <h:form>
+ <p:growl id="msgs" showDetail="true"/> 
+ </h:form>
+ <h1 style="color: red;">Erreur de connexion</h1> 
+ <form method="post" action="#{request.contextPath}/j_spring_security_check"  id="ct_auth" >
+<img alt="help desk" src="resources/images/logo_erp.png" />
+<table>
+<tr>
+<td>Login</td>
+<td>
+<input class="inputlogin" type="text" name="j_username" placeholder="Login" /></td></tr>
+<tr>
+<td>Password</td><td> 
+<input class="inputlogin" type="password" name="j_password" placeholder="Password" /></td></tr>
+</table>
+<input class="csubmit" type="submit" value="Connecter" />
+</form>
+</div>
+  </h:body>
+
+    </f:view>
+</html>

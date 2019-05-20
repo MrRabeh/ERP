@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuMSProject.xhtml" />
+<div class="mainContent">
+<div class="content">
+      <h:form id="form"> 
+	<article class="topcontent">
+	<br/>
+    <content>
+             
+       <p:growl id="msgs" showDetail="true"/> 
+       <p:growl id="msg" showDetail="true"/> 
+       
+              <table class="styletable" style="width: 60%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Projet</div>
+            	
+              <tr>
+              <td>projet</td>
+              <td>
+              		 <p:inputText  styleClass="i-format" required="required" value="#{projetControlleur.projectname}" />
+                                               
+              </td>
+              <td>Client</td>
+              <td>
+                   <p:selectOneMenu  styleClass="selectonemenu" style="width:210px;" id="societe" filter="true" effect="fade"  tabindex="1" value="#{projetControlleur.idclient}">
+                           <f:selectItems  value="#{clientController.clients}" var="cli" itemLabel="#{cli.societe}" itemValue="#{cli.idclient}" />
+                   </p:selectOneMenu>
+             </td>
+              </tr>
+              <tr>
+              
+              <td>
+              Date Debut
+              </td>
+              <td>
+               <p:calendar  value="#{projetControlleur.datedebut}" />
+                                                                                
+              </td>
+               <td>
+              Date Fin
+              </td>
+              <td>
+              <p:calendar  value="#{projetControlleur.datefin}" />
+                                                                                                                
+              </td>
+              </tr>
+               <tr>
+               <td>Employée</td>
+              <td>
+              <p:selectOneMenu  styleClass="selectonemenu" id="emp" filter="true" effect="fade" tabindex="1" value="#{projetControlleur.idemp}">
+                                                        	<f:selectItems  value="#{employeeController.employees}" var="emp" itemLabel="#{emp.nom}" itemValue="#{emp.id}" />
+                                                        </p:selectOneMenu>
+                                                        </td>
+             
+              </tr>
+              <tr>
+              <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{projetControlleuruler}" update=":form:tablep,:form:msgs"></p:commandButton></td>
+              <td>
+               <p:commandButton styleClass="styleGreen" value="Enregistrer" update=":form:tablep,:form:msgs" actionListener="#{projetControlleur.insert}" />
+                </td>
+              </tr>
+              </table>                 
+                                        <p:dataTable id="tablep" value="#{projetControlleur.projets}" var="obj"
+                                                      selection="#{projetControlleur.projet}"
+                                                     rowKey="#{obj.idprojet}"
+                                                     paginator="true"
+                                                     rows="7"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+
+                                           
+											  <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+														
+													<p:ajax event="cellEdit" listener="#{projetControlleur.oncellEdit}" update=":form:msgs,tablep" />
+           
+											<p:column headerText="Projet" filterBy="#{obj.projectname}" filterMatchMode="contains"  sortBy="#{obj.projectname}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.projectname}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.projectname}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column> 
+											
+											
+
+                                             <p:column headerText="Societe" filterBy="#{obj.client.societe}" filterMatchMode="exact"  sortBy="#{obj.client.societe}" >
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.client.societe}" /></f:facet>
+                                                    <f:facet name="input">
+                                                        <p:outputLabel for="societe" />
+                                                       <p:selectOneMenu id="societe" filter="true" effect="fade"  styleClass="selectonemenu" style="width:100%;" tabindex="1" value="#{projetControlleur.idclient}">
+                                                        	<f:selectItems  value="#{clientController.clients}" var="cli" itemLabel="#{cli.societe}" itemValue="#{cli.idclient}" />
+                                                        </p:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            
+                                            <p:column headerText="Employée" filterBy="#{obj.emp.nom}" filterMatchMode="exact"  sortBy="#{obj.emp.nom}" >
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.emp.nom}" /></f:facet>
+                                                    <f:facet name="input">
+                                                    
+                                                     <p:outputLabel for="emp" />
+                                                       <p:selectOneMenu id="emp" filter="true" effect="fade" styleClass="selectonemenu" style="width:100%;" tabindex="1" value="#{projetControlleur.idemp}">
+                                                        	<f:selectItems  value="#{employeeController.employees}" var="emp" itemLabel="#{emp.nom}" itemValue="#{emp.id}" />
+                                                        </p:selectOneMenu>
+                                                      
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+
+                                                                                      
+                                                
+                                           <p:column headerText="Planning Projet">
+                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{projetControlleur.imprimer}" >
+                                                    <f:setPropertyActionListener target="#{projetControlleur.projet}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                              
+                                            
+                                        </p:dataTable>
+                              
+    </content>
+    </article>
+      </h:form>  
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+    <h:form id="formlist">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Factures Contrat</h1>
+    <content>               
+            
+                                    <p:growl id="msg" showDetail="true"/>
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{factureContratController.factures}" var="obj"
+                                                      selection="#{factureContratController.facture}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                
+                                                     <p:column headerText="Réference" filterBy="#{obj.ref}" filterMatchMode="contains"  sortBy="#{obj.ref}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.ref}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.ref}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Date Y-M-D" filterBy="#{obj.datefacture}" filterMatchMode="startsWith"  sortBy="#{obj.datefacture}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output">
+		                                                   <h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datefacture}" />
+														</h:outputFormat>
+		                                                    </f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.datefacture}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            	<p:column  filterBy="#{obj.client.groupeclient.nomGroupe}"  sortBy="#{obj.client.groupeclient.nomGroupe}" headerText="Groupe client" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.groupeclient.nomGroupe}" />
+       										 </p:column>
+                                            		
+                                            		<p:column headerText="Client" filterBy="#{obj.client.societe}" filterMatchMode="contains"  sortBy="#{obj.client.societe}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.client.societe}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.client.societe}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Date BC" filterBy="#{obj.dateboncommande}" filterMatchMode="contains"  sortBy="#{obj.dateboncommande}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.dateboncommande}" ><f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime></h:outputText></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.dateboncommande}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total HT" filterBy="#{obj.totalht}" filterMatchMode="contains"  sortBy="#{obj.totalht}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalht}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalht}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total TTC" filterBy="#{obj.totalttc}" filterMatchMode="contains"  sortBy="#{obj.totalttc}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalttc}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalttc}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Total NET" filterBy="#{obj.totalttcpaye}" filterMatchMode="contains"  sortBy="#{obj.totalttcpaye}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.totalttcpaye}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.totalttcpaye}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Marge" filterBy="#{obj.prixmarge}" filterMatchMode="contains"  sortBy="#{obj.prixmarge}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.prixmarge}" /></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.prixmarge}"/></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column headerText="Etat" filterBy="#{obj.etat}" filterMatchMode="startsWith"  sortBy="#{obj.etat}">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.etat}"><f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime></h:outputText></f:facet>
+		                                                    <f:facet name="input"><p:calendar  value="#{obj.etat}"><f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime></p:calendar></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column  filterBy="#{obj.afficherannuler}" filterMatchMode="contains" sortBy="#{obj.afficherannuler}">
+		                                                <f:facet name="header">         
+		                                                    <h:outputText class="th-sortable" value="Annulée" />
+		                                                </f:facet>
+		                                                <h:outputText value="#{obj.afficherannuler}" />
+		                                            </p:column>
+		                                            
+		                                            <p:column  filterBy="#{obj.typepaiement.typepaiement}" filterMatchMode="contains" sortBy="#{obj.typepaiement.typepaiement}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Devise" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.typepaiement.typepaiement}" />
+                                            </p:column>
+                                            
+                                            <p:column style="width:100px" filterBy="#{obj.bu.nom}" filterMatchMode="contains" sortBy="#{obj.bu.nom}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="B.U" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.bu.nom}" />
+                                            </p:column>
+		                                            
+		                                            <f:facet name="header">
+		                                            
+    	<p:commandButton action="#{factureContratController.prepareCreate}" value="Créer"></p:commandButton>
+   
+    	<p:commandButton action="#{factureContratController.actualiser}" value="Actualiser" update="tablep"></p:commandButton>
+    
+		                                            
+		                                            <p:column style="width:25px" headerText="PDF">
+		                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{factureContratController.imprimerfond}" >
+		                                                    
+		                                                  
+		                                                </p:commandButton>
+                                            		</p:column>
+                                                
+                                                <p:column style="width:25px" headerText="PDF">
+	                                                <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{factureContratController.imprimer}" >
+	                                                    
+	                                                   
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Mail">
+													<p:commandButton icon="b6488" action="#{emailController.mailtofacturecontrat}" styleClass="button white icon">
+		                                                 
+		                                             </p:commandButton>
+                                            	</p:column>
+                                            	
+												<p:column style="width:25px" headerText="Edit" >
+                                                <p:commandButton icon="b300" action="#{factureContratController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:40px" headerText="Annulée">
+	                                                <p:commandButton icon="b_icon bannuler" styleClass="button white icon" onclick="confirmation.show()">
+	                                                  
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	<p:column style="width:25px" headerText="Supp">
+                                                <p:commandButton icon="b_icon b102"  onclick="confirmation2.show()">
+                   
+                                                </p:commandButton>
+                                            </p:column>
+                                            </f:facet>
+                                            	
+                                        </p:dataTable>
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous Annuler la Facture Contrat?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":formlist:tablep,:formlist:msg" action="#{factureContratController.annuler}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" update=":formlist:tablep,:formlist:msgs" />
+                                        </p:confirmDialog>
+                                        
+                                           <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer la Facture Contrat?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":formlist:tablep,:formlist:msg" action="#{factureContratController.delete}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":formlist:tablep,:formlist:msgs" />
+                                        </p:confirmDialog>
+    </content>
+    </article>
+    </h:form> 
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

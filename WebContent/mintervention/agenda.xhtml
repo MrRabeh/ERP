@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Mon Agenda des Interventions</h1>
+    <content>                
+                                             <h:form>
+    <p:growl id="messages" showDetail="true" />
+ 
+    <h:panelGrid columnClasses="value">
+        <p:schedule id="schedule" value="#{scheduleView.eventModel}" locale="fr" widgetVar="myschedule" timeZone="GMT+1">
+            <p:ajax event="dateSelect" listener="#{scheduleView.onDateSelect}" update="eventDetails" oncomplete="eventDialog.show();" />
+            <p:ajax event="eventSelect" listener="#{scheduleView.onEventSelect}" update="eventDetails" oncomplete="eventDialog.show();" />
+            <p:ajax event="eventMove" listener="#{scheduleView.onEventMove}" update="messages" />
+            <p:ajax event="eventResize" listener="#{scheduleView.onEventResize}" update="messages" />
+ 
+        </p:schedule>
+    </h:panelGrid>
+ 
+    <p:dialog widgetVar="eventDialog" header="Ticker" showEffect="clip" hideEffect="clip">
+        <h:panelGrid id="eventDetails" columns="2">
+            <h:outputLabel for="title" value="Ticker N°" />
+            <p:inputText id="title" value="#{scheduleView.event.title}" required="true" />
+ 
+            <h:outputLabel for="from" value="Date Ticker:" />
+            <p:inputMask id="from" value="#{scheduleView.event.startDate}" mask="99/99/9999">
+                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+1"/>
+            </p:inputMask>
+ 
+            <h:outputLabel for="to" value="Date Fin" />
+            <p:inputMask id="to" value="#{scheduleView.event.endDate}" mask="99/99/9999">
+                <f:convertDateTime pattern="dd/MM/yyyy" timeZone="GMT+1"/>
+            </p:inputMask>
+           
+            <h:outputLabel for="allDay" value="tout les Jour" />
+            <h:selectBooleanCheckbox id="allDay" value="#{scheduleView.event.allDay}" />
+ 
+            <p:commandButton type="reset" value="Annuler" />
+            <p:commandButton id="addButton" value="Ajouter" actionListener="#{scheduleView.addEvent}" oncomplete="myschedule.update();eventDialog.hide();" />
+        </h:panelGrid>
+    </p:dialog>    
+</h:form>
+<script type="text/javascript">
+    PrimeFaces.locales['fr'] = {
+        closeText: 'kapat',
+        prevText: 'geri',
+        nextText: 'ileri',
+        currentText: 'Aujourd \'huit',
+        monthNames: ['janvier','février','mars','avril','mai','juin',
+            'juillet','août','septembre','octobre','novembre','décembre'],
+        monthNamesShort: ['janv','févr','mars','avr','mai','juin',
+            ' juill','août','sept','oct','nov','déc'],
+        dayNames: ['Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche'],
+        dayNamesShort: ['Lu','Ma','Mer','Jeu','Ven','Sam','Dim'],
+        dayNamesMin: ['Lu','Ma','Mer','Jeu','Ven','Sam','Dim'],
+        weekHeader: 'Dim',
+        firstDay: 1,
+        isRTL: false,
+        showMonthAfterYear: false,
+        yearSuffix: '',
+        month: 'Mois',
+        week: 'semaine',
+        day: 'Jour',
+        allDayText : 'Lu Sam'
+    };
+</script>
+<style type="text/css">
+    .value {
+        width: 1000px;
+    }
+</style>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

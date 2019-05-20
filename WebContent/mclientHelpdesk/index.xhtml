@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>                
+                                 <h:form id="form">
+                                     <p:commandButton action="#{clientController.preparecreer}" value="Creer un Client"></p:commandButton>
+                                        <p:growl id="msgs" showDetail="true"/> 
+                                        
+                                        <p:dataTable id="tablep" value="#{clientController.clients}" var="obj"
+                                                     selection="#{clientController.client}"    
+                                                     rowKey="#{obj.idclient}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{clientController.filteredClient}"
+                                                     scrollRows="30" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     resizableColumns="true"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                          			<p:column headerText="Societe" filterBy="#{obj.societe}" sortBy="#{obj.societe}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.societe}" />
+       												</p:column>
+       													 
+                   								    <p:column style="width:400px;" headerText="Adresse" filterBy="#{obj.adresse}" sortBy="#{obj.adresse}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.adresse}" />
+       											     </p:column>
+       											     
+       											     <p:column headerText="Pays" filterBy="#{obj.pays.pays}" sortBy="#{obj.pays.pays}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.pays.pays}" />
+       												</p:column>
+       													 
+       												<p:column headerText="Ville" filterBy="#{obj.ville.ville}" sortBy="#{obj.ville.ville}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.ville.ville}" />
+       												</p:column>
+       													 
+       												
+                                            
+                                            <p:column style="width:30px;" >
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="edit"/>
+                                                </f:facet>
+                                                <p:commandButton icon="b300" action="#{clientController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le client?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{clientController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

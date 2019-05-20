@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+          <f:view contentType="text/html">
+    <h:body>
+    <h:head>
+<title>ERP IMS</title>
+<meta charset="utf-8" />
+<h:outputStylesheet library="crmstyle" name="style.css"/>
+<meta name="viewport" content="width-device-width, initial-scale-1.0" />
+</h:head>
+<header class="mainheader"> 
+<table style="width: 100%;">
+<tr>
+<td>
+<img alt="LOGO IMS" src="../resources/images/logoerp.png" style="height:40px;" />
+</td>
+<td style="width: 80%;">
+<SPAN style="text-align: center;font-size: 20px;left: 40%;position: relative;">
+<SPAN style="color: blue;">Application</SPAN> <SPAN style="color:green;">GC</SPAN>IMS
+</SPAN>
+</td>
+<td>
+<a style="color: black;" href="../mprofil/param.xhtml">Profil</a>
+</td>
+<td>
+<a style="color: black;" href="${request.contextPath}/j_spring_security_logout">Déconnecter</a>
+</td>
+</tr>
+</table>
+<nav>
+<h:form id="menu">
+<ul>
+<li>
+<a href="../index/index.xhtml">Accueil</a></li>
+<li ><a href="../moffre/index.xhtml">Devis</a></li>
+<li >
+<a href="../mboncommande/listBoncommande.xhtml">Bon commandes</a>
+</li>
+<li><a href="../mbonlivraison/index.xhtml">Bon Livraison</a></li>
+<li>
+<a href="#">Factures</a>
+    <ul>
+    <li><a href="../mfactures/index.xhtml">Facture client</a></li>
+    <li><a href="../mfactures/FactureContrat.xhtml">Facture Contrat</a></li>
+    <li><a href="../mfactures/listfactureFournisseur.xhtml">Facture Fournisseur</a></li>
+    <li><a href="../mavoirs/index.xhtml">Avoir Client</a></li>
+    </ul>
+</li>
+<li>
+<a href="../mArticles/index.xhtml">Articles</a>
+ <ul>
+	<li><a href="../mArticles/index.xhtml">Articles</a></li>
+    <li><a href="../mrubrique/index.xhtml">Rubrique</a></li>
+   </ul>
+</li>
+<li>
+<a href="#">Stock</a>
+<ul>
+<li><a href="../mArticles/stock.xhtml">Stock IMS</a></li>
+<li><a href="../mArticles/articlelivrer.xhtml">Stock Livré</a></li>
+</ul>
+</li>
+<li>
+<a href="#">Mouvement</a>
+ <ul>
+    <li><a href="../mcompta/index.xhtml">Facture Client</a></li>
+    <li><a href="../mcompta/mocfactfournisseur.xhtml">Facture Fournisseur</a></li>
+    </ul>
+</li>
+<li>
+<a href="#">Charges</a>
+<ul>
+	<li><a href="../mcompta/listcharge.xhtml">charges</a></li>
+    <li><a href="../mcompta/createlignescaisse.xhtml">Caisse</a></li>
+    </ul>
+</li>
+
+<li>
+<a href="../mclient/index.xhtml">Clients</a>
+</li>
+<li><a href="../mfournisseur/index.xhtml">Fournisseur</a></li>
+<li><a href="../mfactures/ListefactureDetail.xhtml">Liaisons</a></li>
+</ul>
+</h:form>
+</nav>
+</header>
+    </h:body>
+    </f:view>
+</html>

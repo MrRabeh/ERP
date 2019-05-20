@@ -1,0 +1,25 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="BonLivraison">
+	<id name="id" column="id" >
+  <generator class="increment"></generator>
+  </id>
+  
+  	<property name="ref" column="numeroref" not-null="true" unique="true" ></property>
+    <property name="activer" column="activer"></property>
+  	<property name="datebl" column="datebl"></property>
+  	<property name="livrepar" column="livrepar"></property>
+  	<property name="receptionpar" column="receptionpar"></property>
+  	
+	
+	<many-to-one name="years" class="ims.model.entities.years" column="yearsID"></many-to-one>
+	<many-to-one name="client" class="ims.model.entities.Client" column="clientID" />
+	
+	<set name="stocks">
+  			<key column="livraisonID"></key>
+			<one-to-many class="ims.model.entities.Stock_Livraison" />
+ 		</set>
+  
+  </class>
+</hibernate-mapping>

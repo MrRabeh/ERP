@@ -1,0 +1,999 @@
+/*
+Style CSS IMS Technology
+*/
+.ui-datatable .ui-datatable-header, .ui-datatable .ui-datatable-footer {
+	text-align: right;
+}
+.ui-datatable .ui-column-filter {
+    width: 60px;
+}
+.ui-picklist .ui-picklist-list{
+height: 150px;
+width: 130px;
+}
+body {
+	background-color:#F0F0F0;
+	color:#000;
+	font-size:12px;
+	font-family:Arial,'lucida Sans Unicode';
+	line-height:1.5;
+	text-align:left;
+}
+a{
+	text-decoration:none;
+}
+#navlist li
+{
+display: inline;
+list-style-type: none;
+position: relative;
+left: 900px;
+padding-right: 20px;
+}
+.classmenu{
+	font-size: 13px;
+	text-shadow:none; 
+	left:10px;
+	position: relative;
+	color: black;
+}
+#classmenu{
+			background-color:#FFF;
+	    border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-top-right-radius:5px;
+		text-shadow:none;
+		color:black;
+		height: 20px;
+   /*border-left:inset 0.7mm;
+	border-top:inset 0.7mm;
+	border-bottom:outset 0.7mm;
+	border-right:outset 0.7mm;
+	*/
+}
+.entrerIndex{
+  width: 100%;
+  height: 160px;
+  background-color: #2d6997;
+  background: none;
+  background-image: -moz-linear-gradient(top, #3888cd 0%, #2d6997 100%);
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#3888cd), color-stop(100%,#2d6997));
+  background-image: -webkit-linear-gradient(top, #3888cd 0%, #2d6997 100%);
+}
+.welcomeBottomBody{
+  margin: 0 auto;
+  background-image: url(../images/space.gif);
+	
+}
+.tableindex{
+	padding: 50px 0;
+	padding-top:50px;
+  width: 760px;
+  margin: 0 230px;
+}
+.tableindex td{
+	width:50%;
+}
+
+.welcomeToolGroupHeaderContainer{
+	color: #444444;
+  font-size: 100%;
+  font-family: Helvetica, Arial, Verdana, sans-serif;
+  font-weight: bold;
+  height: 32px;
+  padding-top: 10px;
+  width: 80%;
+  text-shadow: 0 1px 1px #ffffff;
+}
+.welcomeToolHeadingContainer{
+	color: #444444;
+  font-family: helvetica,arial,geneva,sans-serif;
+  padding-left: 10px;
+  width: 500px;
+  text-shadow: 0 1px 1px #ffffff;
+}
+.inputims{
+height:20px;
+width:120px;
+}
+
+form .styleGreen {    
+    	border-radius:10px;
+	-moz-border-radius:10px;
+	-webkit-border-top-right-radius:10px;
+}
+
+.ui-inputfield {
+   width: 200px;
+}
+
+.content div .styletable .inputleft{
+	width: 200px;
+		
+}
+.content .styletable{
+	border-left:outset 0.8mm;
+	border-top:outset 0.8mm;
+	border-bottom:inset 0.8mm;
+	border-right:inset 0.8mm;
+	margin-bottom: 10px;
+	padding: 2px;
+	background-color: #D5DBDB;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	width: 25%;
+	
+}
+#styletable{
+	border-left:outset 0.8mm;
+	border-top:outset 0.8mm;
+	border-bottom:inset 0.8mm;
+	border-right:inset 0.8mm;
+	background-color: #D5DBDB;
+	border-radius:5px;
+	-moz-border-radius:5px;
+	-webkit-border-top-right-radius:5px;
+	padding: 1px;
+}
+.content{
+background-color:#F0F0F0;
+}
+
+.content .selectonemenu{
+	width:140px;
+	height:25px;
+}
+
+
+  .clogin {
+			  position: relative;
+			  float: right;
+			  width: 70%;
+			  top: 100px;
+			  }
+			.inputlogin {
+			  border-radius:5px;
+			  width: 270px;
+			  height: 30px;
+			  font-family: sans-serif;
+			  font-size: 15px;
+			  }
+			  
+			  .csubmit{
+			  border-radius:5px;
+			  width: 100px;
+			  height: 30px;
+			  font-family: sans-serif;
+			  font-size: 15px;
+			  background-color: #1F5380;
+			  color: white;
+				}
+
+
+.ui-panelgrid td, .ui-panelgrid tr{
+   border-style: none !important
+}
+a:link,a:visited{	
+}
+a:hover,a:active{
+}
+.body{
+	/*margin: auto 20px;
+	width:70%;
+	clear:both;
+	*/
+	font-size: 12px;
+	background-color:#F0F0F0;
+	
+	}
+	.mainheader{
+	height: 1%;
+	}
+	.mainheader h1{
+
+	}
+
+.datatablestyle{
+font-size: 11px;
+}
+
+.datarowstyle{
+   text-align:left;
+   padding:600px;
+   position: relative;
+}
+	.mainheader nav{
+		background-color:#1F5380;
+		height:35px;
+		border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-top-right-radius:5px;
+	}
+	.mainheader nav ul{
+	list-style:none;
+	margin: 0 0;
+	padding:0;
+	}
+	.middle-sidebar ul{
+		list-style:none;
+		margin: 0 auto;
+		}
+	.mainheader nav ul li{
+		float:left;
+		float: left;
+		position: static;
+		bottom: 5px;
+		}
+		.mainheader nav ul li ul{
+		display:none;
+		background-color:#5997C6;
+		position:fixed;
+		}
+	.mainheader nav ul li:hover ul {
+ 		display:block;
+ 		position:absolute;
+		border-radius:0;
+		z-index: 50;
+		}
+
+     .mainheader nav a:link,.mainheader nav:visited{
+		 color:#FFF;
+		 display:inline-block;
+		 padding:10px 25px;
+		 height:15px;
+		 }
+	.middle-sidebar a:link,.middle-sidebar nav:visited{
+		 color:#FFF;
+		 display:inline-block;
+		 }
+		 table td a:hover {
+		background-color:#3888CD;
+	    border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-top-right-radius:5px;
+		text-shadow:none;
+		color:#FFF;
+		/*height: 20px;
+		width: 100px;
+		*/
+		 }
+		
+		.sousmenuindex {
+		 left: 50px;
+		 position: relative;
+		 }
+	
+	.mainheader nav a:hover, .mainheader nav a:active,
+	.mainheader nav .active a:link, .mainheader nav .active a:visited{
+		background-color:#FFF;
+	    border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-top-right-radius:5px;
+		text-shadow:none;
+		color:#000;
+		}
+		
+	 .middle-sidebar a:hover, .middle-sidebar a:active,
+	 .middle-sidebar .active a:link, .middle-sidebar .active a:visited{
+		background-color:#1F5380;
+	    border-radius:5px;
+		-moz-border-radius:5px;
+		-webkit-border-top-right-radius:5px;
+		text-shadow:none;
+		color:#FFF;
+		width:90%;
+		padding-left:5px;
+		}
+		
+		.mainheader nav ul li a{
+			color:#FFF;
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-top-right-radius:5px;
+		}
+		.middle-sidebar nav ul li a{
+			text-decoration: underline;
+			font-weight: bold;
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-top-right-radius:5px;
+			
+		}
+		
+		.mainContent
+		{
+			line-height:25px;
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-top-right-radius:5px;
+			background-color:#F0F0F0;
+			}
+		.content{
+			/*width:100%;
+			float:right;*/	
+			}
+			.topcontent{
+			background-color:#FFF;
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-top-right-radius:5px;
+			background-color:#F0F0F0;
+				}
+		  .middle-sidebar{
+			  width:20%;
+			  float:left;
+			  background-color:#FFF;
+			  margin-bottom:15px;
+			 /* margin-left:3%;
+			  padding:1% 1%;*/
+			  }
+			  .mainFooter{
+			  	width:100%;
+				float:left;
+				color:#FFF;
+				background-color:#1F5380;
+			  }
+			  .stylerightdevis{
+			  float:right;width: 73%;
+			  }
+			  .titredevisoffre{
+			  font-weight:bold;text-align: left;bottom:-7px;
+			  }
+			  .stylearticlesdevis{
+			  float:right;width: 73%;background-color: #D5DBDB;border-radius:5px;
+			  }
+			  
+			  .stylerightcommande{
+			  float:right;width: 70%;
+			  }
+			  .stylearticlescommande{
+			  float:right;width: 70%;
+			  }
+			  .stylerightfacture{
+			  float:right;width: 72%;
+			  }
+			  .stylearticlesfacture{
+			  float:right;width: 72%;
+			  }
+			   .stylerightcontrat{
+			 float:right;width: 73%;
+			  }
+			 .stylerightcontrat2{
+			   float:right;width: 73%;background-color: #D5DBDB;border-radius:5px;
+			  }
+			  .stylerightavoir{
+			   float:right;width: 53%;
+			  }
+			 .stylerightcharge{
+			 float:right;width: 30%;
+			  }
+			.stylerightclient{
+			 float:right;width: 30%;
+			  }
+			.stylerightfournisseur{
+			 float:right;width: 50%;
+			  }
+			  .styleleftfournisseur{
+			 float:left;width: 55%;
+			  }
+@media only screen and (min-width:150px) and (max-width:1240px)
+{
+	
+	.datatablestyle{
+font-size: 9px;
+}
+
+.datarowstyle{
+   position: relative;
+}
+				.stylerightfournisseur{
+			width: 100%;
+			  }
+			 .stylerightclient{
+			 width:100%;
+			  }
+			.stylerightcharge{
+			width:100%;
+			  }
+				  .stylerightavoir{
+			   width: 100%;
+			  }
+			  
+				   .stylerightcontrat{
+			 		width: 100%;
+			  		}
+			  		.stylerightcontrat2{
+			  		width: 100%;
+			  		}
+	
+				  .stylerightfacture{
+			 width: 100%;
+			  }
+			  .stylearticlesfacture{
+			 width: 100%;
+			  }
+			  
+				  .stylerightcommande{
+			  width: 100%;
+			  }
+			  .stylearticlescommande{
+			  width: 100%;
+			  }
+				  .stylerightdevis{
+			  width:100%;
+			  }
+			  .styleleftdevis{
+			  width:100%;
+			  }
+			  .titredevisoffre{
+			  font-weight:bold;
+			  }
+			  .stylearticlesdevis{
+			  width: 100%;
+			  }
+	.body{
+			width:100%;
+			font-size:12px;
+		} 
+					 
+	.mainheader h1{
+			width:100%;
+			height:20%;
+			margin:2% 0;
+		}
+						
+	.mainheader nav{
+		height:485px;
+	}
+	.mainheader nav ul{
+		padding-left:0;
+	}
+	.mainheader nav ul li{
+		width:100%;
+		text-align:center;
+		}
+     .mainheader nav a:link,.mainheader nav:visited{
+		 padding:10px 25px;
+		 height:20px;
+		 display:block;
+		 }
+		 
+	.content{
+			width:100%;
+			float:left;
+			margin-top:2%;	
+			}
+	.topcontent{
+			background-color:#FFF;
+			border-radius:5px;
+			-moz-border-radius:5px;
+			-webkit-border-top-right-radius:5px;
+				}
+	.middle-sidebar{
+			  width:100%;
+			  float:left;
+			  background-color:#FFF;
+			 /* margin-left:3%;
+			  padding:1% 1%;*/
+			  }
+}
+
+/*
+Les images 
+
+/*	GLYPHISH ICONS
+---------------------------------------------------------------------*/
+.icon span.a1 {background-image: url(../resources/images/icons/1.png);}
+.icon span.a2 {background-image: url(../resources/images/icons/2.png);}
+.icon span.a3 {background-image: url(../resources/images/icons/3.png);}
+.icon span.a4 {background-image: url(../resources/images/icons/4.png);}
+.icon span.a5 {background-image: url(../resources/images/icons/5.png);}
+.icon span.a6 {background-image: url(../resources/images/icons/6.png);}
+.icon span.a7 {background-image: url(../resources/images/icons/7.png);}
+.icon span.a8 {background-image: url(../resources/images/icons/8.png);}
+.icon span.a9 {background-image: url(../resources/images/icons/9.png);}
+.icon span.a10 {background-image: url(../resources/images/icons/10.png);}
+.icon span.a11 {background-image: url(../resources/images/icons/11.png);}
+.icon span.a12 {background-image: url(../resources/images/icons/12.png);}
+.icon span.a13 {background-image: url(../resources/images/icons/13.png);}
+.icon span.a14 {background-image: url(../resources/images/icons/14.png);}
+.icon span.a15 {background-image: url(../resources/images/icons/15.png);}
+.icon span.a16 {background-image: url(../resources/images/icons/16.png);}
+.icon span.a17 {background-image: url(../resources/images/icons/17.png);}
+.icon span.a18 {background-image: url(../resources/images/icons/18.png);}
+.icon span.a19 {background-image: url(../resources/images/icons/19.png);}
+.icon span.a20 {background-image: url(../resources/images/icons/20.png);}
+.icon span.a21 {background-image: url(../resources/images/icons/21.png);}
+.icon span.a22 {background-image: url(../resources/images/icons/22.png);}
+.icon span.a23 {background-image: url(../resources/images/icons/23.png);}
+.icon span.a24 {background-image: url(../resources/images/icons/24.png);}
+.icon span.a25 {background-image: url(../resources/images/icons/25.png);}
+.icon span.a26 {background-image: url(../resources/images/icons/26.png);}
+.icon span.a27 {background-image: url(../resources/images/icons/27.png);}
+.icon span.a28 {background-image: url(../resources/images/icons/28.png);}
+.icon span.a29 {background-image: url(../resources/images/icons/29.png);}
+.icon span.a30 {background-image: url(../resources/images/icons/30.png);}
+.icon span.a31 {background-image: url(../resources/images/icons/31.png);}
+.icon span.a32 {background-image: url(../resources/images/icons/32.png);}
+.icon span.a33 {background-image: url(../resources/images/icons/33.png);}
+.icon span.a34 {background-image: url(../resources/images/icons/34.png);}
+.icon span.a35 {background-image: url(../resources/images/icons/35.png);}
+.icon span.a36 {background-image: url(../resources/images/icons/36.png);}
+.icon span.a37 {background-image: url(../resources/images/icons/37.png);}
+.icon span.a38 {background-image: url(../resources/images/icons/38.png);}
+.icon span.a39 {background-image: url(../resources/images/icons/39.png);}
+.icon span.a40 {background-image: url(../resources/images/icons/40.png);}
+.icon span.a41 {background-image: url(../resources/images/icons/41.png);}
+.icon span.a42 {background-image: url(../resources/images/icons/42.png);}
+.icon span.a43 {background-image: url(../resources/images/icons/43.png);}
+.icon span.a44 {background-image: url(../resources/images/icons/44.png);}
+.icon span.a45 {background-image: url(../resources/images/icons/45.png);}
+.icon span.a46 {background-image: url(../resources/images/icons/46.png);}
+.icon span.a47 {background-image: url(../resources/images/icons/47.png);}
+.icon span.a48 {background-image: url(../resources/images/icons/48.png);}
+.icon span.a49 {background-image: url(../resources/images/icons/49.png);}
+.icon span.a50 {background-image: url(../resources/images/icons/50.png);}
+.icon span.a51 {background-image: url(../resources/images/icons/51.png);}
+.icon span.a52 {background-image: url(../resources/images/icons/52.png);}
+.icon span.a53 {background-image: url(../resources/images/icons/53.png);}
+.icon span.a54 {background-image: url(../resources/images/icons/54.png);}
+.icon span.a55 {background-image: url(../resources/images/icons/55.png);}
+.icon span.a56 {background-image: url(../resources/images/icons/56.png);}
+.icon span.a57 {background-image: url(../resources/images/icons/57.png);}
+.icon span.a58 {background-image: url(../resources/images/icons/58.png);}
+.icon span.a59 {background-image: url(../resources/images/icons/59.png);}
+.icon span.a60 {background-image: url(../resources/images/icons/60.png);}
+.icon span.a61 {background-image: url(../resources/images/icons/61.png);}
+.icon span.a62 {background-image: url(../resources/images/icons/62.png);}
+.icon span.a63 {background-image: url(../resources/images/icons/63.png);}
+.icon span.a64 {background-image: url(../resources/images/icons/64.png);}
+.icon span.a65 {background-image: url(../resources/images/icons/65.png);}
+.icon span.a66 {background-image: url(../resources/images/icons/66.png);}
+.icon span.a67 {background-image: url(../resources/images/icons/67.png);}
+.icon span.a68 {background-image: url(../resources/images/icons/68.png);}
+.icon span.a69 {background-image: url(../resources/images/icons/69.png);}
+.icon span.a70 {background-image: url(../resources/images/icons/70.png);}
+.icon span.a71 {background-image: url(../resources/images/icons/71.png);}
+.icon span.a72 {background-image: url(../resources/images/icons/72.png);}
+.icon span.a73 {background-image: url(../resources/images/icons/73.png);}
+.icon span.a74 {background-image: url(../resources/images/icons/74.png);}
+.icon span.a75 {background-image: url(../resources/images/icons/75.png);}
+.icon span.a76 {background-image: url(../resources/images/icons/76.png);}
+.icon span.a77 {background-image: url(../resources/images/icons/77.png);}
+.icon span.a78 {background-image: url(../resources/images/icons/78.png);}
+.icon span.a79 {background-image: url(../resources/images/icons/79.png);}
+.icon span.a80 {background-image: url(../resources/images/icons/80.png);}
+.icon span.a81 {background-image: url(../resources/images/icons/81.png);}
+.icon span.a82 {background-image: url(../resources/images/icons/82.png);}
+.icon span.a83 {background-image: url(../resources/images/icons/83.png);}
+.icon span.a84 {background-image: url(../resources/images/icons/84.png);}
+.icon span.a85 {background-image: url(../resources/images/icons/85.png);}
+.icon span.a86 {background-image: url(../resources/images/icons/86.png);}
+.icon span.a87 {background-image: url(../resources/images/icons/87.png);}
+.icon span.a88 {background-image: url(../resources/images/icons/88.png);}
+.icon span.a89 {background-image: url(../resources/images/icons/89.png);}
+.icon span.a90 {background-image: url(../resources/images/icons/90.png);}
+.icon span.a91 {background-image: url(../resources/images/icons/91.png);}
+.icon span.a92 {background-image: url(../resources/images/icons/92.png);}
+.icon span.a93 {background-image: url(../resources/images/icons/93.png);}
+.icon span.a94 {background-image: url(../resources/images/icons/94.png);}
+.icon span.a95 {background-image: url(../resources/images/icons/95.png);}
+.icon span.a96 {background-image: url(../resources/images/icons/96.png);}
+.icon span.a97 {background-image: url(../resources/images/icons/97.png);}
+.icon span.a98 {background-image: url(../resources/images/icons/98.png);}
+.icon span.a99 {background-image: url(../resources/images/icons/99.png);}
+.icon span.a100 {background-image: url(../resources/images/icons/100.png);}
+.icon span.a101 {background-image: url(../resources/images/icons/101.png);}
+.icon span.a102 {background-image: url(../resources/images/icons/102.png);}
+.icon span.a103 {background-image: url(../resources/images/icons/103.png);}
+.icon span.a104 {background-image: url(../resources/images/icons/104.png);}
+.icon span.a105 {background-image: url(../resources/images/icons/105.png);}
+.icon span.a106 {background-image: url(../resources/images/icons/106.png);}
+.icon span.a107 {background-image: url(../resources/images/icons/107.png);}
+.icon span.a108 {background-image: url(../resources/images/icons/108.png);}
+.icon span.a109 {background-image: url(../resources/images/icons/109.png);}
+.icon span.a110 {background-image: url(../resources/images/icons/110.png);}
+.icon span.a111 {background-image: url(../resources/images/icons/111.png);}
+.icon span.a112 {background-image: url(../resources/images/icons/112.png);}
+.icon span.a113 {background-image: url(../resources/images/icons/113.png);}
+.icon span.a114 {background-image: url(../resources/images/icons/114.png);}
+.icon span.a115 {background-image: url(../resources/images/icons/115.png);}
+.icon span.a116 {background-image: url(../resources/images/icons/116.png);}
+.icon span.a117 {background-image: url(../resources/images/icons/117.png);}
+.icon span.a118 {background-image: url(../resources/images/icons/118.png);}
+.icon span.a119 {background-image: url(../resources/images/icons/119.png);}
+.icon span.a120 {background-image: url(../resources/images/icons/120.png);}
+.icon span.a121 {background-image: url(../resources/images/icons/121.png);}
+.icon span.a122 {background-image: url(../resources/images/icons/122.png);}
+.icon span.a123 {background-image: url(../resources/images/icons/123.png);}
+.icon span.a124 {background-image: url(../resources/images/icons/124.png);}
+.icon span.a125 {background-image: url(../resources/images/icons/125.png);}
+.icon span.a126 {background-image: url(../resources/images/icons/126.png);}
+.icon span.a127 {background-image: url(../resources/images/icons/127.png);}
+.icon span.a128 {background-image: url(../resources/images/icons/128.png);}
+.icon span.a129 {background-image: url(../resources/images/icons/129.png);}
+.icon span.a130 {background-image: url(../resources/images/icons/130.png);}
+.icon span.a131 {background-image: url(../resources/images/icons/131.png);}
+.icon span.a132 {background-image: url(../resources/images/icons/132.png);}
+.icon span.a133 {background-image: url(../resources/images/icons/133.png);}
+.icon span.a134 {background-image: url(../resources/images/icons/134.png);}
+.icon span.a135 {background-image: url(../resources/images/icons/135.png);}
+.icon span.a136 {background-image: url(../resources/images/icons/136.png);}
+.icon span.a137 {background-image: url(../resources/images/icons/137.png);}
+.icon span.a138 {background-image: url(../resources/images/icons/138.png);}
+.icon span.a139 {background-image: url(../resources/images/icons/139.png);}
+.icon span.a140 {background-image: url(../resources/images/icons/140.png);}
+.icon span.a141 {background-image: url(../resources/images/icons/141.png);}
+.icon span.a142 {background-image: url(../resources/images/icons/142.png);}
+.icon span.a143 {background-image: url(../resources/images/icons/143.png);}
+.icon span.a144 {background-image: url(../resources/images/icons/144.png);}
+.icon span.a145 {background-image: url(../resources/images/icons/145.png);}
+.icon span.a146 {background-image: url(../resources/images/icons/146.png);}
+.icon span.a147 {background-image: url(../resources/images/icons/147.png);}
+.icon span.a148 {background-image: url(../resources/images/icons/148.png);}
+.icon span.a149 {background-image: url(../resources/images/icons/149.png);}
+.icon span.a150 {background-image: url(../resources/images/icons/150.png);}
+.icon span.a151 {background-image: url(../resources/images/icons/151.png);}
+.icon span.a152 {background-image: url(../resources/images/icons/152.png);}
+.icon span.a153 {background-image: url(../resources/images/icons/153.png);}
+.icon span.a154 {background-image: url(../resources/images/icons/154.png);}
+.icon span.a155 {background-image: url(../resources/images/icons/155.png);}
+.icon span.a156 {background-image: url(../resources/images/icons/156.png);}
+.icon span.a157 {background-image: url(../resources/images/icons/157.png);}
+.icon span.a158 {background-image: url(../resources/images/icons/158.png);}
+.icon span.a159 {background-image: url(../resources/images/icons/159.png);}
+.icon span.a160 {background-image: url(../resources/images/icons/160.png);}
+.icon span.a161 {background-image: url(../resources/images/icons/161.png);}
+.icon span.a162 {background-image: url(../resources/images/icons/162.png);}
+.icon span.a163 {background-image: url(../resources/images/icons/163.png);}
+.icon span.a164 {background-image: url(../resources/images/icons/164.png);}
+.icon span.a165 {background-image: url(../resources/images/icons/165.png);}
+.icon span.a166 {background-image: url(../resources/images/icons/166.png);}
+.icon span.a167 {background-image: url(../resources/images/icons/167.png);}
+.icon span.a168 {background-image: url(../resources/images/icons/168.png);}
+.icon span.a169 {background-image: url(../resources/images/icons/169.png);}
+.icon span.a170 {background-image: url(../resources/images/icons/170.png);}
+.icon span.a171 {background-image: url(../resources/images/icons/171.png);}
+.icon span.a172 {background-image: url(../resources/images/icons/172.png);}
+.icon span.a173 {background-image: url(../resources/images/icons/173.png);}
+.icon span.a174 {background-image: url(../resources/images/icons/174.png);}
+.icon span.a175 {background-image: url(../resources/images/icons/175.png);}
+.icon span.a176 {background-image: url(../resources/images/icons/176.png);}
+.icon span.a177 {background-image: url(../resources/images/icons/177.png);}
+.icon span.a178 {background-image: url(../resources/images/icons/178.png);}
+.icon span.a179 {background-image: url(../resources/images/icons/179.png);}
+.icon span.a180 {background-image: url(../resources/images/icons/180.png);}
+.icon span.a181 {background-image: url(../resources/images/icons/181.png);}
+.icon span.a182 {background-image: url(../resources/images/icons/182.png);}
+.icon span.a183 {background-image: url(../resources/images/icons/183.png);}
+.icon span.a184 {background-image: url(../resources/images/icons/184.png);}
+.icon span.a185 {background-image: url(../resources/images/icons/185.png);}
+.icon span.a186 {background-image: url(../resources/images/icons/186.png);}
+.icon span.a187 {background-image: url(../resources/images/icons/187.png);}
+.icon span.a188 {background-image: url(../resources/images/icons/188.png);}
+.icon span.a189 {background-image: url(../resources/images/icons/189.png);}
+.icon span.a190 {background-image: url(../resources/images/icons/190.png);}
+.icon span.a191 {background-image: url(../resources/images/icons/191.png);}
+.icon span.a192 {background-image: url(../resources/images/icons/192.png);}
+.icon span.a193 {background-image: url(../resources/images/icons/193.png);}
+.icon span.a194 {background-image: url(../resources/images/icons/194.png);}
+.icon span.a195 {background-image: url(../resources/images/icons/195.png);}
+.icon span.a196 {background-image: url(../resources/images/icons/196.png);}
+.icon span.a197 {background-image: url(../resources/images/icons/197.png);}
+.icon span.a198 {background-image: url(../resources/images/icons/198.png);}
+.icon span.a199 {background-image: url(../resources/images/icons/199.png);}
+.icon span.a200 {background-image: url(../resources/images/icons/200.png);}
+
+/*	FUGUE ICONS
+---------------------------------------------------------------------*/
+.icon span.b1 {background-image: url(../resources/images/fugue/icons/abacus.png);}
+.icon span.b2 {background-image: url(../resources/images/fugue/icons/acorn.png);}
+.icon span.b3 {background-image: url(../resources/images/fugue/icons/address-book.png);}
+.icon span.b4 {background-image: url(../resources/images/fugue/icons/address-book--arrow.png);}
+.icon span.b5 {background-image: url(../resources/images/fugue/icons/address-book--exclamation.png);}
+.icon span.b6 {background-image: url(../resources/images/fugue/icons/address-book--minus.png);}
+.icon span.b7 {background-image: url(../resources/images/fugue/icons/address-book--pencil.png);}
+.icon span.b8 {background-image: url(../resources/images/fugue/icons/address-book--plus.png);}
+.icon span.b9 {background-image: url(../resources/images/fugue/icons/address-book-blue.png);}
+.icon span.b10 {background-image: url(../resources/images/fugue/icons/address-book-open.png);}
+.icon span.b11 {background-image: url(../resources/images/fugue/icons/alarm-clock.png);}
+.icon span.b12{background-image: url(../resources/images/fugue/icons/alarm-clock--arrow.png);}
+.icon span.b13 {background-image: url(../resources/images/fugue/icons/alarm-clock--exclamation.png);}
+.icon span.b14 {background-image: url(../resources/images/fugue/icons/alarm-clock--minus.png);}
+.icon span.b15 {background-image: url(../resources/images/fugue/icons/alarm-clock--pencil.png);}
+.icon span.b16 {background-image: url(../resources/images/fugue/icons/alarm-clock--plus.png);}
+.icon span.b17 {background-image: url(../resources/images/fugue/icons/alarm-clock-blue.png);}
+.icon span.b18 {background-image: url(../resources/images/fugue/icons/alarm-clock-select.png);}
+.icon span.b19 {background-image: url(../resources/images/fugue/icons/alarm-clock-select-remain.png);}
+.icon span.b20 {background-image: url(../resources/images/fugue/icons/anchor.png);}
+.icon span.b21 {background-image: url(../resources/images/fugue/icons/android.png);}
+.icon span.b22 {background-image: url(../resources/images/fugue/icons/animal.png);}
+.icon span.b23 {background-image: url(../resources/images/fugue/icons/animal-dog.png);}
+.icon span.b24 {background-image: url(../resources/images/fugue/icons/animal-monkey.png);}
+.icon span.b25 {background-image: url(../resources/images/fugue/icons/animal-monkey-sulky.png);}
+.icon span.b26 {background-image: url(../resources/images/fugue/icons/animal-penguin.png);}
+.icon span.b27 {background-image: url(../resources/images/fugue/icons/application.png);}
+.icon span.b28 {background-image: url(../resources/images/fugue/icons/application--arrow.png);}
+.icon span.b29 {background-image: url(../resources/images/fugue/icons/application--exclamation.png);}
+.icon span.b30 {background-image: url(../resources/images/fugue/icons/application--minus.png);}
+.icon span.b31 {background-image: url(../resources/images/fugue/icons/application--pencil.png);}
+.icon span.b32 {background-image: url(../resources/images/fugue/icons/application--plus.png);}
+.icon span.b33 {background-image: url(../resources/images/fugue/icons/application-block.png);}
+.icon span.b34 {background-image: url(../resources/images/fugue/icons/application-blog.png);}
+.icon span.b35 {background-image: url(../resources/images/fugue/icons/application-blue.png);}
+.icon span.b36 {background-image: url(../resources/images/fugue/icons/application-browser.png);}
+.icon span.b37 {background-image: url(../resources/images/fugue/icons/application-detail.png);}
+.icon span.b38 {background-image: url(../resources/images/fugue/icons/application-dialog.png);}
+.icon span.b39 {background-image: url(../resources/images/fugue/icons/application-dock.png);}
+.icon span.b40 {background-image: url(../resources/images/fugue/icons/application-dock-090.png);}
+.icon span.b41 {background-image: url(../resources/images/fugue/icons/application-dock-180.png);}
+.icon span.b42 {background-image: url(../resources/images/fugue/icons/application-dock-270.png);}
+.icon span.b43 {background-image: url(../resources/images/fugue/icons/application-dock-tab.png);}
+.icon span.b44 {background-image: url(../resources/images/fugue/icons/application-document.png);}
+.icon span.b45 {background-image: url(../resources/images/fugue/icons/application-documents.png);}
+.icon span.b46 {background-image: url(../resources/images/fugue/icons/application-export.png);}
+.icon span.b47 {background-image: url(../resources/images/fugue/icons/application-form.png);}
+.icon span.b48 {background-image: url(../resources/images/fugue/icons/application-home.png);}
+.icon span.b49 {background-image: url(../resources/images/fugue/icons/application-icon.png);}
+.icon span.b50 {background-image: url(../resources/images/fugue/icons/application-image.png);}
+.icon span.b51 {background-image: url(../resources/images/fugue/icons/application-import.png);}
+.icon span.b52 {background-image: url(../resources/images/fugue/icons/application-list.png);}
+.icon span.b53 {background-image: url(../resources/images/fugue/icons/application-medium.png);}
+.icon span.b54 {background-image: url(../resources/images/fugue/icons/application-monitor.png);}
+.icon span.b55 {background-image: url(../resources/images/fugue/icons/application-network.png);}
+.icon span.b56 {background-image: url(../resources/images/fugue/icons/application-plus.png);}
+.icon span.b57 {background-image: url(../resources/images/fugue/icons/application-plus-black.png);}
+.icon span.b58 {background-image: url(../resources/images/fugue/icons/application-rename.png);}
+.icon span.b59 {background-image: url(../resources/images/fugue/icons/application-resize.png);}
+.icon span.b60 {background-image: url(../resources/images/fugue/icons/application-resize-actual.png);}
+.icon span.b61 {background-image: url(../resources/images/fugue/icons/application-resize-full.png);}
+.icon span.b62 {background-image: url(../resources/images/fugue/icons/application-run.png);}
+.icon span.b63 {background-image: url(../resources/images/fugue/icons/application-search-result.png);}
+.icon span.b64 {background-image: url(../resources/images/fugue/icons/application-share.png);}
+.icon span.b65 {background-image: url(../resources/images/fugue/icons/application-sidebar.png);}
+.icon span.b66 {background-image: url(../resources/images/fugue/icons/application-sidebar-collapse.png);}
+.icon span.b67 {background-image: url(../resources/images/fugue/icons/application-sidebar-expand.png);}
+.icon span.b68 {background-image: url(../resources/images/fugue/icons/application-sidebar-list.png);}
+.icon span.b69 {background-image: url(../resources/images/fugue/icons/application-small.png);}
+.icon span.b70 {background-image: url(../resources/images/fugue/icons/application-small-blue.png);}
+.icon span.b71 {background-image: url(../resources/images/fugue/icons/application-small-list.png);}
+.icon span.b72 {background-image: url(../resources/images/fugue/icons/application-small-list-blue.png);}
+.icon span.b73 {background-image: url(../resources/images/fugue/icons/application-split.png);}
+.icon span.b74 {background-image: url(../resources/images/fugue/icons/application-split-tile.png);}
+.icon span.b75 {background-image: url(../resources/images/fugue/icons/application-split-vertical.png);}
+.icon span.b76 {background-image: url(../resources/images/fugue/icons/application-sub.png);}
+.icon span.b77 {background-image: url(../resources/images/fugue/icons/application-table.png);}
+.icon span.b78 {background-image: url(../resources/images/fugue/icons/application-task.png);}
+.icon span.b79 {background-image: url(../resources/images/fugue/icons/application-terminal.png);}
+.icon span.b80 {background-image: url(../resources/images/fugue/icons/application-text.png);}
+.icon span.b81 {background-image: url(../resources/images/fugue/icons/application-text-image.png);}
+.icon span.b82 {background-image: url(../resources/images/fugue/icons/application-tile.png);}
+.icon span.b83 {background-image: url(../resources/images/fugue/icons/application-tile-horizontal.png);}
+.icon span.b84 {background-image: url(../resources/images/fugue/icons/application-tile-vertical.png);}
+.icon span.b85 {background-image: url(../resources/images/fugue/icons/application-tree.png);}
+.icon span.b86 {background-image: url(../resources/images/fugue/icons/application-wave.png);}
+.icon span.b87 {background-image: url(../resources/images/fugue/icons/applications.png);}
+.icon span.b88 {background-image: url(../resources/images/fugue/icons/applications-blue.png);}
+.icon span.b89 {background-image: url(../resources/images/fugue/icons/applications-stack.png);}
+.icon span.b90 {background-image: url(../resources/images/fugue/icons/arrow.png);}
+.icon span.b91 {background-image: url(../resources/images/fugue/icons/arrow-000-medium.png);}
+.icon span.b92 {background-image: url(../resources/images/fugue/icons/arrow-000-small.png);}
+.icon span.b93 {background-image: url(../resources/images/fugue/icons/arrow-045.png);}
+.icon span.b94 {background-image: url(../resources/images/fugue/icons/arrow-045-medium.png);}
+.icon span.b95 {background-image: url(../resources/images/fugue/icons/arrow-045-small.png);}
+.icon span.b96 {background-image: url(../resources/images/fugue/icons/arrow-090.png);}
+.icon span.b97 {background-image: url(../resources/images/fugue/icons/arrow-090-medium.png);}
+.icon span.b97 {background-image: url(../resources/images/fugue/icons/arrow-090-small.png);}
+.icon span.b98 {background-image: url(../resources/images/fugue/icons/arrow-135.png);}
+.icon span.b99 {background-image: url(../resources/images/fugue/icons/arrow-135-medium.png);}
+.icon span.b100 {background-image: url(../resources/images/fugue/icons/arrow-135-small.png);}
+.icon span.b101 {background-image: url(../resources/images/fugue/icons/arrow-180.png);}
+.icon span.b102 {background-image: url(../resources/images/fugue/icons/cross-script.png);}
+.b102 {background-image: url(../resources/images/fugue/icons/cross-script.png);}
+.bclient {
+	background-image: url(../resources/images/clients.png);
+	width: 100%;
+	height: 100%;
+	}
+	.bchelpdesk {
+	background-image: url(../resources/images/helpdesk_32.png);
+	width : 100%;
+	height: 100%;
+	}
+.bfournisseur {
+	background-image: url(../resources/images/fournisseurs.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+	.breporting {
+	background-image: url(../resources/images/reporting.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+		.bdevis {
+	background-image: url(../resources/images/devis.png);
+	width: 100%;
+	height: 100%;
+	}
+			.bcommande {
+	background-image: url(../resources/images/boncommande.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+				.blivraison {
+	background-image: url(../resources/images/bonlivraison.png);
+     width: 100%;
+	height: 100%;
+	}
+	
+					.bfact {
+	background-image: url(../resources/images/fact.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+						.barticle {
+	background-image: url(../resources/images/article.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+							.bstock {
+	background-image: url(../resources/images/stock.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+								.bproduit {
+	background-image: url(../resources/images/produit.png);
+	width: 80px;
+	height: 80px;
+	}
+	
+									.bmov1 {
+	background-image: url(../resources/images/compta.png);
+	width: 100%;
+	height: 100%;
+	}
+	
+										.bmov2 {
+	background-image: url(../resources/images/compta2.png);
+	width: 100%;
+	height: 100%;
+	}
+.icon span.bannuler {background-image: url(../resources/images/fugue/icons/1002.png);}
+.bannuler {background-image: url(../resources/images/fugue/icons/1002.png);}
+.icon span.bcommande {background-image: url(../resources/images/icons/commande.png);}
+.icon span.b103 {background-image: url(../resources/images/fugue/icons/arrow-180-small.png);}
+.icon span.b104 {background-image: url(../resources/images/fugue/icons/arrow-225.png);}
+.icon span.b105 {background-image: url(../resources/images/fugue/icons/arrow-225-medium.png);}
+.icon span.b106 {background-image: url(../resources/images/fugue/icons/arrow-225-small.png);}
+.icon span.b107 {background-image: url(../resources/images/fugue/icons/arrow-270.png);}
+.icon span.b108 {background-image: url(../resources/images/fugue/icons/arrow-270-medium.png);}
+.icon span.b109 {background-image: url(../resources/images/fugue/icons/arrow-270-small.png);}
+.icon span.b110 {background-image: url(../resources/images/fugue/icons/arrow-315.png);}
+.icon span.b111 {background-image: url(../resources/images/fugue/icons/arrow-315-medium.png);}
+.icon span.b112 {background-image: url(../resources/images/fugue/icons/arrow-315-small.png);}
+.icon span.b113 {background-image: url(../resources/images/fugue/icons/arrow-branch.png);}
+.icon span.b114 {background-image: url(../resources/images/fugue/icons/arrow-branch-000-left.png);}
+.icon span.b115 {background-image: url(../resources/images/fugue/icons/arrow-branch-090.png);}
+.icon span.b116 {background-image: url(../resources/images/fugue/icons/arrow-branch-090-left.png);}
+.icon span.b117 {background-image: url(../resources/images/fugue/icons/arrow-branch-180.png);}
+.icon span.b118 {background-image: url(../resources/images/fugue/icons/arrow-branch-180-left.png);}
+.icon span.b119 {background-image: url(../resources/images/fugue/icons/arrow-branch-270.png);}
+.icon span.b120 {background-image: url(../resources/images/fugue/icons/arrow-branch-270-left.png);}
+.icon span.b121 {background-image: url(../resources/images/fugue/icons/arrow-circle.png);}
+.icon span.b122 {background-image: url(../resources/images/fugue/icons/arrow-circle-045-left.png);}
+.icon span.b123 {background-image: url(../resources/images/fugue/icons/arrow-circle-135.png);}
+.icon span.b124 {background-image: url(../resources/images/fugue/icons/arrow-circle-135-left.png);}
+.icon span.b125 {background-image: url(../resources/images/fugue/icons/arrow-circle-225.png);}
+.icon span.b126 {background-image: url(../resources/images/fugue/icons/arrow-circle-225-left.png);}
+.icon span.b127 {background-image: url(../resources/images/fugue/icons/arrow-circle-315.png);}
+.icon span.b128 {background-image: url(../resources/images/fugue/icons/arrow-circle-315-left.png);}
+.icon span.b129 {background-image: url(../resources/images/fugue/icons/arrow-circle-double.png);}
+.icon span.b130 {background-image: url(../resources/images/fugue/icons/arrow-circle-double-135.png);}
+.icon span.b131 {background-image: url(../resources/images/fugue/icons/arrow-continue.png);}
+.icon span.b132 {background-image: url(../resources/images/fugue/icons/arrow-continue-000-top.png);}
+.icon span.b133 {background-image: url(../resources/images/fugue/icons/arrow-continue-090.png);}
+.icon span.b134 {background-image: url(../resources/images/fugue/icons/arrow-continue-090-left.png);}
+.icon span.b135 {background-image: url(../resources/images/fugue/icons/arrow-continue-180.png);}
+.icon span.b136 {background-image: url(../resources/images/fugue/icons/arrow-continue-180-top.png);}
+.icon span.b137 {background-image: url(../resources/images/fugue/icons/arrow-continue-270.png);}
+.icon span.b138 {background-image: url(../resources/images/fugue/icons/arrow-continue-270-left.png);}
+.icon span.b139 {background-image: url(../resources/images/fugue/icons/arrow-curve.png);}
+.icon span.b140 {background-image: url(../resources/images/fugue/icons/arrow-curve-000-double.png);}
+.icon span.b141 {background-image: url(../resources/images/fugue/icons/arrow-curve-000-left.png);}
+.icon span.b142 {background-image: url(../resources/images/fugue/icons/arrow-curve-090.png);}
+.icon span.b143 {background-image: url(../resources/images/fugue/icons/arrow-curve-090-left.png);}
+.icon span.b144 {background-image: url(../resources/images/fugue/icons/arrow-curve-180.png);}
+.icon span.b145 {background-image: url(../resources/images/fugue/icons/arrow-curve-180-double.png);}
+.icon span.b146 {background-image: url(../resources/images/fugue/icons/arrow-curve-180-left.png);}
+.icon span.b147 {background-image: url(../resources/images/fugue/icons/arrow-curve-270.png);}
+.icon span.b148 {background-image: url(../resources/images/fugue/icons/arrow-curve-270-left.png);}
+.icon span.b149 {background-image: url(../resources/images/fugue/icons/arrow-in.png);}
+.icon span.b150 {background-image: url(../resources/images/fugue/icons/arrow-in-out.png);}
+.icon span.b151 {background-image: url(../resources/images/fugue/icons/arrow-join.png);}
+.icon span.b152 {background-image: url(../resources/images/fugue/icons/arrow-join-090.png);}
+.icon span.b153 {background-image: url(../resources/images/fugue/icons/arrow-join-180.png);}
+.icon span.b154 {background-image: url(../resources/images/fugue/icons/arrow-join-270.png);}
+.icon span.b155 {background-image: url(../resources/images/fugue/icons/arrow-merge.png);}
+.icon span.b156 {background-image: url(../resources/images/fugue/icons/arrow-merge-000-left.png);}
+.icon span.b157 {background-image: url(../resources/images/fugue/icons/arrow-merge-090.png);}
+.icon span.b158 {background-image: url(../resources/images/fugue/icons/arrow-merge-090-left.png);}
+.icon span.b159 {background-image: url(../resources/images/fugue/icons/arrow-merge-180.png);}
+.icon span.b160 {background-image: url(../resources/images/fugue/icons/arrow-merge-180-left.png);}
+.icon span.b161 {background-image: url(../resources/images/fugue/icons/arrow-merge-270.png);}
+.icon span.b162 {background-image: url(../resources/images/fugue/icons/arrow-merge-270-left.png);}
+.icon span.b163 {background-image: url(../resources/images/fugue/icons/arrow-move.png);}
+.icon span.b164 {background-image: url(../resources/images/fugue/icons/arrow-out.png);}
+.icon span.b165 {background-image: url(../resources/images/fugue/icons/arrow-repeat.png);}
+.icon span.b166 {background-image: url(../resources/images/fugue/icons/arrow-repeat-once.png);}
+.icon span.b167 {background-image: url(../resources/images/fugue/icons/arrow-resize.png);}
+.icon span.b168 {background-image: url(../resources/images/fugue/icons/arrow-resize-045.png);}
+.icon span.b169 {background-image: url(../resources/images/fugue/icons/arrow-resize-090.png);}
+.icon span.b170 {background-image: url(../resources/images/fugue/icons/arrow-resize-135.png);}
+.icon span.b171 {background-image: url(../resources/images/fugue/icons/arrow-return.png);}
+.icon span.b172 {background-image: url(../resources/images/fugue/icons/arrow-return-000-left.png);}
+.icon span.b173 {background-image: url(../resources/images/fugue/icons/arrow-return-090.png);}
+.icon span.b174 {background-image: url(../resources/images/fugue/icons/arrow-return-090-left.png);}
+.icon span.b175 {background-image: url(../resources/images/fugue/icons/arrow-return-180.png);}
+.icon span.b176 {background-image: url(../resources/images/fugue/icons/arrow-return-180-left.png);}
+.icon span.b177 {background-image: url(../resources/images/fugue/icons/arrow-return-270.png);}
+.icon span.b178 {background-image: url(../resources/images/fugue/icons/arrow-return-270-left.png);}
+.icon span.b179 {background-image: url(../resources/images/fugue/icons/arrow-retweet.png);}
+.icon span.b180 {background-image: url(../resources/images/fugue/icons/arrow-skip.png);}
+.icon span.b181 {background-image: url(../resources/images/fugue/icons/arrow-skip-090.png);}
+.icon span.b182 {background-image: url(../resources/images/fugue/icons/arrow-skip-180.png);}
+.icon span.b183 {background-image: url(../resources/images/fugue/icons/arrow-skip-270.png);}
+.icon span.b184 {background-image: url(../resources/images/fugue/icons/arrow-split.png);}
+.icon span.b185 {background-image: url(../resources/images/fugue/icons/arrow-split-090.png);}
+.icon span.b186 {background-image: url(../resources/images/fugue/icons/arrow-split-180.png);}
+.icon span.b187 {background-image: url(../resources/images/fugue/icons/arrow-split-270.png);}
+.icon span.b188 {background-image: url(../resources/images/fugue/icons/arrow-step.png);}
+.icon span.b189 {background-image: url(../resources/images/fugue/icons/arrow-step-out.png);}
+.icon span.b190 {background-image: url(../resources/images/fugue/icons/arrow-step-over.png);}
+.icon span.b191 {background-image: url(../resources/images/fugue/icons/arrow-stop.png);}
+.icon span.b192 {background-image: url(../resources/images/fugue/icons/arrow-stop-090.png);}
+.icon span.b193 {background-image: url(../resources/images/fugue/icons/arrow-stop-180.png);}
+.icon span.b194 {background-image: url(../resources/images/fugue/icons/arrow-stop-270.png);}
+.icon span.b195 {background-image: url(../resources/images/fugue/icons/arrow-switch.png);}
+.icon span.b196 {background-image: url(../resources/images/fugue/icons/arrow-switch-090.png);}
+.icon span.b197 {background-image: url(../resources/images/fugue/icons/arrow-switch-180.png);}
+.icon span.b198 {background-image: url(../resources/images/fugue/icons/arrow-switch-270.png);}
+.icon span.b199 {background-image: url(../resources/images/fugue/icons/arrow-transition.png);}
+.icon span.b200 {background-image: url(../resources/images/fugue/icons/arrow-transition-090.png);}
+.icon span.b201 {background-image: url(../resources/images/fugue/icons/arrow-transition-180.png);}
+.icon span.b202 {background-image: url(../resources/images/fugue/icons/arrow-transition-270.png);}
+.icon span.b203 {background-image: url(../resources/images/fugue/icons/arrow-turn.png);}
+.icon span.b204 {background-image: url(../resources/images/fugue/icons/arrow-turn-000-left.png);}
+.icon span.b205 {background-image: url(../resources/images/fugue/icons/arrow-turn-090.png);}
+.icon span.b206 {background-image: url(../resources/images/fugue/icons/arrow-turn-090-left.png);}
+.icon span.b207 {background-image: url(../resources/images/fugue/icons/arrow-turn-180.png);}
+.icon span.b208 {background-image: url(../resources/images/fugue/icons/arrow-turn-180-left.png);}
+.icon span.b209 {background-image: url(../resources/images/fugue/icons/arrow-turn-270.png);}
+.icon span.b210 {background-image: url(../resources/images/fugue/icons/arrow-turn-270-left.png);}
+.icon span.b211 {background-image: url(../resources/images/fugue/icons/asterisk.png);}
+.icon span.b212 {background-image: url(../resources/images/fugue/icons/asterisk-small.png);}
+.icon span.b213 {background-image: url(../resources/images/fugue/icons/asterisk-small-yellow.png);}
+.icon span.b214 {background-image: url(../resources/images/fugue/icons/asterisk-yellow.png);}
+.icon span.b215 {background-image: url(../resources/images/fugue/icons/at-sign.png);}
+.icon span.b216 {background-image: url(../resources/images/fugue/icons/at-sign-balloon.png);}
+.icon span.b217 {background-image: url(../resources/images/fugue/icons/at-sign-document.png);}
+.icon span.b218 {background-image: url(../resources/images/fugue/icons/at-sign-small.png);}
+.icon span.b219 {background-image: url(../resources/images/fugue/icons/auction-hammer.png);}
+.icon span.b220 {background-image: url(../resources/images/fugue/icons/auction-hammer--arrow.png);}
+.icon span.b221 {background-image: url(../resources/images/fugue/icons/auction-hammer--exclamation.png);}
+.icon span.b222 {background-image: url(../resources/images/fugue/icons/auction-hammer--minus.png);}
+.icon span.b223 {background-image: url(../resources/images/fugue/icons/auction-hammer--pencil.png);}
+.icon span.b224 {background-image: url(../resources/images/fugue/icons/auction-hammer--plus.png);}
+.icon span.b225 {background-image: url(../resources/images/fugue/icons/auction-hammer-gavel.png);}
+.icon span.b300 {background-image: url(../resources/images/fugue/icons/afficher.png);}
+.icon span.b444 {background-image: url(../resources/images/excel.png);}
+.icon span.bjoindre {background-image: url(../resources/images/fugue/icons/joindre.png);}
+.icon span.b333 {background-image: url(../resources/images/fugue/icons/pdf.png);}
+.icon span.b334 {background-image: url(../resources/images/fugue/icons/pdfrouje.png);}
+.icon span.b6488 {background-image: url(../resources/images/fugue/icons/6488.png);}

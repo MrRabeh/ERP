@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	Les cotations de l'offre
+    <content> 
+     <h:form id="form" enctype="multipart/form-data">               
+     <div>
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Fichier Cotation</div>
+            	<tr>
+	            	<td>
+	            	Fichier cotation
+	            	</td>
+	            	
+	            	<td>
+	            	<p:fileUpload value="#{offreController.file}" mode="simple" skinSimple="true"/>
+		            <p:commandButton value="joindre" ajax="false" actionListener="#{offreController.joinfile}" update="msgs,tablecotation" />       
+	            	</td>
+	            	
+	            	</tr>
+	            	</table>
+	            	</div>
+	            	<div>
+	            	<p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablecotation" widgetVar="tablecotation" value="#{offreController.cotations}" var="obj"
+                                                     selection="#{offreController.cotation}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="5"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     resizableColumns="true"
+                                                     scrollRows="5" scrollable="true" liveScroll="true"
+                                                         styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                       
+                                                     <p:column filterBy="#{obj.chemin}" sortBy="#{obj.chemin}" headerText="Nom Fichier" filterMatchMode="contains">
+            												<h:commandLink value="#{obj.chemin}" >
+        														<p:fileDownload value="#{offreController.content}"></p:fileDownload>												
+    												</h:commandLink>
+
+       											     </p:column>
+                                        </p:dataTable>
+	            	</div>
+	            	</h:form>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

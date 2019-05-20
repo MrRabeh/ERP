@@ -1,0 +1,26 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Projet">
+  
+	  	<id name="idprojet" column="idprojet">
+	  		<generator class="increment"></generator>
+	  	</id>
+	  
+	  	<property name="projectname" column="projectname" not-null="true" unique="false" ></property>
+	  	<property name="totol_heur" column="totol_heur"  ></property>
+	  	<property name="datedebut" column="datedebut"  ></property>
+	  	<property name="dateFin" column="dateFin"  ></property>
+	  
+	  	<many-to-one name="client" class="ims.model.entities.Client" column="clientID"></many-to-one>
+	    
+	 	<many-to-one name="emp" class="ims.model.entities.Employee" column="empID"></many-to-one>
+	 	
+	 	<set name="taches"  >
+	  		<key column="projetID"></key>
+			<one-to-many class="ims.model.entities.Tache" />
+	 	</set>
+	 	
+  </class>
+  
+</hibernate-mapping>

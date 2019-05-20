@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Les Tickes</h1>
+    <content>                
+            <h:form id="form">
+             <p:growl id="msgs" showDetail="true"/>  
+              <p:growl id="msg" showDetail="true"/>  
+            <div >
+            <table class="styletable" style="width: 100%;"  cellpadding="0">
+            	<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Creer Ticker</div>
+            	<tr>
+	            	<td>N°Ticker</td>
+	            	<td>
+	            	<h:outputText value="#{tickerController.tickertempo.ref}" />
+	            	
+	            	</td>
+	            	<td>Date</td>
+	            	<td>
+	            	<h:outputText  id="datedebut" value="#{tickerController.tickertempo.dateticker}" />
+	            	                                                       
+	            	</td>
+	            </tr>
+	            
+	            <tr>
+	            	<td>Type Ticker</td>
+	            	<td>
+	            	 <p:selectOneMenu styleClass="selectonemenu" style="width:210px" filter="true" effect="fade"  id="typeticker" tabindex="1"  value="#{tickerController.tickertempo.typeticker.id}">
+                                    
+                                     <f:selectItems  value="#{tickerController.listTypeTicker}" var="type" itemLabel="#{type.typeticker}" itemValue="#{type.id}" />
+                     </p:selectOneMenu>
+	            	</td>
+	                <td>Priorité</td>
+	            	<td>
+	            	 <p:selectOneMenu styleClass="selectonemenu" style="width:210px" filter="true" effect="fade"  id="priorite" tabindex="1"  value="#{tickerController.tickertempo.priorite.id}">
+                                    
+                                     <f:selectItems  value="#{tickerController.listTypePriorite}" var="p" itemLabel="#{p.priorite}" itemValue="#{p.id}" />
+                     </p:selectOneMenu>
+	            	</td>
+	            </tr>
+	            <tr>
+	            	<td>Client User</td>
+	            	<td>
+	            	<h:outputText value="#{tickerController.tickertempo.userhelpdesk.nom}" />
+	            	</td>
+	            </tr>
+	            
+	            <tr>
+	            	<td>Déscription</td>
+	            	<td>
+	            	<p:inputTextarea cols="50" row="20" style="height:100px;width:400px;" id="desc" value="#{tickerController.tickertempo.description}"/>
+	            	</td>
+	            	<td>Commentaire /Actions</td>
+	            	<td>
+	            	<p:inputTextarea cols="50" row="20" style="height:100px;width:400px;" id="remarque" value="#{tickerController.tickertempo.remarque}"/>
+	            	</td>
+	            </tr>
+
+	            <tr>
+	            <td><p:commandButton styleClass="styleGreen" value="Annuler" action="#{tickerController.preparelist}"></p:commandButton></td>
+                <td><p:commandButton styleClass="styleGreen" value="Modifier" actionListener="#{tickerController.ModifTicker}" update="msgs" /></td>
+                </tr>
+
+	        </table>
+	  </div>  
+	  <div>
+	     <p:dataTable id="tableimages" widgetVar="tableimages" value="#{tickerController.listeimages}" var="obj"
+                                                     selection="#{tickerController.imageticker}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="5"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     resizableColumns="true"
+                                                     scrollRows="5" scrollable="true" liveScroll="true"
+                                                         styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                       
+                                                     <p:column filterBy="#{obj.cheminimage}" sortBy="#{obj.cheminimage}" headerText="Images" filterMatchMode="contains">
+            												<h:commandLink value="#{obj.cheminimage}" >
+        														<p:fileDownload value="#{tickerController.content}"></p:fileDownload>												
+    												</h:commandLink>
+
+       											     </p:column>
+                                        </p:dataTable>
+	  </div>  
+            </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,40 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="FactureFournisseur">
+	  
+	  <id name="id" column="id">
+	  <generator class="increment"></generator>
+	  </id>
+	  
+	  <property name="num_facture" column="num_facture" not-null="true" unique="true" ></property>
+	  <property name="datefacture" column="datefacture"></property>
+	  <property name="datereception" column="datereception"></property>
+	  <property name="dateechance" column="dateechance"></property>
+	  <property name="reglement" column="reglement"></property>  
+	  <property name="obs" column="obs"></property>
+	  <property name="datepevisionnel" column="datepevisionnel"></property>
+	  <property name="dateconstater" column="dateconstater"></property>
+	  <property name="montantregler" column="montantregler"></property>
+	  <property name="montantrester" column="montantrester"></property>
+	  <property name="constater" column="constater"></property>
+	  <property name="etat" column="etat"></property>
+	  
+	  	  <property name="annuler" column="annuler"></property>
+	  <property name="activer" column="activer"></property>
+	  
+	   <property name="fraitransport" column="fraitransport"></property>
+	    <property name="totalht" column="totalht"></property>
+	    <property name="tva" column="tva"></property>
+	    <property name="totalttc" column="totalttc"></property>
+	    <property name="totalNet" column="totalNet"></property>
+	    <property name="numAvoir" column="numAvoir"></property>
+	    <property name="montantdavoire" column="montantdavoire"></property>
+	
+	<many-to-one name="commandefournissuer" class="ims.model.entities.BonCommande" column="CommandeID" lazy="false" />
+	  <many-to-one name="typepaiement" class="ims.model.entities.TypePaiement" column="typePaiementID" lazy="false"></many-to-one>	  
+     <many-to-one name="objetyears" class="ims.model.entities.years" column="yearsID" lazy="false" />
+     
+ 
+  </class>
+</hibernate-mapping>

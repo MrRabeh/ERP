@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <h:form id="form">
+  <ui:include src="../theme/menureporting.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+    <content>
+    <img alt="Reporting" style="position:relative;top: 100px;left: 50px;" src="../resources/images/imgreporting.png"  />
+   <table style="width: 100%;">
+   <tr>
+	   <td>
+		   <p:barChart  id="basic1" value="#{indexController.categoryModel}" xaxisAngle="60"
+		      title="Nombre des Factures/Offre par Client" legendPosition="ne"  style="height:350px;width:100%;"/>  
+	   </td>
+	   <td>
+	   		<p:barChart id="basic2" value="#{indexController.categoryModelbc}" xaxisAngle="60"
+	      title="les Factures Fournisseur" legendPosition="ne"  style="height:350px;width:100%;"/>     
+	   </td>
+   </tr>
+   <tr>
+	   <td>
+	   		<p:barChart id="basic3" value="#{indexController.categoryModelarticles}" xaxisAngle="60"
+      title="les Nombres Achat des Articles"  legendPosition="ne" style="height:350px;width:100%;"/>     
+	   </td>
+	   <td>
+	   		<p:barChart id="basic4" value="#{indexController.categoryfactureconstat}" xaxisAngle="60"
+      			title="Facture Constater/Non Constater" legendPosition="n" style="height:350px;width:100%;"/>     
+	   </td>
+   </tr>
+   </table>  
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+  </h:form> 
+</h:body>
+</f:view>
+</html>

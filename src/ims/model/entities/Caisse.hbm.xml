@@ -1,0 +1,22 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Caisse">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+
+  <property name="datedebutcaisse" column="debutcaisse"></property>
+  <property name="datefincaisse" column="fincaisse"></property>
+  <property name="moiscaisse" column="mois"></property>
+  <property name="entreetotal" column="entreetotal"></property>
+  <property name="sortietotal" column="sortietotal"></property>
+  <property name="restetotal" column="restetotal"></property>
+
+  
+   
+   <many-to-one name="objyear" class="ims.model.entities.years" column="yearsID"></many-to-one>
+   
+  </class>
+</hibernate-mapping>

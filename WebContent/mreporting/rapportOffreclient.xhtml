@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menureporting.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+    <content>                
+     <div>
+         <h:form id="form">
+         <table class="styletable" cellpadding="0">
+               <div style='font-weight:bold;text-align: left;position: relative;bottom:-5px;'>créer Rapport Offre Client</div>
+               <tr>
+               <td>année</td>
+               <td>
+                         <p:selectOneMenu id="annee"  filter="true" effect="fade" style="width:300px" styleClass="selectonemenu"  value="#{reportingController.idannee}">
+                                 <f:selectItem itemLabel="tous" itemValue="" selected="selected" ></f:selectItem>
+                                    <f:selectItems  value="#{justificatifSoldeController.listeyears}" var="a" itemLabel="#{a.annee}" itemValue="#{a.id}" />     
+                         </p:selectOneMenu>
+               </td>
+               </tr>
+               <tr>
+               	   <td>Client</td>
+	               <td>
+	               			<p:selectOneMenu  styleClass="selectonemenu" style="width:300px" id="nomclient" filter="true" effect="fade" tabindex="1" value="#{reportingController.clientID}">
+	                                      <f:selectItem itemLabel="Tous" itemValue="" selected="selected" ></f:selectItem>
+	                                      <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+	                         </p:selectOneMenu>
+	               </td>
+               </tr>
+               <tr>
+               		<td>Type Offre</td>
+	               <td>
+		               <p:selectOneMenu id="typeoffre" styleClass="selectonemenu" style="width:300px" value="#{reportingController.typeoffre}" >
+											                       <f:selectItem  itemLabel="Tous" itemValue="" />
+						 										   <f:selectItems  id="libelletypeoffre" value="#{offreController.typeoffres}" var="typeo" itemLabel="#{typeo.type}" itemValue="#{typeo.id}" />
+						</p:selectOneMenu>
+	               </td>
+               </tr>
+               <tr>
+	               <td>Etat Offre</td>
+	               <td>
+		               <p:selectOneMenu id="etat" styleClass="selectonemenu" style="width:300px" value="#{reportingController.etat}" >
+		                         <f:selectItem  itemLabel="Tous" itemValue="" />
+		                         <f:selectItem itemLabel="en cours" itemValue="en cours" selected="selected" ></f:selectItem>
+                                 <f:selectItem itemLabel="concrétisée" itemValue="concrhtishe"  ></f:selectItem>
+                                  <f:selectItem itemLabel="sans suite" itemValue="sans suite" ></f:selectItem>
+					   </p:selectOneMenu>
+	               </td>
+               </tr>
+               <tr>
+               <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{reportingController.annuler}" update="annee,etat,nomclient,typeoffre" ></p:commandButton></td>
+               <td>
+               <p:commandButton styleClass="styleGreen" value="Generer le Rapport" ajax="false" action="#{reportingController.imprimeroffreclients}" update="annee,etat,nomclient,typeoffre">
+               </p:commandButton>
+               </td>
+               </tr>
+               </table>
+         
+         </h:form>
+	  </div>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

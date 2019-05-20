@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuadministration.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Liste des Pays</h1>
+    <content>                
+     <div >
+     <h:form id="form_place" class="form_place">
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer Pays</div>
+            	<tr>
+	            	<td>Pays</td>
+	            	<td>
+	            	<p:inputText  id="pays" required="required" value="#{paysController.country.pays}" />
+                                                
+	            	</td>
+	            </tr>
+	            <tr>
+	            <td>
+	            <p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton>
+	            </td>
+	            <td>
+	            	<p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{paysController.insert}" update=":form:tablepays,:form:msgs,pays" />
+                 </td>
+	            </tr>
+	            	</table>
+	     </h:form>
+	  </div>
+	  <div>
+	    <h:form id="form">
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablepays" value="#{paysController.countries}" var="pay"
+                                                     selection="#{paysController.countrytempo}"
+                                                     rowKey="#{pay.idpays}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     resizableColumns="true"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{paysController.filteredPays}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     >
+
+                                            <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                             <p:ajax event="cellEdit" listener="#{paysController.update}" update=":form:msgs,:form:tablepays" />
+                                            
+
+                                            <p:column style="width:400px;" headerText="Pays" filterBy="#{pay.pays}" filterMatchMode="contains"  sortBy="#{pay.pays}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{pay.pays}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{pay.pays}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                                                                           
+                                            <p:column style="width:50px;">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" value="Supprimer" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{paysController.countrytempo}" value="#{pay}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le pays?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablepays,:form:msgs" action="#{paysController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form> 
+	  </div>
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

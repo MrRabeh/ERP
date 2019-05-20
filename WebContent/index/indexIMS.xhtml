@@ -1,0 +1,140 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" dir="ltr" lang="fr">
+
+    <f:view contentType="text/html">
+            <h:head>
+       <title>Bienvenue sur ERP IMS</title>
+<meta charset="utf-8" />
+<h:outputStylesheet library="crmstyle" name="style.css"/>
+<meta name="viewport" content="width-device-width, initial-scale-1.0" />
+    </h:head>
+        <h:body>
+        <div class="entrerIndex">
+        <img alt="LOGO IMS" style="position:relative;left:40%;height: 100px;top:25px;" src="../resources/images/logoinfini.png" />
+        </div>
+        <div style="float:right;width: 20%;">
+        <TABLE style="width: 200px;">
+        <tr>
+        <h:form>
+         <p:growl id="msgs" showDetail="true"/>  
+        <td >
+        <h:outputText id="user"  value="#{utilisateurControlleur.messagebienvenu}">
+        </h:outputText>
+        </td>
+        </h:form>
+        <td><a class="classmenu" href="${request.contextPath}/j_spring_security_logout">Déconnexion</a></td>
+        </tr>
+        </TABLE>
+        </div>
+        <div style="position: relative;top: 80px;">
+		        <TABLE>
+		        <tr >
+		        <td >
+						        <table class="tableindex" id="styletable" style="width: 380px;position: relative;bottom: 120px;" role="presentation"  cellpadding="0" cellspacing="0" >
+						         <div style='font-weight:bold;text-align: left;position: relative;bottom:100px;'><h2>Mes Modules</h2></div>
+						        <TBODY>
+							        <tr>
+							        <td role="presentation" class="welcomeToolHeadingContainer" ><img src="../resources/images/home_32.gif" /><a href="../mprofil/index.xhtml" class="classmenu">Gestion Achats/Factures</a></td> 
+							        </tr>
+							        <tr>
+							        <td role="presentation" class="welcomeToolHeadingContainer"><img src="../resources/images/helpdesk_32.png" style="height: 32px;"/><a href="../mintervention/usershelpdesk.xhtml" class="classmenu" >Help Desk</a></td>
+							        </tr>
+							        <tr>
+							        <td role="presentation" class="welcomeToolHeadingContainer"><img src="../resources/images/gestionprojet_32.png" style="height: 32px;"/><a href="../mproject/index.xhtml" class="classmenu">Gestion de Projet</a></td>
+							        </tr>
+							        <tr>
+							        <td role="presentation" class="welcomeToolHeadingContainer"><img src="../resources/images/timesheet_32.png" style="height: 32px;"/><a href="../mtimesheet/index.xhtml" class="classmenu" >Gestion du Temps</a></td>
+							        </tr>
+						        </TBODY>
+						        </table>
+						        <table class="tableindex" id="styletable" style="width: 380px;position: relative;bottom: 150px;" role="presentation"  cellpadding="0" cellspacing="0" >
+						         <div style='font-weight:bold;text-align: left;position: relative;bottom:135px;'><h2>Administration</h2></div>
+						        <TBODY>
+							        <tr>
+							        <td role="presentation" class="welcomeToolHeadingContainer"><img src="../resources/images/admin_32.gif"/><a href="#"><a href="../madministration/index.xhtml" class="classmenu" >Gérer l'application</a></a></td>
+							        </tr>
+							        <tr>
+							        </tr>
+						        </TBODY>
+						        </table>
+		        </td>
+		        <td>
+				         <table class="tableindex"  id="styletable" style="width: 500px;position: relative;bottom: 75px;" role="presentation"  cellpadding="0" cellspacing="0" >
+				        <div style='font-weight:bold;text-align: left;bottom:55px;position: relative;'><h2>Mes Actions</h2></div>
+				        <TBODY>
+				        <tr>
+				        <td colspan="3" >
+				        <p:commandButton icon="bdevis" style="width:550px;height:50px;" action="#{indexController.redirectclient}"  value="Devis"></p:commandButton>
+				        </td> 
+				        </tr>
+				        <tr>
+				        <td colspan="3" >
+				        <p:commandButton icon="bcommande" style="width:550px;height:50px;" action="#{indexController.redirectclient}"  value="Bon commande"></p:commandButton>
+				        </td>
+				        </tr>
+				         <tr>
+				        <td colspan="3" >
+				        		 <p:commandButton icon="blivraison" style="width:550px;height:50px;" action="#{indexController.redirectclient}"  value="Bon Livraison"></p:commandButton>		        
+				        </td>
+				        </tr>
+				        <tr>
+				        <td>
+				         <p:commandButton icon="bfact" style="width:220px;height:50px;" action="#{indexController.redirectclient}"  value="Facture Client"></p:commandButton>		        
+				        </td>
+				        <td >
+				        <p:commandButton icon="bfact" style="width:150px;height:50px;" action="#{indexController.redirectclient}"  value="Facture Contrat"></p:commandButton>		        
+				        </td>
+				        <td >
+				         <p:commandButton icon="bfact" style="width:175px;height:50px;" action="#{indexController.redirectclient}"  value="Facture Fournisseur"></p:commandButton>		        
+				        </td>
+				        </tr>
+				         <tr>
+				       
+				        <td style="width: 12%;">
+				        <p:commandButton icon="barticle" style="width:220px;height:50px;" action="#{indexController.redirectclient}"  value="Article"></p:commandButton>
+				        </td>
+
+						<td colspan="3" style="width: 12%;">
+				        <p:commandButton icon="bstock" style="width:328px;height:50px;" action="#{indexController.redirectclient}"  value="Stock"></p:commandButton>
+				        </td>
+				        </tr>
+				        <tr>
+				        <td role="presentation" class="welcomeToolHeadingContainer"><img src="../resources/images/compta.png" style="height: 40px;top: 20px;position: relative;"/><span class="classmenu">Mouvement Financière</span>
+				        <table class="sousmenuindex" style="width: 100%">
+				        <tr>
+				        <td style="width: 12%;" ><a href="../mcompta/index.xhtml" class="classmenu">Facture Client </a></td>
+				        <td style="width: 18%;"><a href="../mcompta/mocfactfournisseur.xhtml"  class="classmenu">Facture Fournisseur</a></td>
+				        <td style="width: 15%;"><a href="../mcompta/movbc.xhtml"  class="classmenu">Bon Commande</a></td>
+				        </tr>
+				        </table>
+				        </td>
+				        </tr>
+				        </TBODY>
+				        </table>
+		        	</td>
+		        	<td>
+		        	<h:form>
+		        	<table style="">
+		        	<tr><td><p:commandButton icon="bclient" style="width:140px;height:140px;" action="#{indexController.redirectclient}"  value="Clients"></p:commandButton></td></tr>
+		        	<tr><td></td></tr>
+		        	<tr><td><p:commandButton icon="bfournisseur" style="width:140px;height:140px;background-color:#C7D5DD;" value="Fournisseur" action="#{indexController.redirectfournisseur}" ></p:commandButton></td></tr>
+		        	<tr><td></td></tr>
+		        	<tr><td><p:commandButton icon="breporting" style="width:140px;height:140px;" value="Reporting" action="#{indexController.redirectReporting}" ></p:commandButton></td></tr>   	
+		        	</table>
+		        	</h:form>
+		        		
+		        	</td>
+		        		
+		        	</tr>
+		        </TABLE>
+        </div>
+ 				</h:body>
+
+    </f:view>
+</html>
+
+

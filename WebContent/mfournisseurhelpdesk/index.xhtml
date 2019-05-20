@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1>Fournisseurs</h1>
+    <content> 
+                <h:form class="form_place">
+                <p:growl id="msgs" showDetail="true"/>  
+             <table class="styletable"  cellpadding="0">
+              <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>creer Fournisseur</div>
+                <tr><td>Societe</td><td><p:inputText style="width:350px;" id="nomfournisseur"   required="required" value="#{fournisseurController.nomsociete}" /></td></tr>
+                <tr><td>Adresse</td><td> <p:inputTextarea  cols="70" style="width:350px;" id="adresse_fournisseur" styleClass="i-format" value="#{fournisseurController.adresse}" /></td></tr>
+                <tr><td>Pays</td>
+                <td>
+                 <p:selectOneMenu filter="true" effect="fade"  id="pays" style="width:350px;" tabindex="1"  value="#{fournisseurController.idpays}">
+                                                        <f:selectItems  value="#{paysController.countries}" var="country" itemLabel="#{country.pays}" itemValue="#{country.idpays}" />
+                                                    </p:selectOneMenu>
+                </td></tr>
+                <tr><td>Ville</td><td><p:selectOneMenu id="ville" style="width:350px;" tabindex="1" value="#{fournisseurController.idville}" filter="true" effect="fade"  >
+                                                        <f:selectItems  value="#{fournisseurController.villes}" var="ville" itemLabel="#{ville.ville}" itemValue="#{ville.idville}" />
+                                                    </p:selectOneMenu></td>
+                    </tr>
+                <tr>
+                <td><p:commandButton styleClass="styleGreen" value="Annuler"></p:commandButton></td>
+                <td><p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{fournisseurController.insert}" update="msgs,:form:tablefournisseur" /></td></tr>
+                </table>
+                                    </h:form>                
+             <h:form id="form">
+             <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablefournisseur" value="#{fournisseurController.fournisseurs}" var="obj"
+                                                      selection="#{fournisseurController.fournisseur}"
+                                                     rowKey="#{obj.idfournisseur}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{fournisseurController.filteredFournisseur}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     scrollRows="30" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+														
+													<p:ajax event="cellEdit" listener="#{fournisseurController.onCellfournisseur}" update=":form:msgs,tablefournisseur" />
+           
+                                             <p:column headerText="Nom Societe" filterBy="#{obj.nomsociete}" filterMatchMode="contains"  sortBy="#{obj.nomsociete}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.nomsociete}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.nomsociete}" /></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                               <p:column headerText="Adresse" filterBy="#{obj.adresse}" filterMatchMode="contains"  sortBy="#{obj.adresse}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.adresse}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.adresse}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column  filterBy="#{obj.ville.ville}" filterMatchMode="contains" sortBy="#{obj.ville.ville}">
+                                                
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.ville.ville}" /></f:facet>
+                                                    <f:facet name="input">
+                                                    <p:selectOneMenu id="ville" style="width:150px;" tabindex="1" value="#{fournisseurController.idvilleedit}"  >
+                                                        <f:selectItems  value="#{fournisseurController.villes}" var="ville" itemLabel="#{ville.ville}" itemValue="#{ville.idville}" />
+                                                    </p:selectOneMenu>
+                                                    
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column  filterBy="#{obj.pays.pays}" filterMatchMode="contains" sortBy="#{obj.pays.pays}">
+                                                 
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.pays.pays}" /></f:facet>
+                                                    <f:facet name="input">
+                                                     <p:selectOneMenu   id="pays" style="width:150px;" tabindex="1"  value="#{fournisseurController.idpaysedit}">
+                                                        <f:selectItems  value="#{paysController.countries}" var="country" itemLabel="#{country.pays}" itemValue="#{country.idpays}" />
+                                                    </p:selectOneMenu>
+                                                    
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer la societe?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablefournisseur" action="#{fournisseurController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>      
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

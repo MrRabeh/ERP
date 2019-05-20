@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuadministration.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>                
+             <h:form id="form">
+                                          <div >
+            <table class="styletable" style="width: 50%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer Département</div>
+            	<tr>
+	            	<td>
+	            	Département
+	            	</td>
+	            	<td>
+	            	<p:inputText id="nomdept"  styleClass="i-format" required="required" value="#{departementController.nom}" />                           
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>
+	            	<p:commandButton value="Annuler" update="msgs,nomdept,tablep" actionListener="#{departementController.annuler}"></p:commandButton>
+	            	</td>
+	            	<td>
+	            	<p:commandButton value="Enregistrer" update="msgs,nomdept,tablep" actionListener="#{departementController.insert}" />
+                                                
+	            	</td>
+	            	</tr>
+	            	</table>
+	            	</div>
+	            	<p:commandButton value="Actualisée" update="tablep" actionListener="#{departementController.actualiser}"></p:commandButton>
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablep" value="#{departementController.depts}" var="departement"
+                                                     selection="#{departementController.dept}"
+                                                     rowKey="#{departement.id}"
+                                                     paginator="true"
+                                                     rows="20"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{departementController.filtereddepts}"
+                                                     resizableColumns="true"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                      <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                           <p:ajax event="cellEdit" listener="#{departementController.update}" update=":form:msgs,tablep" />
+           
+                                            <p:column headerText="Département" filterBy="#{departement.nom}" filterMatchMode="contains"  sortBy="#{departement.nom}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{departement.nom}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText styleClass="i-format" value="#{departement.nom}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                               
+                                            <p:column style="width:100px;">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                <p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{departementController.deptsupp}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le departement?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{departementController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>          
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

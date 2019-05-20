@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Avoirs Clients</h1>
+    <content>                
+          <h:form id="form">
+                                    
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tablep" value="#{avoirClientControlleur.avoirclients}" var="obj"
+                                                     selection="#{avoirClientControlleur.avoirclient}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="7"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+												<p:column  selectionMode="single" style="width:16px;text-align:center"/>					
+
+                                            <p:column style="width:150px;" filterBy="#{obj.numero_avoir}" filterMatchMode="contains" sortBy="#{obj.numero_avoir}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="N° Avoir" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.numero_avoir}" />
+                                            </p:column>
+                                            
+                                             <p:column  filterBy="#{obj.dateavoir}"  sortBy="#{obj.dateavoir}" headerText="Date Y-M-D" filterMatchMode="startsWith">
+            										 <h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.dateavoir}" />
+														    </h:outputFormat>
+       										 </p:column>
+                                            
+                                             <p:column  filterBy="#{obj.client.groupeclient.nomGroupe}"  sortBy="#{obj.client.groupeclient.nomGroupe}" headerText="Groupe client" filterMatchMode="contains">
+            										<h:outputText value="#{obj.client.groupeclient.nomGroupe}" />
+       										 </p:column>
+                                            
+                                             <p:column style="width:150px;" headerText="Client" filterBy="#{obj.client.societe}" filterMatchMode="contains"  sortBy="#{obj.client.societe}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.client.societe}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.client.societe}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column style="width:250px;" headerText="Réglement" filterBy="#{obj.reglement}" filterMatchMode="contains"  sortBy="#{obj.reglement}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.reglement}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.reglement}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column headerText="Total HT" filterBy="#{obj.totalht}" filterMatchMode="contains"  sortBy="#{obj.totalht}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.totalht}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.totalht}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                              <p:column headerText="Total TTC" filterBy="#{obj.totalttc}" filterMatchMode="contains"  sortBy="#{obj.totalttc}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.totalttc}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.totalttc}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                             <p:column headerText="Total NET" filterBy="#{obj.totalttcpaye}" filterMatchMode="contains"  sortBy="#{obj.totalttcpaye}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.totalttcpaye}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.totalttcpaye}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>  
+                                            
+                                            <p:column  filterBy="#{obj.fact.ref}" filterMatchMode="contains" sortBy="#{obj.fact.ref}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="N°facture" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.fact.ref}" />
+                                            </p:column>
+                                            
+                                            <p:column  filterBy="#{obj.fact.numeroBCClient}" filterMatchMode="contains" sortBy="#{obj.fact.numeroBCClient}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="N°BC Client" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.fact.numeroBCClient}" />
+                                            </p:column>
+                                            
+                                            
+                                             <p:column  filterBy="#{obj.typepaiement.typepaiement}" filterMatchMode="contains" sortBy="#{obj.typepaiement.typepaiement}">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Devise" />
+                                                </f:facet>
+                                                <h:outputText value="#{obj.typepaiement.typepaiement}" />
+                                            </p:column>
+                                            
+                                            <f:facet name="header">
+                                            
+                                       	 <p:commandButton action="#{avoirClientControlleur.prepareCreate}" value="Créer"></p:commandButton>
+           											<p:commandButton action="#{avoirClientControlleur.actualiser}" value="Actualiser" update="tablep" ></p:commandButton>
+          
+                                                                                
+                                            <p:column style="width:25px;" headerText="PDF">
+                                                <p:commandButton icon="b_icon b333" ajax="false" styleClass="button white icon" action="#{avoirClientControlleur.imprimerfont}" >
+                                                  
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                            <p:column style="width:25px;" headerText="PDF">
+                                                <p:commandButton icon="b_icon b334" ajax="false" styleClass="button white icon" action="#{avoirClientControlleur.imprimer}" >
+                                                  
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                            <p:column style="width:25px" headerText="Mail">
+												<p:commandButton icon="b6488" action="#{emailController.mailtoAvoir}" styleClass="button white icon">
+	                                                 
+	                                             </p:commandButton>
+                                            </p:column>
+
+                                            <p:column style="width:25px;" headerText="Edit" >
+                                                <p:commandButton icon="b300" action="#{avoirClientControlleur.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            </p:column>
+                                            
+                                            	<p:column style="width:25px" headerText="Supp">
+	                                                <p:commandButton icon="b_icon b102"  onclick="confirmation.show()">
+	                                                    
+	                                                </p:commandButton>
+                                            	</p:column>
+                                            	
+                                            	</f:facet>
+
+                                        </p:dataTable>
+                                        <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer l'avoir Client" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{avoirClientControlleur.delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>        
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

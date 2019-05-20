@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Les charges</h1>
+    <content>
+    
+    <div class="stylerightcharge">
+    <h:form id="formtype">
+    
+     	<table class="styletable"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Type Charger</div>
+            	
+              <tr>
+              <td>Type</td>
+              <td colspan="2">
+              	<p:inputText id="typecharge"  styleClass="i-format" required="required" value="#{typeChargeController.typecharge.typecharge}" />                                   	
+              </td>
+              </tr>
+              <tr>
+              <td>Déscription</td>
+              <td colspan="2">
+              	<p:inputTextarea cols="70" id="descriptioncharge"  styleClass="i-format" required="required" value="#{typeChargeController.typecharge.description}" />
+               </td>
+              </tr>
+              <tr>
+              <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{typeChargeController.annuler}" update="msgs,typecharge,:form:typecharges,descriptioncharge,:form:listecharge,listetypecharge"></p:commandButton></td>
+              <td>
+               <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{typeChargeController.insert}" update="msgs,typecharge,:form:typecharges,descriptioncharge,:form:listecharge,listetypecharge" />
+               </td>
+              </tr>
+              </table>
+     		
+                                        <p:growl id="msgs" showDetail="true"/>
+                                       
+                                        <p:dataTable id="listetypecharge" widgetVar="listetypecharge" value="#{typeChargeController.typescharges}" var="obj"
+                                                     selection="#{typeChargeController.typechargetempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                
+                                                   <p:ajax event="cellEdit" listener="#{typeChargeController.update}" update=":form:msgs,:form:listecharge,listetypecharge" />
+                                                     
+       										 <p:column  filterBy="#{obj.typecharge}" sortBy="#{obj.typecharge}" headerText="Type Charge" filterMatchMode="contains">
+            									<p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.typecharge}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.typecharge}" /></f:facet>
+                                                </p:cellEditor>
+       										 </p:column>
+       										 
+       										  <p:column  filterBy="#{obj.description}" sortBy="#{obj.description}" headerText="Description charge" filterMatchMode="contains">
+            										<p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.description}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.description}" /></f:facet>
+                                                </p:cellEditor>
+       										 </p:column>
+
+       										
+       										 <f:facet name="header">
+       										 <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{typeChargeController.actualiser}" update="listetypecharge"></p:commandButton>
+                 									<p:commandButton icon="b_icon b102" action="#{typeChargeController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+       										 </f:facet>
+       										 
+                                        </p:dataTable>
+                                       
+                                    </h:form>   
+    </div>
+    <div>
+              <h:form id="form">
+              
+              <table class="styletable" style="width: 60%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Charge</div>
+            	
+              <tr>
+              <td>type</td>
+              <td>
+              		<p:selectOneMenu style="width:210px" styleClass="selectonemenu"  id="typecharge" filter="true" effect="fade"  tabindex="1" value="#{chargeController.idtypecharge}">
+                            <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                            <f:selectItems  id="typecharges" value="#{typeChargeController.typescharges}" var="typecharge" itemLabel="#{typecharge.typecharge}" itemValue="#{typecharge.id}" />
+                  </p:selectOneMenu>
+              </td>
+              <td>date</td>
+              <td>
+              <p:calendar id="datecharge"   required="required" value="#{chargeController.datecharge}" />                     
+              </td>
+              </tr>
+              <tr>
+              <td>Montant</td>
+              <td>
+              <p:inputText id="montant"  required="required" value="#{chargeController.charge.montant}" />
+              </td>
+              <td>
+              Réglement
+              </td>
+              <td>
+              <p:inputText id="reglement" required="required" value="#{chargeController.charge.reglement}" />
+                                                
+              </td>
+              </tr>
+              <tr>
+              <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{chargeController.annuler}" update="msgs,reglement,datecharge,montant,listecharge,typecharge"></p:commandButton></td>
+              <td>
+               <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{chargeController.insert}" update="msgs,reglement,datecharge,montant,listecharge,typecharge" />                               
+              </td>
+              </tr>
+              </table>
+                                       <p:growl id="msgs" showDetail="true"/>
+                                        <p:dataTable id="listecharge" widgetVar="listecharge" value="#{chargeController.listcharge}" var="obj"
+                                                      selection="#{chargeController.chargetempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="30"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     scrollRows="40" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                      styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle">
+                                              
+                                               <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                
+                                                     
+                                              <p:ajax event="cellEdit" listener="#{chargeController.onCellEdit}" update=":form:msgs,:form:listecharge" />
+                                                     
+       										 <p:column style="width:100px;"  filterBy="#{obj.typecharge.typecharge}" sortBy="#{obj.typecharge.typecharge}" headerText="Type Charge" filterMatchMode="contains">
+            										<p:cellEditor >
+									               <f:facet name="output"><h:outputText value="#{obj.typecharge.typecharge}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:selectOneMenu style="width:100px" styleClass="selectonemenu"  id="typecharge"  tabindex="1" value="#{chargeController.idtypechargeedit}">
+									                            <f:selectItems  id="typecharges" value="#{typeChargeController.typescharges}" var="typecharge" itemLabel="#{typecharge.typecharge}" itemValue="#{typecharge.id}" />
+									                  </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										  <p:column style="width:100px;" filterBy="#{obj.datecharge}" sortBy="#{obj.datecharge}" headerText="Date" filterMatchMode="contains">
+            									<p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.datecharge}" >
+									               <f:convertDateTime pattern="dd/MM/yy" ></f:convertDateTime>
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									               <p:inputMask id="datechargeedit" value="#{obj.datecharge}" local="fr" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										 <p:column  filterBy="#{obj.montant}" sortBy="#{obj.montant}" headerText="Montant" filterMatchMode="contains">
+            									<p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montant}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{obj.montant}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										 <p:column  filterBy="#{obj.reglement}" sortBy="#{obj.reglement}" headerText="Réglement" filterMatchMode="contains">
+            										<p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.reglement}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{obj.reglement}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										 <p:column style="width:100px;" filterBy="#{obj.datecontsater}" sortBy="#{obj.datecontsater}" headerText="Date constater" filterMatchMode="contains">
+            										<p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.datecontsater}" >
+									               <f:convertDateTime pattern="dd/MM/yy" ></f:convertDateTime>
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									               <p:inputMask id="dateeconstatedit" value="#{obj.datecontsater}" local="fr" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										 <p:column headerText="Constater" filterBy="#{obj.libelleconstater}" filterMatchMode="contains"  sortBy="#{obj.libelleconstater}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.libelleconstater}" /></f:facet>
+                                                    <f:facet name="input">
+                                                    <p:selectOneMenu value="#{chargeController.tempocontsat}" style="width:100%">
+									                       <f:selectItem  itemLabel="choisi Oui/Non" itemValue="" />
+									                       <f:selectItem  itemLabel="Oui" itemValue="Oui" />
+									                        <f:selectItem  itemLabel="Non" itemValue="Non" />
+									                   </p:selectOneMenu>
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <f:facet name="header">
+                                         			<p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{chargeController.actualiser}" update="listecharge"></p:commandButton>
+              										<p:commandButton  icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                   </p:commandButton>
+              								</f:facet>
+                                        </p:dataTable>
+                                       
+                                       <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer la charge selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:msgs,:form:listecharge" action="#{chargeController.delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                        
+                                    </h:form> 
+                                    </div>         
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

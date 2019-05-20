@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+	<h1 style="position: relative;left:80%;bottom: 10px;">Facture en Modification ...</h1>
+    <content> 
+    <div style="position: relative;bottom: 50px;">               
+     <h:form id="form">
+     <p:growl id="msgs" showDetail="true"/>
+     <div class="stylerightfacture">
+		<table class="styletable" style="width: 100%;"  cellpadding="0">
+		 <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Ligne Article</div>
+		<tr><td>Article</td>
+		<td>
+		<p:selectOneMenu style="width:210px" styleClass="selectonemenu" filter="true" filterMatchMode="contains" effect="fade" id="refArticle" value="#{factureController.idarticle}">
+							                              				<f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+							                              				<f:selectItems id="refArticles" value="#{articleController.articles}" var="article" itemLabel="#{article.ref}" itemValue="#{article.idArticle}" />
+		</p:selectOneMenu>
+		<p:commandButton styleClass="styleGreen" style="width:100px;font-size:10px;bottom:10px;position:relative;" value="Créer un Article" oncomplete="creerarticle.show()"></p:commandButton>
+		</td>
+		</tr>
+		<tr>
+			<td><h:outputText value="PU" /></td>
+			<td>
+			<table>
+			<tr>
+			<td>
+				<p:inputText styleClass="i-formatpetit" id="prixpufact" value="#{factureController.pu}"/>
+			</td>
+			<td>
+				<h:outputText value="Prix Marge" />
+			</td>
+			<td>
+			<p:inputText styleClass="i-formatpetit" id="prixmarge" value="#{factureController.mprixmarge}"/>
+					
+			</td>
+			</tr>
+			</table>
+			</td>
+		</tr>
+		<tr>
+			<td><h:outputText value="Qte" /></td>
+			<td>
+				<table>
+				<tr>
+				<td>
+					<p:inputText styleClass="i-formatpetit" id="qtefact" value="#{factureController.qte}"/>
+				 </td>
+				<td><h:outputText value="Forfait" /></td>
+				<td>
+				<p:selectBooleanCheckbox style="position:relative;top:5px;" id="chekforfait" value="#{factureController.checkforfait}" />
+				</td>
+				</tr>
+				</table>
+			</td>
+		 </tr>
+		<tr><td>Désignation</td>
+		<td>
+		<p:inputTextarea cols="50" id="desclient" value="#{factureController.designation}"/></td>
+		<td>
+		  <p:commandButton styleClass="styleGreen" value="Ajouter Article" actionListener="#{factureController.addartmodif}"   update="tabloffrearticle,msgs,totalttc,totalttcpaye,totalht,tva,qtefact,prixpufact,desclient,:form:marge">
+		  </p:commandButton>
+		</td></tr>
+		</table>
+		
+	</div>
+	
+	  <div class="stylearticlesfacture">
+                                          <p:dataTable id="tabloffrearticle" widgetVar="tabloffrearticle" value="#{factureController.facturarticlessmodif}" var="obj"
+                                                      selection="#{factureController.facturearticle}"
+                                                     rowKey="#{obj.id}"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     rows="9"
+                                                     paginatorPosition="bottom"
+                                                     paginator="true"
+                                                     resizableColumns="true"
+                                                     scrollRows="5" scrollable="true" liveScroll="true" scrollHeight="350"
+                                                     styleClass="datatablestyle"
+                                                     owStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="multiple" style="width:16px;text-align:center"/>
+                                                     
+                                            		  <p:ajax event="cellEdit" listener="#{factureController.onCellEditUpdate}" update=":form:msgs,:form:tabloffrearticle,:form:tva,:form:totalht,:form:totalttc,:form:totalttcpaye,:form:marge" />
+                                            	 
+                                            	 
+                                            
+                                            		  <p:column style="width:100px" filterBy="#{obj.article.ref}" sortBy="#{obj.article.ref}" headerText="Article" filterMatchMode="contains">
+            											<h:outputText value="#{obj.article.ref}" />
+       										 		</p:column>
+       										 		
+       										 		    <p:column style="width:200px" headerText="Designation" filterBy="#{obj.designation}" filterMatchMode="contains">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.designation}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputTextarea rows="10" cols="100" value="#{obj.designation}" /></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+       										 		
+       										 			<p:column style="width:80px;" filterBy="#{obj.categorieArticle.categorie}" sortBy="#{obj.categorieArticle.categorie}" headerText="Catégorie" filterMatchMode="contains">
+            											<h:outputText value="#{obj.categorieArticle.categorie}" />
+       										 		</p:column>
+       										 		
+       										 			 <p:column style="width:50px;" filterBy="#{obj.prixmarge}" sortBy="#{obj.prixmarge}" headerText="Prix Marge" filterMatchMode="contains">
+            										  <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.prixmarge}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.prixmarge}" /></f:facet>
+		                                                </p:cellEditor>
+       										 		</p:column>
+                                            		
+                                            		
+                                            		<p:column style="width:50px;" filterBy="#{obj.montantglobal}" sortBy="#{obj.montantglobal}" headerText="PU" filterMatchMode="contains">
+            											 <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.montantglobal}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText  value="#{obj.montantglobal}" /></f:facet>
+		                                                </p:cellEditor>
+       										 		</p:column>
+                                            		
+                                                     <p:column style="width:50px" headerText="Qte" filterBy="#{obj.lab}" filterMatchMode="contains">
+		                                                <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.lab}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" /></f:facet>
+		                                                </p:cellEditor>
+                                            		</p:column>
+                                            		
+                                            		<p:column style="width:50px;" filterBy="#{obj.pt}" sortBy="#{obj.pt}" headerText="PT" filterMatchMode="contains">
+            											<h:outputText value="#{obj.pt}" />
+       										 		</p:column>
+       										 		
+                                             <f:facet name="header">         
+                                                      <p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                </p:commandButton>
+                                                </f:facet>
+                                            
+                                        	</p:dataTable>
+                                        	
+		                                        <!-- boîte de dialogue -->
+		                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous Supprimer l'Article ?" header="confirmation" severity="alert" >
+		                                            <p:commandButton value="oui" update="tabloffrearticle,tva,totalht,totalttc,totalttcpaye,msgs" action="#{factureController.DeleteArticleFacturemodif}" oncomplete="confirmation.hide()" />
+		                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+		                                        </p:confirmDialog>
+                                        	 <div style="float: right;position: relative;">
+                                        	<table>
+                                        	<tr>
+                                        	<td><p:commandButton  styleClass="styleGreen" value="Annuler" action="#{factureController.annuleropfacture}"></p:commandButton></td>
+                                        	<td>
+		                                        	<p:commandButton styleClass="styleGreen"  value="Modifier" actionListener="#{factureController.update}" update=":form:msgs,:form:tva,:form:totalht,:form:totalttc,:form:marge,:form:totalttcpaye"/>
+                                       	 	</td>
+                                        	</tr>
+                                        	</table>
+                                        	</div>
+                                        	 <table class="styletable" cellpadding="0">
+                                  	 <div style='font-weight:bold;text-align: left;bottom:-7px;'>Total</div>
+		                                        <tr>
+			                                        <td>Total HT</td>
+			                                        <td><p:outputLabel id="totalht" value="#{factureController.facture.totalht}" /></td>
+		                                        </tr>
+		                                        <tr>
+			                                        <td>TVA 20%</td>
+			                                        <td>
+			                                         
+			                                         <TABLE>
+			                                         <tr>
+			                                         	<td><p:outputLabel  id="tva" value="#{factureController.facture.tva}" /></td>
+			                                         	<td>
+			                                         	<p:selectBooleanCheckbox value="#{factureController.facture.exoneration}"></p:selectBooleanCheckbox>
+			                                         	Exo
+			                                        </td>
+			                                         </tr>
+			                                         </TABLE>
+			                                         </td>
+		                                        </tr>
+		                                        <tr>
+			                                        <td>Total TTC</td>
+			                                        <td>
+			                                        <p:outputLabel id="totalttc" value="#{factureController.facture.totalttc}" />
+			                                        </td>
+		                                        </tr>
+		                                         <tr>
+			                                        <td>Total TTC Paye</td>
+			                                        <td><p:outputLabel id="totalttcpaye" value="#{factureController.facture.totalttcpaye}" /></td>
+		                                        </tr>
+		                            </table>
+                                      <table class="styletable" cellpadding="0">
+                                  	 		<div style='font-weight:bold;text-align: left;bottom:-7px;'>Marge</div>
+		                                        <tr>
+		                                        <td><p:outputLabel id="marge" value="#{factureController.facture.prixmarge}" /></td>
+		                                        </tr>
+		                                  
+		                            	</table>  	
+                                      			
+		                       </div>                    
+           <div>
+                                  <table class="styletable"   cellpadding="0">
+                                   <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Facture</div>
+                                  <tr>
+                                  		<td>
+                                  			<h:outputText value="Devise" /><SPAN style="color: red;">*</SPAN>
+                                  		</td>
+                                  		<td>
+                                  		<p:selectOneMenu style="width:210px" styleClass="selectonemenu"  id="typepaiement" filter="true" effect="fade" tabindex="1" value="#{factureController.idtypepaiement}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="typepaiements" value="#{typePaiementController.listePaiement}" var="paiement" itemLabel="#{paiement.typepaiement}" itemValue="#{paiement.id}" />
+                                    </p:selectOneMenu>
+                                    	</td>
+                                  </tr>
+                                  	<tr><td>Catégorie Art<SPAN style="color: red;">*</SPAN></td>
+										<td>
+										<p:selectOneMenu style="width:210px" styleClass="selectonemenu" id="article"  filter="true" effect="fade"  value="#{factureController.idcatarticle}">
+												                                                        	<f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+												                                                        	<f:selectItems  value="#{articleController.categorieArticles}" var="categorie" itemLabel="#{categorie.categorie}" itemValue="#{categorie.idcategorie}" />
+										</p:selectOneMenu>
+										</td>
+									</tr>
+									<tr><td> <h:outputText value="BusinessUnits"/><SPAN style="color: red;">*</SPAN></td>
+							            <td>
+							               
+							                 <p:selectOneMenu style="width:210px" styleClass="selectonemenu" filter="true" effect="fade"  id="depselect"  tabindex="1" value="#{factureController.deptID}">
+							                                                        <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+							                                                        <f:selectItems  value="#{departementController.depts}" var="dept" itemLabel="#{dept.nom}" itemValue="#{dept.id}" />
+							                    </p:selectOneMenu>                         
+							            </td>
+							         </tr>
+                                  <tr>
+                                  		<td>Date facture</td>
+                                  		<td> 
+                                  			<p:calendar style="width:140px;" id="datefacture" styleClass="i-format" value="#{factureController.facture.datefacture}"/>
+                                  					</td>
+                                  </tr>
+                                  <tr><td>Date Échéance<SPAN style="color: red;">*</SPAN></td>
+                                 	 <td>
+                                 	 	<p:calendar style="width:140px;" id="dateechance" styleClass="i-format" value="#{factureController.facture.dateechance}"/>
+                                  					</td>
+                                 </tr>
+                                 <tr><td>Date Prév<SPAN style="color: red;">*</SPAN></td>
+                                 	<td>
+                                 	<p:calendar style="width:140px;" id="dateechancep" styleClass="i-format" value="#{factureController.facture.dateechancep}"/>
+                                  					</td>
+                                 </tr>
+                                  <tr><td>N° Facture<SPAN style="color: red;">*</SPAN></td>
+                                  		<td>
+                                  	<p:inputText id="num_facture"  value="#{factureController.facture.ref}"/>
+                                  		</td>
+                                  </tr>
+                                  <tr>
+                                  	<td>Réglement</td>
+                                  	<td>
+                                  		<p:inputText  id="Réglement"  value="#{factureController.facture.conditiondepayment}"/>
+                                  					</td>
+                                  </tr>
+                                  <tr><td>Coefficient%</td>
+                              	  	  <td>
+                              	  	  <p:inputText  id="coffacture"   value="#{factureController.facture.coefficientfacture}"/>
+					                                  </td>
+					              </tr>
+                                  <tr>
+                              	 		<td>Déscription</td>
+                              			<td>
+                              				<p:inputText id="desfacture"  value="#{factureController.facture.description}"/>
+				                         </td>
+				                  </tr>
+				                   <tr>
+                                  		<td>Comptes</td>
+                                  		<td>
+                                  				<p:selectOneMenu  id="numerobanque" styleClass="chzn-select-deselect" tabindex="1" value="#{factureController.idbanque}" >
+                                                        <f:selectItems  value="#{coordonneeBanqueController.banques}" var="banque" itemLabel="#{banque.numerobancaire}" itemValue="#{banque.id}" />
+                                                    </p:selectOneMenu>
+					                	</td>
+					             	</tr>
+					             	</table>
+					             	<table class="styletable"  cellpadding="0">
+					             	<caption style='font-weight:bold;text-align: left;'>Client</caption>
+					             	<tr>
+                                  		<td>Client<SPAN style="color: red;">*</SPAN></td>
+                                  		<td>
+                                  			<p:selectOneMenu style="width:210px" styleClass="selectonemenu"  id="nomclient" filter="true" effect="fade"  tabindex="1" value="#{factureController.idclient}">
+                                                     <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                                             </p:selectOneMenu>
+                                         </td>
+                                   	</tr>
+                                  	<tr>
+                                  		<td>Date BC</td>
+                                  		<td> 
+                                  			<p:calendar style="width:140px;" id="dateBC" styleClass="i-format" value="#{factureController.facture.dateboncommande}"/>
+                                  					</td>
+                                  	</tr>
+                                  	<tr><td>N°BC</td>
+                                  		<td>
+                                  			<p:inputText style="width:140px;" id="NumeroBCClient" styleClass="i-format" value="#{factureController.facture.numeroBCClient}"/>
+                                  					</td>
+                                  	</tr>
+                                  	</table>
+                                  	<table class="styletable" cellpadding="0">
+                                  	 <div style='font-weight:bold;text-align: left;bottom:-7px;'>Devis</div>
+                              			<tr>
+                              				<td rowspan="2">
+                              					<p:selectManyMenu id="basicmodif" style="height:150px;width:100px;" value="#{factureController.idoffres}" >
+            													<f:selectItems  value="#{factureController.offresmodif}" var="offre" itemLabel="#{offre.ref}" itemValue="#{offre.id}" />
+        													</p:selectManyMenu>
+		        							</td>
+		        							<td>
+		        							                
+		        							<p:commandButton styleClass="styleGreen" style="width:80px;" value="ajouter" actionListener="#{factureController.addmodifoffre}" update=":form:basicaddmodif,:form:basicmodif,:form:msgs,:form:tabloffrearticle,tva,totalht,totalttc,totalttcpaye,article,depselect"></p:commandButton>
+        								
+		        							</td>
+		        							<td rowspan="2">
+		        									<p:selectManyMenu id="basicaddmodif" style="height:150px;width:100px;" value="#{factureController.idoffresadd}" >
+            											<f:selectItems  value="#{factureController.facture.listoffres}" var="liste" itemLabel="#{liste.ref}" itemValue="#{liste.id}" />
+        											</p:selectManyMenu>
+		        											</td>
+		        											</tr>
+		        											<tr>
+		        											<td>
+		        											<p:commandButton styleClass="styleGreen"  style="width:80px;" value="enlever" actionListener="#{factureController.removremodifoffre}" update=":form:basicaddmodif,:form:basicmodif,:form:msgs,tabloffrearticle,tva,totalht,totalttc,totalttcpaye,article,depselect"></p:commandButton>					
+		        											</td>
+		        											</tr>
+                                  	</table>
+                                  	
+                                  	                                  	<div style='font-weight:bold;text-align: left;bottom:-7px;'>Bon livraison</div>
+                                  	<p:pickList styleClass="width:50px;position:relative;" id="pickList" value="#{factureController.livraisons}" var="objliv" itemLabel="#{objliv}" itemValue="#{objliv}" />
+								</div>       
+                                      
+                                      <p:dialog header="créer un Article" widgetVar="creerarticle" modal="true" showEffect="fade" hideEffect="fade" resizable="true">
+                                        		
+                                        		<h:panelGrid columns="2" cellpadding="5">
+                                        			
+                                        			<h:outputText value="Produit" />
+                                        			<p:selectOneMenu id="produit"  filter="true" effect="fade"  styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idproduit}">
+                                                        <f:selectItems  value="#{produitController.produits}" var="prod" itemLabel="#{prod.typeproduit}" itemValue="#{prod.id}" />
+                                                    </p:selectOneMenu>
+                                                    
+                                                    <h:outputText value="Type Article" />
+                                                    <p:selectOneMenu id="type"  filter="true" effect="fade" styleClass="chzn-select-deselect" style="width:350px;"  value="#{articleController.idtypearticle}">
+                                                        <f:selectItems  value="#{typeArticleController.typearticles}" var="typearticle" itemLabel="#{typearticle.type}" itemValue="#{typearticle.idtype}" />
+                                                    </p:selectOneMenu>
+                                        			
+                                        			<h:outputText value="Réference" />
+                                        		 	<p:inputText id="ref"  styleClass="i-format" required="required" value="#{articleController.ref}" />
+                                        			
+                                        			 <h:outputText value="Désignation" />
+                                        			 <p:inputTextarea id="des" cols="70"  styleClass="i-format" required="required" value="#{articleController.des}" />
+                                        			
+                                        			 <p:commandButton styleClass="button blue medium" value="Ajouter" actionListener="#{articleController.insert}" update="msgs,refArticle,ref,des,type,produit" oncomplete="creerarticle.hide()"/>
+                                        		</h:panelGrid>
+                                        		
+                                        </p:dialog>
+                                        </h:form>
+                                        </div> 
+                                              
+    </content>
+    </article>
+</div>
+</div>
+<div style="position: relative;bottom:60px;">
+<ui:include src="../theme/mfooter.xhtml" />  
+</div>
+</h:body>
+</f:view>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Fournisseur">
+  <id name="idfournisseur" column="idfournisseur">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="nomsociete" column="nomSociete" ></property>
+
+  <property name="adresse" column="adresse"  ></property>
+
+  <property name="tel" column="tel"  ></property>
+  
+     
+ 	<many-to-one name="pays" class="ims.model.entities.Pays" column="fpaysID" lazy="false" />
+  
+  	<many-to-one name="ville" class="ims.model.entities.Ville" column="fvilleID" lazy="false" />
+  	
+  </class>
+</hibernate-mapping>

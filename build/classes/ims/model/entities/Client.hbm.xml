@@ -1,0 +1,27 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Client">
+  <id name="idclient" column="idclient">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="societe" column="societe"></property>
+  <property name="adresse" column="adresse"></property>
+  <property name="fonction" column="fonction"></property>
+  <property name="tel" column="tel"></property>
+  <property name="tel2" column="tel2"></property>
+  <property name="fax" column="fax"></property>
+  <property name="email" column="email"></property>
+
+  <many-to-one name="contactprincipal" class="ims.model.entities.Contact" column="contactID" lazy="false"></many-to-one>	
+  <many-to-one name="langue" class="ims.model.entities.Langue" column="langueID" lazy="false"></many-to-one>
+  <many-to-one name="categorie" class="ims.model.entities.CategorieIISociete" column="CategorieID" lazy="false"></many-to-one>
+  <many-to-one name="secteur" class="ims.model.entities.Secteur" column="SecteurID" lazy="false"></many-to-one>
+  
+  <many-to-one name="pays" class="ims.model.entities.Pays" column="cpaysID" lazy="false"/>
+  <many-to-one name="ville" class="ims.model.entities.Ville" column="cvilleID" lazy="false"/>
+  <many-to-one name="groupeclient" class="ims.model.entities.GroupeClient" column="GroupeClientID" lazy="false"/>	
+  
+  </class>
+</hibernate-mapping>

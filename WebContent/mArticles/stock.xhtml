@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Stock</h1>
+    <content> 
+    		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+    <div style="position: relative;">
+                                        <h:form class="form_place">
+									<p:growl id="msgs" showDetail="true"/> 
+									<table class="styletable" cellpadding="0">
+									
+									<tr>
+									<td>Article</td>
+									<td>
+									<p:outputLabel for="refArticle" />
+                                               <p:selectOneMenu id="refArticle" filter="true" effect="fade" style="width:120px" styleClass="selectonemenu"  value="#{stockController.idarticle}">
+	                              					 <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+	                              					 <f:selectItems id="refArticles" value="#{articleController.articles}" var="article" itemLabel="#{article.ref}" itemValue="#{article.idArticle}" />
+	                             				</p:selectOneMenu>
+									</td>
+									<td>N°Serie</td>
+									<td>
+									<p:inputTextarea id="numserie" required="required" value="#{stockController.numserie}" />
+                 					</td>
+									<td>Client</td>
+									<td>
+									 <p:outputLabel style="with:50" for="nomclient" />
+                                                    <p:selectOneMenu  id="nomclient" filter="true" effect="fade" style="width:120px" styleClass="selectonemenu"  tabindex="1" value="#{stockController.idclient}">
+                                                    <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                    <f:selectItems  id="nomclients" value="#{clientController.clients}" var="client" itemLabel="#{client.societe}" itemValue="#{client.idclient}" />
+                                                    </p:selectOneMenu>
+									</td>
+									<td>Fournisseur</td>
+									<td><p:outputLabel for="nomsocietef" />
+                                                    <p:selectOneMenu id="nomsocietef" filter="true" effect="fade" style="width:120px" styleClass="selectonemenu" value="#{stockController.idf}" >
+                                                        <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{fournisseurController.fournisseurs}" var="fournisseur" itemLabel="#{fournisseur.nomsociete}" itemValue="#{fournisseur.idfournisseur}" />
+                                                    </p:selectOneMenu></td>
+									<td>Quantité</td>
+									<td><p:spinner id="qte" value="#{stockController.qte}" /></td>
+									<td> <p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{stockController.annuler}" update=":form:tablep,msgs,qte,numserie,nomsocietef,nomclient,refArticle" /></td>
+									<td> <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{stockController.insert}" update=":form:tablep,msgs,qte,numserie,nomsocietef,nomclient,refArticle"/></td></tr>
+									</table>
+                                    </h:form>
+     </div>          
+             <h:form id="form">         
+             <p:growl id="msgs" showDetail="true"/>  
+                          
+                                        
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{stockController.stocks}" var="obj"
+                                                     selection="#{stockController.stock}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     filteredValue="#{stockController.filtredstocks}"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     <p:ajax event="cellEdit" listener="#{stockController.onCellEdit}" update=":form:msgs,:form:tablep" />
+       										
+       													 <p:column style="width:100px;" headerText="Réference" sortBy="#{obj.article.ref}" filterBy="#{obj.article.ref}"  filterMatchMode="contains">
+            												 <p:cellEditor>
+			                                                    <f:facet name="output"><h:outputText value="#{obj.article.ref}" /></f:facet>
+			                                                    <f:facet name="input">
+			                                                    		<p:autoComplete id="compArticle" value="#{obj.article.ref}" completeMethod="#{offreController.completerArticle}" />
+			                                                    </f:facet>
+			                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													   <p:column style="width:200px;" headerText="Designation"  filterBy="#{obj.article.designation}"  sortBy="#{obj.article.designation}" filterMatchMode="contains">
+            												<h:outputText value="#{obj.article.designation}" />
+       										 				</p:column>
+       													 
+       													 
+       													 <p:column style="width:200px;"  headerText="Numéro Série" sortBy="#{obj.numserie}" filterBy="#{obj.numserie}"  filterMatchMode="contains">
+            												 <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.numserie}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputTextarea value="#{obj.numserie}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													  <p:column style="width:50px;" headerText="Qte Initial"  sortBy="#{obj.qteinital}"  filterBy="#{obj.qteinital}"  filterMatchMode="startsWith">
+            												<p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qteinital}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qteinital}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:50px;" headerText="Qte"  sortBy="#{obj.qte}"  filterBy="#{obj.qte}"  filterMatchMode="startsWith">
+            												<p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qte}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													  <p:column style="width:50px;" headerText="Date Stock"  filterBy="#{obj.datestock}"  sortBy="#{obj.datestock}" filterMatchMode="contains">
+            												<h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datestock}" />
+														    </h:outputFormat>
+       										 				</p:column>
+       													 
+       													 		  
+       													 		  <p:column style="width:50px;" headerText="Date Livré"  filterBy="#{obj.datelivrer}"  sortBy="#{obj.datelivrer}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.datelivrer}">
+																			    <f:convertDateTime pattern="yyyy-MM-dd" />
+																			</h:outputText>
+       										 					</p:column>
+       										 					
+       										 					<p:column style="width:100px;" headerText="Fournisseur"  filterBy="#{obj.fournisseur.nomsociete}"  sortBy="#{obj.fournisseur.nomsociete}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.fournisseur.nomsociete}"></h:outputText>
+       										 					</p:column>
+       										 					
+       										 					
+       													 <p:column style="width:100px;" headerText="Client"  filterBy="#{obj.client.societe}"  sortBy="#{obj.client.societe}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.client.societe}"></h:outputText>
+       										 					</p:column>
+       										 					
+       										 					 <p:column style="width:100px;" headerText="Client Final"  filterBy="#{obj.clientFinal.societe}"  sortBy="#{obj.clientFinal.societe}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.clientFinal.societe}"></h:outputText>
+       										 					</p:column>
+       										 					
+       										 					
+       										 					
+       													 <f:facet name="header">
+       													 
+       													   <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{stockController.actualiser}" update=":form:tablep"></p:commandButton>            
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmation2.show()" styleClass="button white icon"></p:commandButton>
+                                            			
+                                            			</f:facet>
+                                            		
+                                        </p:dataTable>
+                                            <p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le stock selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tablep,:form:msgs" action="#{stockController.deletestock}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+                                        </p:confirmDialog>
+                                    </h:form>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

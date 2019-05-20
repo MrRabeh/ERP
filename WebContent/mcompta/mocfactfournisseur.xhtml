@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Mouvement Facture Fournisseur</h1>
+    <content>
+    		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+             <h:form id="form">
+                                    <p:growl id="msgs" showDetail="true"/> 
+                                        
+                                        <p:dataTable id="comptafacture" widgetVar="comptafacture" value="#{comptabiliteController.facturesfournisseurs}" var="obj"
+                                                      selection="#{comptabiliteController.facturefournisseur}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                    
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                             <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                             <p:ajax event="cellEdit" listener="#{comptabiliteController.onCellEditfactfournisseur}" update=":form:msgs,:form:comptafacture" />
+                                            
+                                             <p:column filterBy="#{obj.num_facture}" style="width:60px;" sortBy="#{obj.num_facture}" headerText="Réference" filterMatchMode="contains">
+            										<h:outputText value="#{obj.num_facture}" />
+       										 </p:column>
+       										 
+       										  <p:column style="width:50px;" filterBy="#{obj.datefacture}"  sortBy="#{obj.datefacture}" headerText="Date Y-M-D" filterMatchMode="startsWith">
+            										<h:outputFormat value="{0, date, yyyy-MM-dd}">
+																    <f:param value="#{obj.datefacture}" />
+														    </h:outputFormat>
+       										 </p:column>
+       										 
+       										 <p:column style="width:60px;" filterBy="#{obj.commandefournissuer.fournisseur.nomsociete}"  sortBy="#{obj.commandefournissuer.fournisseur.nomsociete}" headerText="Fournisseur" filterMatchMode="contains">
+            										<h:outputText value="#{obj.commandefournissuer.fournisseur.nomsociete}" />
+       										 </p:column>
+       										 
+       										  <p:column style="width:60px;" filterBy="#{obj.totalNet}"  sortBy="#{obj.totalNet}" headerText="Net." filterMatchMode="contains">
+            										<h:outputText value="#{obj.totalNet}" />
+       										 </p:column>
+       										 
+       										   <p:column style="width:50px" filterBy="#{obj.numAvoir}"  sortBy="#{obj.numAvoir}" headerText="N°avoir" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.numAvoir}" />
+       										    </p:column>
+       										 
+       										  <p:column style="width:60px" filterBy="#{obj.montantdavoire}"  sortBy="#{obj.montantdavoire}" headerText="N°avoir" filterMatchMode="startsWith">
+            													<h:outputText value="#{obj.montantdavoire}" />
+       										  </p:column>
+       										 
+       										 <p:column style="width:50px;" filterBy="#{obj.reglement}"  sortBy="#{obj.reglement}" headerText="Réglement" filterMatchMode="contains">
+            										<p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.reglement}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{obj.reglement}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+       										 </p:column>
+       										 
+       										  <p:column  style="width:50px;" headerText="Date Ech."  filterBy="#{obj.dateechance}" filterMatchMode="contains" sortBy="#{obj.dateechance}">
+                                                <p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.dateechance}" >
+									               <f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									               <p:inputMask id="dateechance" value="#{obj.dateechance}" local="fr" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column headerText="Date Prév." style="width:50px;"  filterBy="#{obj.datepevisionnel}" filterMatchMode="contains" sortBy="#{obj.datepevisionnel}">
+                                                <p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.datepevisionnel}" >
+									               <f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+									               </h:outputText>
+									               </f:facet>
+									               <f:facet name="input">
+									               <p:inputMask id="dateeprev" value="#{obj.datepevisionnel}" local="fr" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+       										 
+                                            <p:column style="width:50px"  exportable="true" headerText="Etat"   filterBy="#{obj.etat}" filterMatchMode="startsWith" sortBy="#{obj.etat}">
+                                                <p:cellEditor >
+									               <f:facet name="output"><h:outputText value="#{obj.etat}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:selectOneMenu value="#{comptabiliteController.tempoetat}" style="width:100%">
+									                   
+									                       <f:selectItems value="#{comptabiliteController.etats}" var="#{test}" itemLabel="#{test}" itemValue="#{test}" />
+									                   </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column style="width:60px" headerText="Avance"   filterBy="#{obj.montantregler}" filterMatchMode="startsWith" sortBy="#{obj.montantregler}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.montantregler}" /></f:facet>
+									               <f:facet name="input">
+									                   <p:inputText value="#{obj.montantregler}" style="position:relative;width:100%;"/>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column style="width:60px" filterBy="#{obj.montantrester}"  sortBy="#{obj.montantrester}" headerText="Reste" filterMatchMode="startsWith">
+            										<h:outputText value="#{obj.montantrester}" />
+       										 </p:column>
+       										 
+                                            
+                                             <p:column  style="width:40px" headerText="Constat."  filterBy="#{obj.constater}" filterMatchMode="startsWith" sortBy="#{obj.constater}">
+                                                <p:cellEditor>
+									               <f:facet name="output"><h:outputText value="#{obj.constater}" /></f:facet>
+									               <f:facet name="input">
+									                     <p:selectOneMenu value="#{comptabiliteController.tempocontsat}" style="width:100%">
+									                       <f:selectItem  itemLabel="choisi Oui/Non" itemValue="" />
+									                       <f:selectItem  itemLabel="Oui" itemValue="Oui" />
+									                        <f:selectItem  itemLabel="Non" itemValue="Non" />
+									                   </p:selectOneMenu>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                            <p:column style="width:60px" headerText="date Constat"  filterBy="#{obj.dateconstater}" filterMatchMode="contains" sortBy="#{obj.dateconstater}">
+                                                <p:cellEditor>
+									               <f:facet name="output">
+									               <h:outputText value="#{obj.dateconstater}" >
+									               <f:convertDateTime pattern="dd/MM/yyyy" ></f:convertDateTime>
+									                </h:outputText>
+									                </f:facet>
+									               <f:facet name="input">
+									               
+									                   <p:inputMask id="datecontstat" value="#{obj.dateconstater}" local="fr" mask="99/99/9999" >
+									               		<f:convertDateTime pattern="dd/MM/yy" />
+									               	</p:inputMask>
+									               </f:facet>
+									           </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <p:column style="width:40px;" filterBy="#{obj.commandefournissuer.numercommande}"  sortBy="#{obj.commandefournissuer.numercommande}" headerText="N°BC" filterMatchMode="contains">
+            										<h:outputText value="#{obj.commandefournissuer.numercommande}" />
+       										 </p:column>
+       										 
+       										  <p:column style="width:70px;" filterBy="#{obj.commandefournissuer.client.societe}"  sortBy="#{obj.commandefournissuer.client.societe}" headerText="Client Final" filterMatchMode="contains">
+            										<h:outputText value="#{obj.commandefournissuer.client.societe}" />
+       										 </p:column>
+       										 
+       										 
+       										 
+       										  <f:facet name="header">
+                                                <p:commandButton action="#{comptabiliteController.actualiser}" value="Actualiser" update="comptafacture"></p:commandButton>
+               
+                                               </f:facet>
+                                        
+       										 
+                                        </p:dataTable>
+                                        
+                                        
+									    </h:form>          
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

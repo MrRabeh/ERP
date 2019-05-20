@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="LicenceApplication">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="cle" column="cle" not-null="true" unique="true" ></property>
+
+	  <property name="dateexpiration" column="dateexpiration"></property>
+  <property name="codegeneration" column="codegeneration"></property>
+  <property name="dategenerer" column="dategenerer"></property>
+  
+ 
+  </class>
+</hibernate-mapping>

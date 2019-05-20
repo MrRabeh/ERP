@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuMSProject.xhtml" />
+<div class="mainContent">
+<div class="content">
+      <h:form id="form"> 
+	<article class="topcontent">
+	<br/>
+    <content>
+             
+       <p:growl id="msgs" showDetail="true"/> 
+       <p:growl id="msg" showDetail="true"/> 
+       
+              <table class="styletable" style="width: 60%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer une Tache</div>
+            	
+              <tr>
+              <td>projet</td>
+              <td>
+              		<p:selectOneMenu styleClass="selectonemenu" style="width:210px;" id="projet" filter="true" effect="fade" value="#{tacheControlleur.idprojet}"  >
+              											<f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{projetControlleur.projets}" var="proj" itemLabel="#{proj.projectname}" itemValue="#{proj.idprojet}" />
+                                                    </p:selectOneMenu>                         
+              </td>
+              <td>Tache</td>
+              <td>
+                  <p:inputTextarea cols="50" row="20"  id="tache"  value="#{tacheControlleur.tachename}" />
+                                                 
+             </td>
+              </tr>
+              <tr>
+              
+              <td>
+              Date Debut
+              </td>
+              <td>
+               <p:calendar id="datdebut" value="#{tacheControlleur.datedebut}"  pattern="dd/MM/yyyy HH:mm:ss" ></p:calendar>
+                                                                                                          
+              </td>
+               <td>
+              Date Fin
+              </td>
+              <td>
+               <p:calendar id="datfin" value="#{tacheControlleur.datefin}"  pattern="dd/MM/yyyy HH:mm:ss"  > </p:calendar>
+                                                                                                                           
+              </td>
+              </tr>
+               <tr>
+              
+              <td>
+              Commentaire 
+              </td>
+              <td colspan="3">
+               <p:inputTextarea id="commente" cols="50" row="20" style="width:200px;" value="#{tacheControlleur.commentaire}" ></p:inputTextarea>                                                                                       
+              </td>
+              </tr>
+              <tr>
+              <td><p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{tacheControlleur.annuler}" update=":form:tablep,:form:msgs,commente,datfin,datdebut,tache,projet"></p:commandButton></td>
+              <td>
+               <p:commandButton styleClass="styleGreen" value="Enregistrer"  actionListener="#{tacheControlleur.insert}" update="commente,datfin,datdebut,tache,projet,:form:tablep,:form:msgs" />                         
+               </td>
+              </tr>
+              </table>                 
+                                       <p:dataTable id="tablep" value="#{tacheControlleur.taches}" var="obj"
+                                                     selection="#{tacheControlleur.tache}"
+                                                     rowKey="#{obj.idtache}"
+                                                     paginator="true"
+                                                     rows="7"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{tacheControlleur.filteredtaches}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+														
+													<p:ajax event="cellEdit" listener="#{tacheControlleur.oncellEdit}" update=":form:msgs,tablep" />
+           
+                                                     
+                                            <p:column  headerText="Projet" filterBy="#{obj.projet.projectname}" filterMatchMode="contains" sortBy="#{obj.projet.projectname}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.projet.projectname}" /></f:facet>
+                                                    <f:facet name="input">
+                                                     <p:selectOneMenu styleClass="selectonemenu" style="width:100%;" id="projet" filter="true" effect="fade" value="#{tacheControlleur.idprojet}"  >
+                                                        <f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{projetControlleur.projets}" var="proj" itemLabel="#{proj.projectname}" itemValue="#{proj.idprojet}" />
+                                                    </p:selectOneMenu>      
+                                                    </f:facet>
+                                                </p:cellEditor>
+                                                
+                                                                  
+                                            </p:column>
+
+                                            <p:column headerText="Tache" filterBy="#{obj.tachename}" filterMatchMode="contains"  sortBy="#{obj.tachename}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.tachename}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.tachename}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>    
+                                            <p:column headerText="Date debut" filterBy="#{obj.datedebut}" filterMatchMode="contains"  sortBy="#{obj.datedebut}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.datedebut}" /></f:facet>
+                                                    <f:facet name="input"><p:calendar value="#{obj.datedebut}" pattern="dd/MM/yyyy HH:mm:ss"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column> 
+                                             
+                                            <p:column headerText="Date Fin" filterBy="#{obj.datefin}" filterMatchMode="contains"  sortBy="#{obj.datefin}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.datefin}" /></f:facet>
+                                                    <f:facet name="input"><p:calendar  value="#{obj.datefin}" pattern="dd/MM/yyyy HH:mm:ss"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column> 
+                                            
+                                            <p:column headerText="Commentaire" filterBy="#{obj.commentaire}" filterMatchMode="contains"  sortBy="#{obj.commentaire}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.commentaire}" /></f:facet>
+                                                    <f:facet name="input"><p:inputTextarea cols="50" row="20"  value="#{obj.commentaire}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column> 
+                                                                                    
+                                            <p:column>
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer" />
+                                                </f:facet>
+                                                 
+                                                <p:commandButton   icon="b_icon b102" styleClass="button white icon" value="Supprimer" onclick="confirmation.show()" >
+                                                    <span class="b_icon b102"></span>
+                                                    <f:setPropertyActionListener target="#{tacheControlleur.tache}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+
+                                            
+                                        </p:dataTable>
+                                        
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer la tache" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{tacheControlleur.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                              
+    </content>
+    </article>
+      </h:form>  
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

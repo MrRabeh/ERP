@@ -1,0 +1,17 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="AvoirFournisseur">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+   
+  <property name="numero_avoir" column="numero_avoir" not-null="true" unique="true" ></property>
+   <property name="dateavoir" column="dateavoir"  ></property>
+
+ 
+  
+ 
+  
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>
+      <h:form id="form">
+          		  
+        <table class="styletable" style="width: 60%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>créer Devise</div>
+              <tr>
+              	<td>Devise</td>
+              	<td>
+              		<p:inputText id="devise"  required="required" value="#{typePaiementController.typepaiement.typepaiement}" />
+              	</td>
+              </tr>
+              <tr>
+              	<td>
+              		<p:commandButton styleClass="styleGreen" value="Annuler" actionListener="#{typePaiementController.annuler}" update="msgs,devise,typepaiements"></p:commandButton>
+              	</td>
+              	<td>
+                	<p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{typePaiementController.insert}" update="msgs,devise,typepaiements" />
+              	</td>
+              </tr>
+     </table>
+          		  <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{typePaiementController.actualiser}" update="typepaiements"></p:commandButton>
+                                        <p:growl id="msgs" showDetail="true"/>                                         
+                                        <p:dataTable id="typepaiements" widgetVar="typepaiements" value="#{typePaiementController.listePaiement}" var="obj"
+                                                     selection="#{typePaiementController.typepaiementtempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="30"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     scrollRows="40" scrollable="true" liveScroll="true" scrollHeight="560"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle">
+                                                     
+       										 <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                             
+                                             <p:ajax event="cellEdit" listener="#{typePaiementController.update}" update=":form:msgs,typepaiements" />
+              
+       										 <p:column filterBy="#{obj.typepaiement}" sortBy="#{obj.typepaiement}" headerText="Type Paiement" filterMatchMode="contains">
+            										<p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.typepaiement}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText   value="#{obj.typepaiement}"/></f:facet>
+                                                </p:cellEditor>
+       										 </p:column>
+       										 
+       										 <p:column style="width:100px;">
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Supprimer"/>
+                                                </f:facet>
+                                                <p:commandButton  icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                    <f:setPropertyActionListener target="#{typePaiementController.typepaiementtempo}" value="#{obj}"/>
+                                                </p:commandButton>
+                                            </p:column>
+                                        </p:dataTable>
+                                        
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le Devise selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:msgs,:form:typepaiements" action="#{typePaiementController.delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                       
+                                    </h:form>             
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

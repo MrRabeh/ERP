@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>
+    
+    <h:form id="form_place" >
+		<p:growl id="msgs" showDetail="true"/> 
+		<table class="styletable" cellpadding="0">
+		<div style='font-weight:bold;text-align: left;position: relative;bottom:-5px;'>Créer Type Article</div>
+		<tr><td>Type</td><td> <p:inputText id="typeart" value="#{typeArticleController.nouveautype}" /></td></tr>
+		
+		<tr>
+		<td><p:commandButton value="Annuler" actionListener="#{typeArticleController.annuler}" update="msgs,:form_place:typeart,:form:tabletypearticle"></p:commandButton></td>
+		<td><p:commandButton  value="Enregistrer" actionListener="#{typeArticleController.insert}" update="msgs,:form_place:typeart,:form:tabletypearticle" /></td></tr>
+		</table>
+      </h:form>
+                    
+               <h:form id="form">
+                            <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{typeArticleController.actualiser}" update=":form:tabletypearticle"></p:commandButton>        
+                                        <p:growl id="msgs" showDetail="true"/>  
+                                        <p:dataTable id="tabletypearticle" value="#{typeArticleController.typearticles}" var="obj"
+                                                      selection="#{typeArticleController.typearticle}"
+                                                     rowKey="#{obj.idtype}"
+                                                     paginator="true"
+                                                     rows="10"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{typeArticleController.filteredTypeArticle}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     scrollRows="20" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     
+                                                     <p:ajax event="cellEdit" listener="#{typeArticleController.update}" update=":form:msgs,:form:tabletypearticle" />
+       										
+                                                     
+                                            <p:column headerText="Type" filterBy="#{obj.type}" filterMatchMode="contains"  sortBy="#{obj.type}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.type}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.type}" style="width:100%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column> 
+                                            
+                                            <p:column style="width:100px;" headerText="Supprimer" >
+		                                                	<p:commandButton icon="b_icon b102" onclick="confirmation2.show()" styleClass="button white icon"> 
+		                                                	 <f:setPropertyActionListener target="#{typeArticleController.typearticle}" value="#{obj}" update=":form:tabletypearticle"/>
+		                                                	</p:commandButton>
+                                            </p:column> 
+
+                                           
+                                        </p:dataTable>
+                                    	<p:confirmDialog widgetVar="confirmation2" message="voulez vous Supprimer le Type Article selectionner?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":form:tabletypearticle,:form:msgs" action="#{typeArticleController.Delete}" oncomplete="confirmation2.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation2.hide()" type="button" update=":form:tableoffre,:form:msgs" />
+                                        </p:confirmDialog>
+                                    </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

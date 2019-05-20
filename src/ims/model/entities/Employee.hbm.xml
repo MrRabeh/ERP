@@ -1,0 +1,23 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Employee">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="nom" column="Nom" not-null="true" unique="true" ></property>
+
+	  <property name="prenom" column="Prenom"></property>
+	  <property name="comptebancaire" column="comptebancaire"></property>
+  <property name="cnss" column="CNSS"></property>
+  <property name="salaire" column="salaire"></property>
+  <property name="cin" column="CIN" ></property>
+  <property name="profil" column="profil"></property>
+  
+ <many-to-one name="departement" class="ims.model.entities.Departement" column="departementID"></many-to-one>
+ 
+ 
+	
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	 <content>
+	<h1 style="text-align: center;color: #339;">Clients</h1>
+<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>            
+    <h:form>  
+
+                                        <p:growl id="msgs" showDetail="true"/> 
+                                        
+                                        <p:dataTable id="tablep" value="#{clientController.clients}" var="obj"
+                                                     selection="#{clientController.client}"    
+                                                     rowKey="#{obj.idclient}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     resizableColumns="true"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                          			
+                                          			<p:column headerText="Groupe" filterBy="#{obj.groupeclient.nomGroupe}" sortBy="#{obj.groupeclient.nomGroupe}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.groupeclient.nomGroupe}" />
+       												</p:column>
+                                          			
+                                          			<p:column headerText="Societe" filterBy="#{obj.societe}" sortBy="#{obj.societe}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.societe}" />
+       												</p:column>
+       													 
+                   								    <p:column style="width:250px;" headerText="Adresse" filterBy="#{obj.adresse}" sortBy="#{obj.adresse}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.adresse}" />
+       											     </p:column>
+       											     
+       											      <p:column style="width:50px;" headerText="Tel" filterBy="#{obj.tel}" sortBy="#{obj.tel}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.tel}" />
+       												 </p:column>
+       											     
+       											     <p:column style="width:60px;" headerText="Pays" filterBy="#{obj.pays.pays}" sortBy="#{obj.pays.pays}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.pays.pays}" />
+       												</p:column>
+       													 
+       												<p:column style="width:60px;" headerText="Ville" filterBy="#{obj.ville.ville}" sortBy="#{obj.ville.ville}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.ville.ville}" />
+       												</p:column>
+       												
+       												<p:column style="width:60px;" headerText="Nom" filterBy="#{obj.contactprincipal.nom}" sortBy="#{obj.contactprincipal.nom}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.contactprincipal.nom}" />
+       												</p:column>
+       												
+       												<p:column style="width:60px;" headerText="Prenom" filterBy="#{obj.contactprincipal.prenom}" sortBy="#{obj.contactprincipal.prenom}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.contactprincipal.prenom}" />
+       												</p:column>
+       												
+       												<p:column style="width:60px;" headerText="Gsm Contact" filterBy="#{obj.contactprincipal.gsm1}" sortBy="#{obj.contactprincipal.gsm1}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.contactprincipal.gsm1}" />
+       												</p:column>
+       												
+       												<p:column style="width:150px;" headerText="Email Contact" filterBy="#{obj.contactprincipal.email}" sortBy="#{obj.contactprincipal.email}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.contactprincipal.email}" />
+       												</p:column>
+                                     
+                                           <f:facet name="header">  
+                                            <p:commandButton action="#{clientController.preparecreer}" value="Créer"></p:commandButton>
+                                
+                                 			<p:commandButton action="#{clientController.actualiser}" value="Actualiser" update="tablep"></p:commandButton>
+                                 				<p:commandButton icon="b300" action="#{clientController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+											</f:facet>
+                                        </p:dataTable>
+                                        
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer le client?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep" action="#{clientController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>     
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

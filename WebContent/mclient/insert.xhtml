@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="position: relative;bottom: 10px;left: 80%;">Client en création ...</h1>
+    <content>
+        		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>
+
+                                    <!-- Categorie Client -->
+          <div class="stylerightclient">
+                                    		 <h:form id="form_place" class="form_place">
+						      <p:growl id="msgs" showDetail="true"/> 
+						                                 <table class="styletable" style="width: 90%;" cellpadding="0">
+            					<div style='font-weight:bold;text-align: left;position: relative;bottom:-5px;'>créer un Catégorie Client</div>
+            					<tr>
+            					<td>Catégorie</td>
+            					<td> <p:inputText  id="catnov" value="#{categorieIIController.novcategorie}" /></td>
+            					
+            					</tr>
+            					<tr>
+            					<td><p:commandButton styleClass="styleGreen" value="Annuler" update=":forminsertsecteur:categorie,:formsecteur:tablep,:form:categorie,:form_place:msgs,:formlistecat:tablep,:form_place:catnov" actionListener="#{categorieIIController.annuler}" ></p:commandButton></td>
+            					<td><p:commandButton styleClass="styleGreen" value="Enregistrer" update=":forminsertsecteur:categorie,:formsecteur:tablep,:form:categorie,:form_place:msgs,:formlistecat:tablep,:form_place:catnov" actionListener="#{categorieIIController.insert}" /></td>
+            					</tr>
+                                 </table> 
+                                    </h:form>
+                                                    
+					              <h:form id="formlistecat">
+					                                    <p:growl id="msgs" showDetail="true"/>  
+					                    <p:dataTable id="tablep" value="#{categorieIIController.categorieIIs}" var="obj"
+                                                     selection="#{categorieIIController.categorietempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="3"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{categorieIIController.filteredCategorieII}"
+                                                     scrollRows="3" scrollable="true" liveScroll="true"
+                                                     style="width:340px"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+
+                                            <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                       		
+                                       		<p:ajax event="cellEdit" listener="#{categorieIIController.onCellEdit}" update=":formlistecat:tablep,:form:msgs,:form:categorie,:forminsertsecteur:categorie,:formsecteur:tablep" />
+                                            
+                                            <p:column headerText="Categorie" filterBy="#{obj.categorie}" filterMatchMode="contains"  sortBy="#{obj.categorie}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.categorie}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText style="width:200px;"  value="#{obj.categorie}"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                             <f:facet name="header"> 
+												<p:commandButton styleClass="styleGreen" value="Actualisée" update=":formlistecat:tablep" actionListener="#{categorieIIController.actualiser}" ></p:commandButton>
+					              				<p:commandButton icon="b_icon b102" onclick="confirmation3.show()" >
+                                                </p:commandButton>
+					              			</f:facet>
+                                        </p:dataTable>
+                                         <!-- boîte de dialogue -->
+                                        <p:confirmDialog widgetVar="confirmation3" message="voulez vous supprimer Categorie ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update=":formlistecat:tablep,msgs,:form:categorie" action="#{categorieIIController.Delete}" oncomplete="confirmation3.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation3.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form>  
+                                    <!-- SECTEUR  -->
+                                    
+                                     <h:form id="forminsertsecteur" class="form_place">
+     						<p:growl id="msgs" showDetail="true"/>  
+                			<div>
+                                 <table class="styletable" style="width: 90%;" cellpadding="0">
+            					<div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Créer un Secteur Client</div>
+            					<tr>
+            					<td>Secteur</td>
+            					<td> <p:inputText  id="sect"  value="#{secteurController.novsecteur}" /></td>
+            					</tr>
+            					<tr>
+            					<td>Catégorie</td>
+            					<td>
+            					 <p:selectOneMenu style="width:210px" styleClass="selectonemenu" filter="true" id="categorie" tabindex="1" value="#{secteurController.idcat}">
+														
+                                                        <f:selectItems  value="#{categorieIIController.categorieIIs}" var="cat" itemLabel="#{cat.categorie}" itemValue="#{cat.id}" />
+                                               
+                                                    </p:selectOneMenu>
+            					</td>
+            					</tr>
+            					<tr>
+            					<td><p:commandButton styleClass="styleGreen" value="Annuler" update=":form:secteur,:forminsertsecteur:msgs,:formsecteur:tablep,:forminsertsecteur:sect,:forminsertsecteur:categorie" actionListener="#{secteurController.annuler}"></p:commandButton></td>
+            					<td><p:commandButton styleClass="styleGreen" value="Enregistrer" update=":form:secteur,:forminsertsecteur:msgs,:formsecteur:tablep,:forminsertsecteur:sect,:forminsertsecteur:categorie" actionListener="#{secteurController.insert}" /></td>
+            					</tr>
+                                 </table> 
+                                 </div>  
+                                    </h:form>
+                    
+            <h:form id="formsecteur">
+                                    <p:growl id="msgs" showDetail="true"/>  
+                                      <p:dataTable id="tablep" value="#{secteurController.secteurs}" var="obj"
+                                                      selection="#{secteurController.secteurtempo}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="5"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     filteredValue="#{secteurController.filteredSecteur}"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     scrollRows="5"
+                                                     style="width:340px"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                     
+                                            <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                          	
+                                          	<p:ajax event="cellEdit" listener="#{secteurController.onCellEdit}" update="tablep,:form:msgs"/>
+                                     
+                                            <p:column headerText="Secteur" filterBy="#{obj.secteur}" filterMatchMode="contains"  sortBy="#{obj.secteur}">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.secteur}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText  value="#{obj.secteur}"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            
+                                            <p:column headerText="Categorie" filterBy="#{obj.categorie.categorie}" filterMatchMode="contains" sortBy="#{obj.categorie.categorie}">
+                                                   <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{obj.categorie.categorie}" /></f:facet>
+                                                    <f:facet name="input">
+													<p:selectOneMenu id="categorie" style="width:100px;" styleClass="selectonemenu" tabindex="1" value="#{secteurController.idcatmodif}">
+														<f:selectItem itemLabel="" itemValue="0" selected="selected" ></f:selectItem>
+                                                        <f:selectItems  value="#{categorieIIController.categorieIIs}" var="cat" itemLabel="#{cat.categorie}" itemValue="#{cat.id}" />
+                                                    </p:selectOneMenu>
+													</f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            
+                                   
+                                             <f:facet name="header"> 
+                                              <p:commandButton styleClass="styleGreen" value="Actualisée" update=":form:tablep" actionListener="#{secteurController.actualiser}" ></p:commandButton>
+                                        		<p:commandButton icon="b_icon b102" styleClass="button white icon" onclick="confirmation.show()" >
+                                                    
+                                                </p:commandButton>
+                                             </f:facet>
+                                        </p:dataTable>
+                                        <p:confirmDialog widgetVar="confirmation" message="voulez vous supprimer Secteur ?" header="confirmation" severity="alert" >
+                                            <p:commandButton value="oui" update="tablep,msgs" action="#{secteurController.Delete}" oncomplete="confirmation.hide()" />
+                                            <p:commandButton value="non" onclick="confirmation.hide()" type="button" />
+                                        </p:confirmDialog>
+                                    </h:form> 
+                                    </div>
+                                    
+                                        <div >
+   <h:form id="form" class="form_place">
+    	    <p:growl id="msgs" showDetail="true"/>       	                    
+            <table class="styletable" style="width: 68%;"  cellpadding="0">
+            <div style='font-weight:bold;text-align: left;position: relative;bottom:-7px;'>Client</div>
+            	<tr>
+            	<td>Groupe Client</td>
+            	<td>
+            	<p:selectOneMenu styleClass="selectonemenu" filter="true" style="width:210px;" id="groupeclient" tabindex="1" value="#{clientController.groupeClientID}">
+            										<f:selectItem itemLabel="créer un Groupe Par defaut" itemValue="0" selected="selected" ></f:selectItem>
+												 <f:selectItems  value="#{clientController.groupesclient}" var="g" itemLabel="#{g.nomGroupe}" itemValue="#{g.id}" />
+                    </p:selectOneMenu>
+            	</td>
+            	</tr>
+            	<tr>
+	            	<td>
+	            	Catégorie
+	            	</td>
+	            	<td>
+	            	<p:selectOneMenu styleClass="selectonemenu" filter="true" style="width:210px;" id="categorie" tabindex="1" value="#{clientController.idcategorie}">
+												 <f:selectItems  value="#{categorieIIController.categorieIIs}" var="cat" itemLabel="#{cat.categorie}" itemValue="#{cat.id}" />
+                    </p:selectOneMenu>
+	            	</td>
+	            	<td>
+	            	Tél
+	            	</td>
+	            	<td>
+	            	  <p:inputText  id="tel_client"   value="#{clientController.tel}" />                     
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>Secteur</td>
+	            	<td>
+	            	<p:selectOneMenu styleClass="selectonemenu" filter="true"  style="width:210px;" id="secteur" tabindex="1" value="#{clientController.idsecteur}">
+                                                        <f:selectItems  value="#{clientController.secteurs}" var="secteur" itemLabel="#{secteur.secteur}" itemValue="#{secteur.id}" />
+                                           </p:selectOneMenu>
+	            	</td>
+	            	<td>Fax</td>
+	            	<td> <p:inputText id="fax_client"  value="#{clientController.fax}" />
+										</td>
+	            	</tr>
+	            	<tr>
+	            	<td>Langue</td>
+	            	<td>
+	            	<p:selectOneMenu filter="true" styleClass="selectonemenu" style="width:210px;" id="langue_client" tabindex="1" value="#{clientController.idlangue}">
+                                                        <f:selectItems  value="#{langueController.vlangues}" var="langue" itemLabel="#{langue.langue}" itemValue="#{langue.idlangue}" />
+                                                    </p:selectOneMenu>
+	            	</td>
+	            	<td>Email</td>
+	            	<td> <p:inputText id="email_client"   value="#{clientController.email}" />
+                                        </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Societe</td>
+	            	<td> <p:inputText  id="societe_client"  value="#{clientController.societe}" />
+                                          </td>
+	            	<td>Pays</td>
+	            	<td>
+	            	 <p:selectOneMenu filter="true" id="pays" styleClass="selectonemenu" style="width:210px;" tabindex="1"  value="#{clientController.idpays}">
+                                                        <f:selectItems  value="#{paysController.countries}" var="country" itemLabel="#{country.pays}" itemValue="#{country.idpays}" />
+                                         </p:selectOneMenu>
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td>Adresse</td>
+	            	<td><p:inputTextarea cols="100"  id="adresse_client"  value="#{clientController.adresse}" />
+                                           </td>
+	            	<td>Ville</td>
+	            	<td>
+	            	<p:selectOneMenu  id="ville" styleClass="selectonemenu" filter="true" style="width:210px;" tabindex="1" value="#{clientController.idville}">
+                                                        <f:selectItems  value="#{clientController.villes}" var="ville" itemLabel="#{ville.ville}" itemValue="#{ville.idville}" />
+                                                    </p:selectOneMenu> 
+	            	</td>
+	            	</tr>
+	            	<tr>
+	            	<td><p:commandButton styleClass="styleGreen" value="Annuler" action="#{clientController.annuler}" ></p:commandButton></td>
+	            	<td>
+                    <p:commandButton styleClass="styleGreen" value="Enregistrer" actionListener="#{clientController.insert}" update="msgs" />
+                    </td>
+	            	</tr>
+	            	</table> 
+	            	
+	            	<table class="styletable" style="width: 68%;" cellpadding="0">
+            		<div style='font-weight:bold;text-align: left;bottom:-7px;'>Contact</div>
+	            	<tr>
+	            	<td>Nom</td>
+	            	<td><p:inputText  id="nom"  value="#{clientController.contact.nom}" />
+											  	</td>
+	            	<td>GSM</td>
+	            	<td><p:inputText  id="gsm"   value="#{clientController.contact.gsm1}" />
+											  </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Prénom</td>
+	            	<td><p:inputText  id="prenom"    value="#{clientController.contact.prenom}" />
+											  </td>
+	            	<td>Télephone</td>
+	            	<td> <p:inputText  id="tel"  value="#{clientController.contact.tel}" />						    
+                                               </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Email</td>
+	            	<td><p:inputText  id="email_contact"  value="#{clientController.contact.email}" />
+												</td>
+	            	<td>Fax</td>
+	            	<td><p:inputText  id="gsm2"    value="#{clientController.contact.faxclient}" />
+                                               </td>
+	            	</tr>
+	            	<tr>
+	            	<td>Département</td>
+	            	<td><p:inputText  id="dept"   value="#{clientController.contact.dept}" />
+                                                   </td>
+	            	<td>Fonction</td>
+	            	<td><p:inputText  id="fonc"   value="#{clientController.contact.fonction}" />
+					</td>
+	            	</tr>
+	            	<tr>
+	            	<td colspan="2">
+	            	 <p:commandButton styleClass="styleGreen" value="Ajouter contact" actionListener="#{clientController.insertcontact}" update="gsm2,tel,gsm,msgs,nom,prenom,email_contact,fonc,dept,tablep" />
+	            	</td>
+	            	</tr>
+	            	</table>        								
+			 		
+			 		<p:dataTable id="tablep" value="#{clientController.contacts}" var="obj"
+                                                     selection="#{clientController.contacttempo}"    
+                                                     rowKey="#{obj.codeclient}"
+                                                     paginator="true"
+                                                     rows="5"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     resizableColumns="true"
+                                                     scrollable="true" liveScroll="true" scrollHeight="200"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     style="width:850px;">
+                                                     
+                                                           <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                          				<p:ajax event="cellEdit" listener="#{clientController.onCellEdit}" update="tablep,:form:msgs"/>
+                                          				
+                                          				<p:column headerText="Nom" filterBy="#{obj.nom}" sortBy="#{obj.nom}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.nom}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.nom}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+                   										<p:column headerText="Prénom" filterBy="#{obj.prenom}" sortBy="#{obj.prenom}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.prenom}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.prenom}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column headerText="GSM" filterBy="#{obj.gsm1}" sortBy="#{obj.gsm1}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.gsm1}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.gsm1}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column headerText="Tél" filterBy="#{obj.tel}" sortBy="#{obj.tel}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.tel}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.tel}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column headerText="faxclient" filterBy="#{obj.faxclient}" sortBy="#{obj.faxclient}"   filterMatchMode="contains">
+            												<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.faxclient}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.faxclient}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column headerText="Email" filterBy="#{obj.email}" sortBy="#{obj.email}"   filterMatchMode="contains">
+            													<p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.email}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                           <p:inputText  value="#{obj.email}"/>
+												               </f:facet>
+												           </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:50px;" headerText="Principal">
+			                                                <p:cellEditor>
+												               <f:facet name="output">
+												               <p:outputLabel value="#{obj.principal}" ></p:outputLabel>
+												               </f:facet>
+												               <f:facet name="input">
+						                                             <p:selectOneMenu styleClass="selectonemenu" value="#{clientController.tempoactiv}" style="width:100%">
+									                       					<f:selectItem  itemLabel="choisi Oui/Non" itemValue="" />
+									                       						<f:selectItem  itemLabel="Oui" itemValue="Oui" />
+									                        					<f:selectItem  itemLabel="Non" itemValue="Non" />
+									                   					</p:selectOneMenu>
+												               </f:facet>
+												           </p:cellEditor>
+                                            			</p:column>
+											<f:facet name="header"> 
+											<p:commandButton styleClass="styleGreen" value="Actualisée" update=":form:tablep" actionListener="#{clientController.actualisercontact}" ></p:commandButton>
+                                        
+											 <p:commandButton icon="b_icon b102" action="#{clientController.suppcontact}" update=":form:tablep,:form:msgs">
+                                                </p:commandButton>
+											</f:facet>
+                                        </p:dataTable>
+                                    </h:form>
+                                    </div>
+    </content>
+    
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

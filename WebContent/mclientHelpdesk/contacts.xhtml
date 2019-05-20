@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/menuhelpdesk.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<br/>
+    <content>                
+           <h:form id="form">
+                                     
+                                        <p:growl id="msgs" showDetail="true"/>
+									     
+                                        <p:dataTable id="tablep" value="#{contactController.contacts}" var="obj"
+                                                     selectionMode="single" selection="#{contactController.contact}"    
+                                                     rowKey="#{obj.codeclient}"
+                                                     paginator="true"
+                                                     rows="30"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     scrollRows="30" scrollable="true" liveScroll="true" scrollHeight="400"
+                                                    styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     >
+                                                     
+                                                      <p:column headerText="Client" filterBy="#{obj.client.societe}" sortBy="#{obj.client.societe}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.client.societe}" />
+       													 </p:column>
+                                                     
+                                          				<p:column headerText="Nom" filterBy="#{obj.nom}" sortBy="#{obj.nom}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.nom}" />
+       													 </p:column>
+       													 
+                   										<p:column headerText="Prenom" filterBy="#{obj.prenom}" sortBy="#{obj.prenom}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.prenom}" />
+       													 </p:column>
+       													 
+       													 <p:column headerText="GSM" filterBy="#{obj.gsm1}" sortBy="#{obj.gsm1}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.gsm1}" />
+       													 </p:column>
+       													 
+       													 <p:column headerText="Tel" filterBy="#{obj.tel}" sortBy="#{obj.tel}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.tel}" />
+       													 </p:column>
+       													 
+       													 <p:column headerText="faxclient" filterBy="#{obj.faxclient}" sortBy="#{obj.faxclient}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.faxclient}" />
+       													 </p:column>
+       													 
+       													 
+       													 <p:column headerText="Email" filterBy="#{obj.email}" sortBy="#{obj.email}"   filterMatchMode="contains">
+            												<h:outputText value="#{obj.email}" />
+       													 </p:column>
+       													 		 
+       													 
+       													
+                                            
+                                            <p:column >
+                                                <f:facet name="header">         
+                                                    <h:outputText class="th-sortable" value="Edition"/>
+                                                </f:facet>
+                                                <p:commandButton icon="b300" action="#{contactController.prepareView}" styleClass="button white icon">
+                                                </p:commandButton>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </h:form>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

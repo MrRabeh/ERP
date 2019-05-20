@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui" lang="fr">
+       <f:view contentType="text/html">
+<h:body class="body">
+ <ui:include src="../theme/mmenu.xhtml" />
+<div class="mainContent">
+<div class="content">
+	<article class="topcontent">
+	<h1 style="text-align: center;color: #339;">Stock Livré</h1>
+    <content>   
+        		<p:ajaxStatus onstart="statusDialog.show()" onsuccess="statusDialog.hide()" />
+ 
+<p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+   <IMG alt="Attend SVP ..." src="../resources/images/loding.gif" />
+</p:dialog>        
+             <h:form id="form">         
+             <p:growl id="msgs" showDetail="true"/>  
+                          
+                                        
+                                        <p:dataTable id="tablep" widgetVar="tablep" value="#{stockController.stockslivrer}" var="obj"
+                                                     selection="#{stockController.stock}"
+                                                     rowKey="#{obj.id}"
+                                                     paginator="true"
+                                                     rows="15"
+                                                     paginatorPosition="bottom"
+                                                     emptyMessage="Aucun résultat trouvé"
+                                                     editable="true"
+                                                     editMode="cell"
+                                                     resizableColumns="true"
+                                                     styleClass="datatablestyle"
+                                                     rowStyleClass="datarowstyle"
+                                                     filteredValue="#{stockController.filtredstocks}"
+                                                     >
+                                                     
+                                                     <p:column  selectionMode="single" style="width:16px;text-align:center"/>
+                                                     <p:ajax event="cellEdit" listener="#{stockController.onCellEdit}" update=":form:msgs,:form:tablep" />
+       										
+       													 <p:column style="width:100px;" headerText="Réference" sortBy="#{obj.article.ref}" filterBy="#{obj.article.ref}"  filterMatchMode="contains">
+            												 <p:cellEditor>
+			                                                    <f:facet name="output"><h:outputText value="#{obj.article.ref}" /></f:facet>
+			                                                    <f:facet name="input">
+			                                                    		<p:autoComplete id="compArticle" value="#{obj.article.ref}" completeMethod="#{offreController.completerArticle}" />
+			                                                    </f:facet>
+			                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													 
+       													 <p:column style="width:400px;"  headerText="Numéro Série" sortBy="#{obj.numserie}" filterBy="#{obj.numserie}"  filterMatchMode="contains">
+            												 <p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.numserie}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputTextarea value="#{obj.numserie}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:50px;" headerText="Qte Initial"  sortBy="#{obj.qteinital}"  filterBy="#{obj.qteinital}"  filterMatchMode="startsWith">
+            												<p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qteinital}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qteinital}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													 <p:column style="width:50px;" headerText="Qte"  sortBy="#{obj.qte}"  filterBy="#{obj.qte}"  filterMatchMode="startsWith">
+            												<p:cellEditor>
+		                                                    <f:facet name="output"><h:outputText value="#{obj.qte}" /></f:facet>
+		                                                    <f:facet name="input"><p:inputText value="#{obj.qte}" /></f:facet>
+		                                                </p:cellEditor>
+       													 </p:column>
+       													 
+       													  <p:column headerText="Date Stock"  filterBy="#{obj.datestock}"  sortBy="#{obj.datestock}" filterMatchMode="contains">
+            												<h:outputText value="#{obj.datestock}" />
+       										 				</p:column>
+       													 
+       													 		  <p:column headerText="Date Livré"  filterBy="#{obj.datelivrer}"  sortBy="#{obj.datelivrer}" filterMatchMode="contains">
+            												<h:outputText value="#{obj.datelivrer}" />
+       										 				</p:column>
+       													 
+       													 <p:column style="width:100px;" headerText="Fournisseur"  filterBy="#{obj.fournisseur.nomsociete}"  sortBy="#{obj.fournisseur.nomsociete}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.fournisseur.nomsociete}"></h:outputText>
+       										 					</p:column>
+       													 
+       													  <p:column style="width:100px;" headerText="Client"  filterBy="#{obj.client.societe}"  sortBy="#{obj.client.societe}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.client.societe}"></h:outputText>
+       										 					</p:column>
+       													 
+       													  <p:column style="width:100px;" headerText="Client Final"  filterBy="#{obj.clientFinal.societe}"  sortBy="#{obj.clientFinal.societe}" filterMatchMode="contains">
+			            												<h:outputText value="#{obj.clientFinal.societe}"></h:outputText>
+       										 					</p:column>
+       													 
+       													 <f:facet name="header">
+       													   <p:commandButton styleClass="styleGreen" value="Actualisée" actionListener="#{stockController.actualiser}" update=":form:tablep"></p:commandButton>                                            			
+                                            			</f:facet>
+                                            		
+                                        </p:dataTable>
+                                    </h:form>       
+    </content>
+    </article>
+</div>
+</div>
+<ui:include src="../theme/mfooter.xhtml" />
+</h:body>
+</f:view>
+</html>

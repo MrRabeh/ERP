@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans  xmlns:security="http://www.springframework.org/schema/security"
+             xmlns:beans="http://www.springframework.org/schema/beans"
+             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd
+http://www.springframework.org/schema/security
+http://www.springframework.org/schema/security/spring-security.xsd">
+
+    <security:http auto-config="true" access-denied-page='/index/index.xhtml'>
+	    <security:intercept-url pattern="/index/**" access="ROLE_ADMIN,ROLE_USER,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/madministration/**" access="ROLE_ADMIN"   />
+	    <security:intercept-url pattern="/mArticles/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mavoirs/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mboncommande/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mbonlivraison/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mclient/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mclientHelpdesk/**" access="ROLE_ADMIN,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/mcompta/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mfactures/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mfournisseur/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mfournisseurhelpdesk/**" access="ROLE_ADMIN,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/mintervention/**" access="ROLE_ADMIN,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/moffre/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mprofil/**" access="ROLE_ADMIN,ROLE_USER,ROLE_HELPDESK"   />
+	    <security:intercept-url pattern="/mproject/**" access="ROLE_ADMIN,ROLE_USER,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/mreporting/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mRH/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:intercept-url pattern="/mtimesheet/**" access="ROLE_ADMIN,ROLE_USER,ROLE_HELPDESK" />
+	    <security:intercept-url pattern="/theme/**" access="ROLE_ADMIN,ROLE_USER" />
+	    <security:form-login login-page="/login.xhtml" default-target-url="/index/index.xhtml" authentication-failure-url="/loginfailed.xhtml" />
+    </security:http>
+
+
+    <security:authentication-manager >
+    <security:authentication-provider >
+  <!--  <security:password-encoder ref="encoder" />--> 
+      <security:jdbc-user-service data-source-ref="myDataSource" users-by-username-query="SELECT Login, Password,'true' FROM Utilisateur WHERE Login = ?" authorities-by-username-query="select Login,UPPER(typeuser) from Utilisateur where Login =?;" role-prefix="ROLE_"/>
+   </security:authentication-provider >
+    </security:authentication-manager > 
+  
+   <beans:bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <beans:property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
+	    <beans:property name="url" value="jdbc:sqlserver://192.168.30.15;databaseName=erpims"/>
+	    <beans:property name="username" value="dbsystemims"/>
+	    <beans:property name="password" value="IMS@2014"/>
+	</beans:bean> 
+	 
+	 <!--  
+	<beans:bean id="myDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+	    <beans:property name="driverClassName" value="com.mysql.jdbc.Driver"/>
+	    <beans:property name="url" value="jdbc:mysql://localhost/erpims"/>
+	    <beans:property name="username" value="root"/>
+	    <beans:property name="password" value=""/>
+	</beans:bean>  
+	
+-->
+</beans:beans>
