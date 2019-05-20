@@ -1,0 +1,21 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="LigneCaisse">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="dateligne" column="dateligne"></property>
+  <property name="entree" column="entree"></property>
+  <property name="sortie" column="sortie"></property>
+  <property name="details" column="details"></property>
+     <property name="reglement" column="reglement"></property>
+     <property name="debutjour" column="debutjour"></property>
+  <many-to-one name="emp" class="ims.model.entities.Employee" column="empID"></many-to-one>
+  <!--  
+  <many-to-one name="caisse" class="ims.model.entities.Caisse" column="caisseID"></many-to-one>
+  <many-to-one name="caissePresedant" class="ims.model.entities.Caisse" column="CaissePresedantID"></many-to-one>
+  -->
+  </class>
+</hibernate-mapping>

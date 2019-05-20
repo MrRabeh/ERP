@@ -1,0 +1,30 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+
+  <class name="Contact">
+	  <id name="codeclient" column="codeclient">
+	  <generator class="increment"></generator>
+  </id>
+  
+  <property name="nom" column="nom"></property>
+  <property name="prenom" column="prenom"></property>
+  <property name="adr" column="adresse"></property>
+  <property name="fonction" column="fonction"></property>
+  <property name="dept" column="dept"></property>
+  <property name="tel" column="tel"></property>
+  <property name="faxclient" column="faxclient"></property>
+  <property name="gsm1" column="gsm1"></property>
+  <property name="gsm2" column="gsm2"></property>
+  <property name="email" column="email1"></property>
+  <property name="email2" column="email2"></property>
+  <property name="profil" column="profil"></property>
+  
+  <many-to-one name="pays" class="ims.model.entities.Pays" column="paysID"  lazy="false"></many-to-one>
+  <many-to-one name="ville" class="ims.model.entities.Ville" column="villeID" lazy="false"></many-to-one>
+  <many-to-one name="client" class="ims.model.entities.Client" column="clientID" lazy="false"></many-to-one>
+  
+  <many-to-one name="fournisseur" class="ims.model.entities.Fournisseur" column="fournisseurID" lazy="false"></many-to-one>
+  
+  </class>
+</hibernate-mapping>

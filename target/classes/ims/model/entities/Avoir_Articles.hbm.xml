@@ -1,0 +1,19 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Avoir_Articles">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+   <property name="designation" column="designation"  ></property>
+   
+   <property name="pu" column="pu"></property>
+   <property name="qte" column="qte"></property>
+   <property name="chaineqte" column="chaineqte"></property>
+   <property name="pt" column="pt"></property>
+   
+   <many-to-one name="avoir" class="ims.model.entities.AvoirClient" column="avoirclientID" lazy="false"></many-to-one>	
+   <many-to-one name="article" class="ims.model.entities.Article" column="articleID" lazy="false"></many-to-one>
+   <many-to-one name="categorieArticle" class="ims.model.entities.CategorieArticle" column="categorieArticleID" lazy="false"></many-to-one>
+  </class>
+</hibernate-mapping>

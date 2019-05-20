@@ -1,0 +1,68 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Facture">
+<id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  	
+  	<property name="ref" column="numero_facture" not-null="true" unique="true" ></property>
+  	<property name="conditiondepayment" column="conditiondepayment"></property>
+  	<property name="datefacture" column="datefacture"></property>
+  	<property name="description" column="description"></property>
+  	<property name="contrat" column="contrat"></property>
+  	<property name="NumeroBCClient" column="NumeroBCClient"></property>
+  	<property name="dateboncommande" column="dateboncommande"></property>
+  	<property name="coefficientfacture" column="coefficientfacture"></property>
+  	<property name="remise" column="remise"></property>
+  	<property name="retenuegarantie" column="retenuegarantie"></property>
+  	<property name="totalht" column="totalht"></property>
+  	<property name="totalttc" column="totalttc"></property>
+  	<property name="totalttcpaye" column="totalttcpaye"></property>
+  	<property name="tva" column="tva"></property>
+  	<property name="annuler" column="annuler"></property>
+  	<property name="activer" column="activer"></property>
+  	<property name="etat" column="Etat"></property>
+  	<property name="montantregler" column="montantregler"></property>
+  	<property name="montantrester" column="montantrester"></property>
+  	<property name="reglement" column="reglement"></property>
+  	<property name="dateechance" column="dateEchance"></property>
+  	<property name="dateechancep" column="dateEprevisionel"></property>
+  	<property name="dateconstater" column="dateconstater"></property>
+  	<property name="datereglement" column="datereglement"></property>
+  	<property name="obs" column="obs"></property>
+  	<property name="prixmarge" column="prixmarge"></property>
+  	<property name="constater" column="constater"></property>
+  	<property name="exoneration" column="exoneration"></property>
+  	
+  	<many-to-one name="banque" class="ims.model.entities.CoordonneeBancaire" column="BanqueID" lazy="false"></many-to-one>
+  	<many-to-one name="facturetype" class="ims.model.entities.TypeFacture" column="TypeFactureID" lazy="false"></many-to-one>
+	<many-to-one name="client" class="ims.model.entities.Client" column="clientID" lazy="false"></many-to-one>
+	<many-to-one name="years" class="ims.model.entities.years" column="yearsID" lazy="false"></many-to-one>
+	<many-to-one name="typepaiement" class="ims.model.entities.TypePaiement" column="typePaiementID" lazy="false"></many-to-one>
+	
+	<many-to-one name="bu" class="ims.model.entities.Departement" column="BusinessUnitsID" lazy="false"></many-to-one>
+	
+	
+	<set name="lignelivraison" >          
+		<key column="factureID"/>          
+		<one-to-many class="ims.model.entities.Facture_Livraison" />  	 
+	</set>
+	
+	<set name="facture_article"  >
+	  	<key column="FactureID"></key>
+		<one-to-many class="ims.model.entities.Facture_Article" />
+ 	</set>
+ 
+ 	<set name="Offres" table="Facture_Offre" >          
+		<key column="factureID" />          
+		<many-to-many column="offreID" class="ims.model.entities.Offre"/>    	 
+	</set>
+	
+	 <set name="avoirs"  >
+	  	<key column="FactureID"></key>
+		<one-to-many class="ims.model.entities.Facture_Avoir" />
+ 	</set>
+	
+  </class>
+</hibernate-mapping>

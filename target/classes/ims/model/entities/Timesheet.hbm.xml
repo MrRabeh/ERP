@@ -1,0 +1,18 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Timesheet">
+  <id name="idtimesheet" column="idtimesheet">
+  <generator class="increment"></generator>
+  </id>
+  
+   <property name="heur" column="heur"></property>
+   <property name="datetimesheet" column="datetimesheet"></property>
+   
+   <many-to-one name="jour" class="ims.model.entities.Jour" column="jourID"></many-to-one> 
+   <many-to-one name="tache" class="ims.model.entities.Tache" column="tacheID"></many-to-one>
+   <many-to-one name="user" class="ims.model.entities.Utilisateur" column="userID"></many-to-one>
+    
+  </class>
+</hibernate-mapping>
+

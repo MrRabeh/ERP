@@ -1,0 +1,15 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="UtilisateurHelpDesk">
+  <id name="id" column="id">
+  <generator class="increment"></generator>
+  </id>
+  
+  <property name="nom" column="nom"></property>
+  <property name="login" column="login" not-null="true" unique="true" ></property>
+  <property name="password" column="password"></property>
+  <property name="email" column="email"></property>
+  <many-to-one name="client" class="ims.model.entities.Client" column="clientID" />
+  </class>
+</hibernate-mapping>

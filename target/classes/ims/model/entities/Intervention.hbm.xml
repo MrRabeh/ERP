@@ -1,0 +1,29 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Intervention">
+		 
+		  <id name="id" column="id">
+		  <generator class="increment"></generator>
+		  </id>
+		  
+		  <property name="numintervention" column="numintervention" not-null="true" unique="true" ></property>
+		  <property name="nomclient" column="nomclient"></property>
+		  <property name="prenomclient" column="prenomclient"></property>
+		  <property name="fonction" column="fonction"></property>
+		  <property name="site_intervention" column="site_intervention"></property>
+		  <property name="datedebut" column="datedebut"></property>
+		  <property name="datefin" column="datefin"></property>
+		  <property name="nbredemijournee" column="nbredemijournee"></property>
+		  <property name="objet" column="objet"></property>
+		  <property name="detail" column="detail"></property>
+		  <property name="observation" column="observation"></property>
+		  <property name="dateconsultant" column="dateconsultant"></property>
+		  <property name="dateclient" column="dateclient"></property>
+		  
+		  <many-to-one name="Offre" class="ims.model.entities.Offre" column="offreID"></many-to-one>	
+		  <many-to-one name="client" class="ims.model.entities.Client" column="clientID"></many-to-one>	
+		  <many-to-one name="emp" class="ims.model.entities.Employee" column="empID"></many-to-one>	
+  
+  </class>
+</hibernate-mapping>

@@ -1,0 +1,34 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="BonCommande">
+  
+  	<id name="id" column="commandeID" >
+  		<generator class="increment" />
+  	</id>
+  
+  	<property name="fraitransport" column="fraitransport"></property>
+  	<property name="numercommande" column="numercommande" not-null="true" unique="true" ></property>
+	<property name="echeance" column="echeance"></property>
+  	<property name="datecommande" column="datecommande"></property>
+  	<property name="numeroOffreFournisseur" column="numeroOffreFournisseur" ></property>
+  	<property name="dateoffre" column="dateoffre"></property>
+  	<property name="totalht" column="totalht"></property>
+  	<property name="tva" column="tva"></property>
+  	<property name="totalttc" column="totalttc"></property>
+  	<property name="totalnet" column="totalnet"></property>
+    <property name="annuler" column="annuler"></property>
+  	<property name="activer" column="activer"></property>
+  	<property name="reglement" column="Reglement"></property>
+  	<property name="dateechance" column="DateEchance"></property>
+  	<property name="obs" column="obs"></property>
+  	<property name="constater" column="constater"></property>
+  	<property name="etat" column="Etat"></property>
+  	
+  	<many-to-one name="years" class="ims.model.entities.years" column="yearsID" lazy="false"></many-to-one>
+   	<many-to-one name="fournisseur" class="ims.model.entities.Fournisseur" column="FournisseurID" lazy="false"></many-to-one>
+    <many-to-one name="client" class="ims.model.entities.Client" column="ClientID" lazy="false"></many-to-one>
+     <many-to-one name="typepaiement" class="ims.model.entities.TypePaiement" column="typePaiementID" lazy="false"></many-to-one>
+
+  </class>
+</hibernate-mapping>

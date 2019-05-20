@@ -1,0 +1,14 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Boncommande_Offre">
+  
+  <id name="idboncommandeoffre" column="idboncommandeoffre">
+  <generator class="increment"></generator>
+  </id>
+
+   	<many-to-one name="offre" class="ims.model.entities.Offre" column="OffreID"></many-to-one>
+   	<many-to-one name="commande" class="ims.model.entities.BonCommande" column="CommandeID"></many-to-one>
+
+  </class>
+</hibernate-mapping>

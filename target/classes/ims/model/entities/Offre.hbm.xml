@@ -1,0 +1,33 @@
+<!DOCTYPE hibernate-mapping PUBLIC
+	"-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping package="ims.model.entities">
+  <class name="Offre">
+  <id name="id" column="id" >
+  <generator class="increment"></generator>
+  </id>
+  <property name="ref" column="Numero_offre" not-null="true" unique="true" ></property>
+  <property name="numcotation" column="numcotation" not-null="true"></property>
+  <property name="dateoffre" column="dateoffre"></property>
+  <property name="datearreteContrat" column="datearreteContrat"></property>
+  <property name="description" column="description"></property>
+  <property name="totalHT" column="totalHT"></property>
+  <property name="TVA" column="TVA"></property>
+  <property name="TotalTTC" column="TotalTTC"></property>
+   <property name="totalmarge" column="totalmarge"></property>
+  <property name="disponibilite" column="disponibilite"></property>
+  <property name="validiteoffre" column="validiteoffre"></property>
+  <property name="modalitepaiment" column="modalitepaiment"></property>  
+  <property name="etatoffre" column="etatoffre"></property>
+  <property name="civilite" column="civilite"></property>
+    <property name="activer" column="activer"></property>
+   <property name="exoneration" column="exoneration"></property> 
+ 
+    <many-to-one name="client" class="ims.model.entities.Client" column="ClientID" lazy="false"></many-to-one>
+   <many-to-one name="typeoffre" class="ims.model.entities.TypeOffre" column="typeoffreID" lazy="false"></many-to-one>
+  <many-to-one name="years" class="ims.model.entities.years" column="yearsID" lazy="false"></many-to-one>
+  <many-to-one name="typepaiement" class="ims.model.entities.TypePaiement" column="typePaiementID" lazy="false"></many-to-one>
+  
+   <many-to-one name="bu" class="ims.model.entities.Departement" column="BusinessUnitsID" lazy="false"></many-to-one>
+   <many-to-one name="emp" class="ims.model.entities.Employee" column="ContactCommercialID" lazy="false"></many-to-one>
+  </class>
+</hibernate-mapping>
